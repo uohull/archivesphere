@@ -126,6 +126,9 @@ GEM
       hydra-access-controls (= 6.3.0)
       hydra-core (= 6.3.0)
       rails (>= 3.2.6)
+    hydra-ldap (0.1.0)
+      net-ldap
+      rails
     i18n (0.6.1)
     jettywrapper (1.4.1)
       activesupport (>= 3.0.0)
@@ -158,6 +161,7 @@ GEM
     multi_json (1.7.7)
     nest (1.1.2)
       redis
+    net-ldap (0.3.1)
     noid (0.6.6)
       backports
     nokogiri (1.6.0)
@@ -338,6 +342,7 @@ DEPENDENCIES
   devise-guests (~> 0.3)
   font-awesome-sass-rails
   hydra-head
+  hydra-ldap (= 0.1.0)
   jettywrapper
   jquery-rails
   rails (= 3.2.13)
