@@ -1,0 +1,9 @@
+<h1>Accession: <%=@accession.accession_num%><h1>
+  <% unless @accession.collections.blank? %>
+  <h2><%= link_to 'Collection', collections.collection_path(@accession.collections.first), {:class => "btn btn-primary"}  %></h2>
+  <% end %>
+<h3>Disk # <%=@accession.disk_num%> </h3>
+<%= link_to '<i class="icon-upload-alt"></i> Add File(s)'.html_safe, "#{sufia.new_generic_file_path}?accession=#{@accession.id}", {:class => "btn btn-primary"}  %><br />
+<h3> <u>Contained Files </u></h3>
+<%= render partial: 'search_form'%>
+<%= render partial:'document_list', locals:{documents: @member_docs} %>

@@ -1,0 +1,8 @@
+<% page_info = paginate_params(@response) %>
+<div id="search-results">
+  <ol class="catalog" start="<%=1+((page_info.current_page-1)*page_info.limit_value)%>">
+    <% documents.each_with_index do |document,counter| %>
+        <%= render :partial => 'list_files', :locals => {:document => document, :counter => counter} %>
+    <% end %>
+  </ol>
+</div>

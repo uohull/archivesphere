@@ -9,7 +9,10 @@ Archivesphere::Application.routes.draw do
   match 'logout' => 'sessions#destroy', :as => :destroy_user_session
   match 'login' => 'sessions#new', :as => :new_user_session
 
+  resources :accessions, except: :index
+
   devise_for :users
+  mount Hydra::Collections::Engine => '/'
   mount Sufia::Engine => '/'
 
 

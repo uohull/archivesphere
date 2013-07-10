@@ -11,6 +11,7 @@ gem 'sufia'
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 
+gem 'hydra-collections'
 gem 'hydra-ldap', '0.1.0'
 
 gem 'sqlite3'

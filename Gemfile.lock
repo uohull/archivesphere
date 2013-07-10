@@ -341,6 +341,7 @@ DEPENDENCIES
   devise
   devise-guests (~> 0.3)
   font-awesome-sass-rails
+  hydra-collections
   hydra-head
   hydra-ldap (= 0.1.0)
   jettywrapper
