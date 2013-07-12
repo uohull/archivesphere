@@ -5,6 +5,24 @@ class SolrDocument
 
   include Blacklight::Solr::Document
 
+  # Adds Collection behaviors to the SolrDocument.
+  include Hydra::Collections::SolrDocumentBehavior
+
+  # Method to return the ActiveFedora model
+  def hydra_model
+    Array(self[Solrizer.solr_name('active_fedora_model', Solrizer::Descriptor.new(:string, :stored, :indexed))]).first
+  end
+
+  # Method to return the ActiveFedora model
+  def accession_num
+    Array(self[Solrizer.solr_name('fields_accession_num', :stored_searchable)]).first
+  end
+
+  def disk_num
+    Array(self[Solrizer.solr_name('fields_disk_num', :stored_searchable)]).first
+  end
+
+
   # self.unique_key = 'id'
   
   # The following shows how to setup this blacklight document to display marc documents

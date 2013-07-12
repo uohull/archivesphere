@@ -1,0 +1,25 @@
+<li>
+  <h2>
+    <%= link_to document.accession_num, accession_path(document.noid) %>
+  </h2>
+  <table class="table">
+    <tr>
+      <td rowspan="6" class="span20"> <%= render :partial => 'dashboard/_index_partials/thumbnail_display', :locals => {:document=>document, :height=>200, :width=>150} %>
+      </td>
+      <th><h4>Accession Number:</h4></th>
+      <td><%= document.accession_num %></td>
+    </tr>
+    <tr>
+      <th><h4>Depositor:<h4></div>
+      <td><%= link_to_profile document.depositor("no depositor value") %></td>
+    </tr>
+    <tr>
+      <th><h4>Disk Number:</h4></th>
+      <td><%= document.disk_num %></td>
+    </tr>
+    <tr>
+      <th><h4>Date Uploaded:</h4></th>
+      <td><%= document.date_uploaded %></td>
+    </tr>
+  </table>
+</li>

@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+require 'datastreams/collection_properties_datastream'
+
 class Collection < ActiveFedora::Base
   include Hydra::Collection
   include Sufia::ModelMethods
@@ -20,10 +22,13 @@ class Collection < ActiveFedora::Base
 
   before_save :update_permissions
 
-  has_metadata :name => "properties", :type => PropertiesDatastream
+  has_metadata :name => "properties", :type => CollectionPropertiesDatastream
+
+  delegate_to :properties, [:collection_num], :unique => true
+
 
   def terms_for_display
-    [:title, :description, :date_modified, :date_uploaded]
+    [:title, :description, :collection_num, :date_modified, :date_uploaded]
   end
   
   def terms_for_editing

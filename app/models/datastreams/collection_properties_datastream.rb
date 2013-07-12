@@ -13,15 +13,12 @@
 # limitations under the License.
 
 # properties datastream: catch-all for info that didn't have another home.  Particularly depositor.
-class AccessionPropertiesDatastream < ActiveFedora::OmDatastream
+class CollectionPropertiesDatastream < ActiveFedora::OmDatastream
   set_terminology do |t|
     t.root(:path=>"fields" ) 
     t.depositor :index_as=>[:stored_searchable]
 
-    t.disk_num path: 'disk_num', :index_as=>:stored_searchable
-    t.accession_num path: 'accession_num', :index_as=>:stored_searchable
-    t.disk_label path: 'disk_label', :index_as=>:stored_searchable
-    t.disk_image path: 'disk_image', :index_as=>:stored_searchable
+    t.collection_num path: 'disk_num', :index_as=>:stored_searchable
   end
 
   def self.xml_template

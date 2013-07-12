@@ -139,7 +139,14 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("desc_metadata__rights", :stored_searchable, type: :string), :label => "Rights"
     config.add_show_field solr_name("desc_metadata__resource_type", :stored_searchable, type: :string), :label => "Resource Type"
     config.add_show_field solr_name("desc_metadata__format", :stored_searchable, type: :string), :label => "File Format"
-    config.add_show_field solr_name("desc_metadata__identifier", :stored_searchable, type: :string), :label => "Identifier"
+
+    #accession information
+    config.add_show_field solr_name('fields_disk_num', :stored_searchable), :label => "Disk Number"
+    config.add_show_field solr_name('fields_accession_num', :stored_searchable), :label => "Accession Number"
+
+    #collection information
+    config.add_show_field solr_name('fields_collection_num', :stored_searchable), :label => "Collection Number"
+
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -159,12 +166,11 @@ class CatalogController < ApplicationController
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
     config.add_search_field('all_fields', :label => 'All Fields', :include_in_advanced_search => false) do |field|
-      title_name = solr_name("desc_metadata__title", :stored_searchable, type: :string)
-      label_name = solr_name("desc_metadata__title", :stored_searchable, type: :string)
-      contributor_name = solr_name("desc_metadata__contributor", :stored_searchable, type: :string)
+      all_names = config.show_fields.values.map{|val| val.field}.join(" ")
+      title_name = Solrizer.solr_name("desc_metadata__title", :stored_searchable, type: :string)
       field.solr_parameters = {
-        :qf => "#{title_name} noid_tsi #{label_name} file_format_tesim #{contributor_name}",
-        :pf => "#{title_name}"
+          :qf => "#{all_names} id noid_tsi all_text_timv file_format_tesim",
+          :pf => "#{title_name}"
       }
     end
     
@@ -379,6 +385,19 @@ class CatalogController < ApplicationController
 
   def sort_field
     "#{Solrizer.solr_name('system_create', :sortable)} desc"
+  end
+
+  protected
+
+  # Limits search results just to GenericFiles
+  # @param solr_parameters the current solr parameters
+  # @param user_parameters the current user-subitted parameters
+  def exclude_unwanted_models(solr_parameters, user_parameters)
+    solr_parameters[:fq] ||= []
+    query = "#{Solrizer.solr_name("has_model", :symbol)}:\"info:fedora/afmodel:GenericFile\""+
+            " OR #{Solrizer.solr_name("has_model", :symbol)}:\"info:fedora/afmodel:Accession\" "+
+            " OR #{Solrizer.solr_name("has_model", :symbol)}:\"info:fedora/afmodel:Collection\" "
+    solr_parameters[:fq] << query
   end
 
 

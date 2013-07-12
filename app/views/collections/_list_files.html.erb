@@ -1,5 +1,6 @@
+<% logger.warn "\n\n\ Document: #{document.inspect}\n\n"      %>
 <li>
   <h2>
-    <%= link_to document.title_or_label, accession_path(document.noid) %>
+    <%= link_to document.accession_num, accession_path(document.noid) %>   <%= document.disk_num %>
   </h2>
 </li>
