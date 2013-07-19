@@ -36,6 +36,8 @@ class CatalogController < ApplicationController
 
   skip_before_filter :default_html_head
 
+  layout :search_layout
+
   def index
     super
     recent
