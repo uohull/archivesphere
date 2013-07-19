@@ -11,7 +11,7 @@ gem 'sufia'
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 
-gem 'hydra-collections'
+gem 'hydra-collections', git: 'git://github.com/psu-stewardship/hydra-collections.git', ref:'88cb48f106fb'
 gem 'hydra-ldap', '0.1.0'
 
 gem 'sqlite3'
@@ -52,4 +52,7 @@ gem "bootstrap-sass"
 group :development, :test do
   gem "rspec-rails"
   gem "jettywrapper"
+  gem 'rspec'
+  gem 'rspec-given'
+  gem 'factory_girl_rails', '~> 4.1.0'
 end
