@@ -16,10 +16,13 @@ require 'spec_helper'
 
 describe CollectionsController do
   before(:each) { @routes = Hydra::Collections::Engine.routes }
+
+  let(:user) { FactoryGirl.create :user }
+
   before do
     controller.stub(:has_access?).and_return(true)
     User.stub(:groups).and_return([])
-    login_user
+    sign_in user 
   end
 
   describe '#create' do
@@ -34,7 +37,7 @@ describe CollectionsController do
   describe '#destroy' do
     context "valid collection destroy" do
       clear_collections
-      Given (:collection) {define_collection 'title 1'}
+      Given (:collection) {define_collection 'title 1', user.login}
       When {delete :destroy, :id=>collection.pid}
       Then {response.should redirect_to(Sufia::Engine.routes.url_helpers.dashboard_index_path)}
     end

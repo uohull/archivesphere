@@ -14,30 +14,6 @@
 
 FactoryGirl.define do
   factory :user, :class => User do |u|
-    login 'jilluser'
-  end
-
-  factory :archivist, :class => User do |u|
-    login 'archivist1'
-  end
-
-  factory :curator, :class => User do |u|
-    login 'curator1'
-  end
-
-  factory :random_user, :class => User do |u|
     sequence(:login) {|n| "user#{n}" }
   end
-
-
-  #these two users are ONLY for ensuring our staging test users don't show up in search results
-  factory :test_user_1, :class => User do |u|
-    login 'tstem31'
-  end
-
-  factory :test_user_2, :class => User do |u|
-    login 'testapp'
-  end
-
 end
-
