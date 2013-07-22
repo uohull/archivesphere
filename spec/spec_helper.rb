@@ -102,3 +102,7 @@ end
 def clear_collections
   Collection.all.each {|c|c.destroy}
 end
+
+def clear_accessions
+  Accession.all.each {|a|a.destroy}
+end
