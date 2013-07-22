@@ -11,11 +11,12 @@ gem 'sufia'
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 
-gem 'hydra-collections', git: 'git://github.com/psu-stewardship/hydra-collections.git', ref:'88cb48f106fb'
+#gem 'hydra-collections', git: 'git://github.com/psu-stewardship/hydra-collections.git', ref:'88cb48f106fb'
+gem 'hydra-collections'
 gem 'hydra-ldap', '0.1.0'
 
 gem 'sqlite3'
-
+gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
 
 # Gems used only for assets and not required
 # in production environments by default.

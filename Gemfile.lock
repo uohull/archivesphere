@@ -1,11 +1,11 @@
 GIT
-  remote: git://github.com/psu-stewardship/hydra-collections.git
-  revision: 88cb48f106fb26236e995cc1b26f3c64684cea70
-  ref: 88cb48f106fb
+  remote: git://github.com/harai/kaminari.git
+  revision: 384fcb5d11b66a0cc8fad030104bf80f82616355
+  branch: route_prefix_prototype
   specs:
-    hydra-collections (1.0.0)
-      blacklight
-      hydra-head
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -127,6 +127,9 @@ GEM
     hydra-batch-edit (1.0.1)
       blacklight
       hydra-collections
+    hydra-collections (0.0.2)
+      blacklight
+      hydra-head
     hydra-core (6.3.0)
       active-fedora
       blacklight (~> 4.0)
@@ -154,9 +157,6 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.0)
-    kaminari (0.14.1)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
     logger (1.2.8)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -363,11 +363,12 @@ DEPENDENCIES
   devise-guests (~> 0.3)
   factory_girl_rails (~> 4.1.0)
   font-awesome-sass-rails
-  hydra-collections!
+  hydra-collections
   hydra-head
   hydra-ldap (= 0.1.0)
   jettywrapper
   jquery-rails
+  kaminari!
   rails (= 3.2.13)
   rspec
   rspec-given
