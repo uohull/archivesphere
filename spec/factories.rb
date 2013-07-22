@@ -15,22 +15,18 @@
 FactoryGirl.define do
   factory :user, :class => User do |u|
     login 'jilluser'
-    ldap_available true
   end
 
   factory :archivist, :class => User do |u|
     login 'archivist1'
-    ldap_available true
   end
 
   factory :curator, :class => User do |u|
     login 'curator1'
-    ldap_available true
   end
 
   factory :random_user, :class => User do |u|
     sequence(:login) {|n| "user#{n}" }
-    ldap_available true
   end
 
 

@@ -6,8 +6,8 @@ Archivesphere::Application.routes.draw do
   Hydra::BatchEdit.add_routes(self)
 
   # Login/logout route to destroy session
-  match 'logout' => 'sessions#destroy', :as => :destroy_user_session
-  match 'login' => 'sessions#new', :as => :new_user_session
+  get 'logout' => 'sessions#destroy', :as => :destroy_user_session
+  get 'login' => 'sessions#new', :as => :new_user_session
 
   resources :accessions, except: :index
 
