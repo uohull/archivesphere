@@ -7,6 +7,15 @@ GIT
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
 
+GIT
+  remote: git://github.com/psu-stewardship/hydra-collections.git
+  revision: ee120ae377138cc90fd94747ade51c155e9d8736
+  ref: ee120ae377138cc90fd94747a
+  specs:
+    hydra-collections (1.0.0)
+      blacklight
+      hydra-head
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -127,9 +136,6 @@ GEM
     hydra-batch-edit (1.0.1)
       blacklight
       hydra-collections
-    hydra-collections (0.0.2)
-      blacklight
-      hydra-head
     hydra-core (6.3.0)
       active-fedora
       blacklight (~> 4.0)
@@ -363,7 +369,7 @@ DEPENDENCIES
   devise-guests (~> 0.3)
   factory_girl_rails (~> 4.1.0)
   font-awesome-sass-rails
-  hydra-collections
+  hydra-collections!
   hydra-head
   hydra-ldap (= 0.1.0)
   jettywrapper

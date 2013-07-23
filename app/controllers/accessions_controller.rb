@@ -19,12 +19,12 @@ class AccessionsController < ApplicationController
   include BlacklightAdvancedSearch::Controller
   include Sufia::Noid # for normalize_identifier method
   prepend_before_filter :normalize_identifier, :except => [:index, :create, :new]
+  before_filter :set_accession
   before_filter :filter_docs_with_read_access!, :except => [:show]
   before_filter :has_access?, :except => [:show]
   before_filter :initialize_fields_for_edit, only:[:edit, :new]
   layout "sufia-one-column"
 
-  before_filter :set_collection, :except => [:new]
   before_filter :set_parent_id, :only => [:new]
 
 
@@ -61,8 +61,8 @@ class AccessionsController < ApplicationController
     @parent_id = params[:collection_id]
   end
 
-  def set_collection
-    @collection = @accession
+  def set_accession
+    @accession = @collection
   end
 
 end
