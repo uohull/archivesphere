@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Currently a stub for jenkins as called from
-# https://gamma-ci.dlt.psu.edu/jenkins/job/scholarsphere/configure
+# https://gamma-ci.dlt.psu.edu/jenkins/job/archivesphere/configure
 #       Build -> Execute Shell Command ==
 #       test -x $WORKSPACE/script/jenkins_build.sh && $WORKSPACE/script/jenkins_build.sh
 # to run CI testing.
@@ -32,8 +32,8 @@ cp -f ${HHOME}/config/{database,fedora,solr,hydra-ldap}.yml ${WORKSPACE}/config
 echo "=-=-=-=-= $0 resque-pool --daemon --environment test start"
 bundle exec resque-pool --daemon --environment test start
 
-echo "=-=-=-=-= $0 HEADLESS=true RAILS_ENV=test bundle exec rake --trace scholarsphere:ci"
-HEADLESS=true RAILS_ENV=test bundle exec rake --trace scholarsphere:ci
+echo "=-=-=-=-= $0 HEADLESS=true RAILS_ENV=test bundle exec rake --trace archivesphere:ci"
+HEADLESS=true RAILS_ENV=test bundle exec rake --trace archivesphere:ci
 retval=$?
 
 echo "=-=-=-=-= $0 kill resque-pool's pid to stop it"
