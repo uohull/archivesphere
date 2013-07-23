@@ -15,6 +15,7 @@
 class User < ActiveRecord::Base
 # Connects this user object to Sufia behaviors. 
  include Sufia::User
+ include Sufia::UserLocalDirectoryBehavior
 # Connects this user object to Hydra behaviors. 
  include Hydra::User
 # Connects this user object to Blacklights Bookmarks. 
@@ -46,6 +47,10 @@ class User < ActiveRecord::Base
   #put in to remove deprication warnings since the parent class overrides our login with it's own
   def login
     self[:login]
+  end
+  
+  def directory
+    "/replace/this/code"
   end
 
   def to_s

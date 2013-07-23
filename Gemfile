@@ -7,7 +7,7 @@ gem 'rails', '4.0.0'
 
 gem 'blacklight'
 gem 'hydra-head'
-gem 'sufia'
+gem 'sufia', github: "projecthydra/sufia", ref: "45d6f17c4200dd60220c4d5cc3499c1ae7a0390f"
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 
