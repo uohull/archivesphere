@@ -34,10 +34,6 @@ class User < ActiveRecord::Base
 
   devise :http_header_authenticatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :login, :display_name, :address, :admin_area, :department, :title, :office, :chat_id, :website, :affiliation, :telephone, :avatar, 
-  :ldap_available, :ldap_last_update, :group_list, :groups_last_update, :facebook_handle, :twitter_handle, :googleplus_handle, :linkedin_handle
-
   has_many :proxy_deposit_requests, foreign_key: 'receiving_user_id'
 
   has_many :deposit_rights_given, foreign_key: 'grantor_id', class_name: 'ProxyDepositRights', dependent: :destroy
