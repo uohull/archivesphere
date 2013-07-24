@@ -1,0 +1,20 @@
+development:  
+  host: dirapps.aset.psu.edu
+  port: 389
+  group_base: dc=psu,dc=edu
+  base: dc=psu,dc=edu
+test:  
+  host: dirapps.aset.psu.edu
+  port: 389
+  group_base: dc=psu,dc=edu
+  base: dc=psu,dc=edu
+integration:
+  host: dirapps.aset.psu.edu
+  port: 389
+  group_base: dc=psu,dc=edu
+  base: dc=psu,dc=edu
+production:  
+  host: dirapps.aset.psu.edu
+  port: 389
+  group_base: dc=psu,dc=edu
+  base: dc=psu,dc=edu
