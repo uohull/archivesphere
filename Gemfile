@@ -11,9 +11,9 @@ gem 'sufia'
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 
-gem 'hydra-collections', git:'git://github.com/psu-stewardship/hydra-collections.git', ref:'ee120ae377138cc90fd94747a'
+#gem 'hydra-collections', git:'git://github.com/psu-stewardship/hydra-collections.git', ref:'ee120ae377138cc90fd94747a'
 #gem 'hydra-collections', path:'../hydra-collections'
-#gem 'hydra-collections', git: 'git://github.com/projecthydra/hydra-collections.git', ref:'d0958312d00036faa8584a5d05b593778ca3a691'
+gem 'hydra-collections', git: 'git://github.com/projecthydra/hydra-collections.git', ref:'fc7d31ae8baa5'
 #gem 'hydra-collections'
 gem 'hydra-ldap', '0.1.0'
 
