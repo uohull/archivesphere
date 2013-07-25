@@ -30,20 +30,5 @@ config/redis.yml
 # This file is generated automatically by: rake scholarsphere:generate_secret
 config/initializers/secret_token.rb
 
-# MAC OS
-.DS_Store
-
-# TEXTMATE
-*.tmproj
-tmtags
-
-## EMACS
-*~
-\#*
-.\#*
-
-### VIM
-*.swp
-*.swo
-
+spec/mock_upload_directory/
 

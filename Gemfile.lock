@@ -18,8 +18,8 @@ GIT
 
 GIT
   remote: git://github.com/projecthydra/sufia.git
-  revision: fd0971cb07bffe6a5309344e81dc2c1a8e336eb9
-  ref: fd0971cb07bffe6a5309344e81dc2c1a8e336eb9
+  revision: 440e49ea805a2cd02b9fef0bd5738be4825c9bde
+  ref: 440e49e
   specs:
     sufia (3.0.0)
       blacklight (~> 4.0)
@@ -37,6 +37,7 @@ GIT
       activeresource
       acts_as_follower (= 0.1.1)
       curationexperts-mailboxer (= 0.10.3)
+      hydra-derivatives (~> 0.0.5)
       hydra-head (~> 6.3.0)
       nest (~> 1.1.1)
       noid (~> 0.6.6)
@@ -44,7 +45,6 @@ GIT
       rails (>= 3.2.13, < 5.0)
       resque (~> 1.23.0)
       resque-pool (= 0.3.0)
-      rmagick
       zipruby (= 0.3.6)
 
 GEM
@@ -188,6 +188,10 @@ GEM
       hydra-access-controls (= 6.3.2)
       jettywrapper (>= 1.4.1)
       rails (>= 3.2.3, < 5)
+    hydra-derivatives (0.0.5)
+      active-fedora
+      activesupport (>= 3.2.13, < 5.0)
+      rmagick
     hydra-head (6.3.2)
       hydra-access-controls (= 6.3.2)
       hydra-core (= 6.3.2)

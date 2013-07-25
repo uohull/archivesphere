@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe GenericFile do
+  let (:user) { FactoryGirl.create(:user) }
+
   describe "auditing" do
     describe "when metadata is updated" do
-      let (:user) { FactoryGirl.create(:user) }
       before do
         subject.audit(user, 'updated stuff')
       end
@@ -18,4 +19,30 @@ describe GenericFile do
       it "should get an entry"
     end
   end
+
+  describe "adding files" do
+    subject do
+      GenericFile.new.tap {|g| g.apply_depositor_metadata(user.user_key) }
+    end
+    describe "a png file" do
+      it "should create derivatives" do
+        subject.add_file(File.open(fixture_path + '/world.png'), 'content', "world.png")
+        subject.save!
+        subject.reload
+        subject.access_datastream.mimeType.should == 'image/jpeg'
+        subject.preservation_datastream.should be_nil
+      end
+    end
+
+    describe "a tiff file" do
+      it "should create derivatives" do
+        subject.add_file(File.open(fixture_path + '/Duck.tif'), 'content', "Duck.tif")
+        subject.save!
+        subject.reload
+        subject.access_datastream.mimeType.should == 'image/jpeg'
+        subject.preservation_datastream.mimeType.should == 'image/tiff'
+      end
+    end
+  end
+
 end
