@@ -19,11 +19,15 @@ module Devise
 
       # Called if the user doesn't already have a rails session cookie
       def valid?
-        request.headers['REMOTE_USER'].present?
+        request.headers['REMOTE_USER'].present? || request.headers['HTTP_REMOTE_USER'].present?
       end
 
       def authenticate!
-        remote_user = request.headers['REMOTE_USER']
+        if request.headers['REMOTE_USER']
+          remote_user = request.headers['REMOTE_USER']
+        elsif request.headers['HTTP_REMOTE_USER'] && Rails.env.development?
+          remote_user = request.headers['HTTP_REMOTE_USER']
+        end
         if remote_user.present?
           u = User.find_by_login(remote_user)
           if u.nil?
