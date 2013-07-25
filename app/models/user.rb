@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
   
   def directory
-    "/replace/this/code"
+    "/dlt/archivesphere/upload/#{user_key}"
   end
 
   def to_s
