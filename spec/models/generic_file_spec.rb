@@ -30,7 +30,11 @@ describe GenericFile do
         subject.save!
         subject.reload
         subject.access_datastream.mimeType.should == 'image/jpeg'
-        subject.preservation_datastream.should be_nil
+
+        # it's not going to return the real preservation datastream, just proxy the original
+        subject.datastreams['preservation'].should be_nil
+        subject.preservation_datastream.mimeType.should == 'image/png' 
+        subject.preservation_datastream.dsid.should == 'content' 
       end
     end
 

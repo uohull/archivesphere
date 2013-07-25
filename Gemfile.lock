@@ -8,6 +8,30 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
+  remote: git://github.com/projecthydra/active_fedora.git
+  revision: eba5760d9e00168b342aae95ee1f061ccb280842
+  ref: eba5760
+  specs:
+    active-fedora (6.4.3)
+      activesupport (>= 3.0.0)
+      deprecation
+      mediashelf-loggable
+      nom-xml (>= 0.5.1)
+      om (~> 3.0.0)
+      rdf
+      rdf-rdfxml (= 1.0.1)
+      rsolr
+      rubydora (~> 1.6, >= 1.6.5)
+
+GIT
+  remote: git://github.com/projecthydra/active_fedora_relsint.git
+  revision: 8fddd7e0ead47a3e7c153bafba05e5dd1f91cd78
+  specs:
+    active_fedora_relsint (0.2.0)
+      active-fedora (>= 6.0)
+      activesupport (>= 3.2.0, < 5.0)
+
+GIT
   remote: git://github.com/projecthydra/hydra-collections.git
   revision: fc7d31ae8baa591a79781e74ed40b0a1f98ed1ff
   ref: fc7d31ae8baa5
@@ -59,16 +83,6 @@ GEM
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    active-fedora (6.4.3)
-      activesupport (>= 3.0.0)
-      deprecation
-      mediashelf-loggable
-      nom-xml (>= 0.5.1)
-      om (~> 3.0.0)
-      rdf
-      rdf-rdfxml (= 1.0.1)
-      rsolr
-      rubydora (~> 1.6, >= 1.6.5)
     activemodel (4.0.0)
       activesupport (= 4.0.0)
       builder (~> 3.1.0)
@@ -381,6 +395,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active-fedora!
+  active_fedora_relsint!
   blacklight
   bootstrap-sass
   coffee-rails (~> 4.0.0)
