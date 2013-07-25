@@ -21,6 +21,7 @@ class Accession < ActiveFedora::Base
   include Sufia::GenericFile::WebForm # provides initialize_fields method
 
   before_save :update_permissions
+  before_destroy :cleanup_files
 
   has_metadata :name => "properties", :type => AccessionPropertiesDatastream
 
@@ -54,4 +55,9 @@ class Accession < ActiveFedora::Base
   def update_permissions
     self.set_visibility("open")
   end
+
+  def cleanup_files
+    members.map(&:destroy)
+  end
+
 end

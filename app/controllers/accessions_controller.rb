@@ -40,6 +40,21 @@ class AccessionsController < ApplicationController
     @accession.initialize_fields
   end
 
+  def update
+    process_member_changes
+    @accession.update_attributes(params[:accession].except(:members))
+    if @accession.save
+      after_update
+    else
+      after_update_error
+    end
+  end
+
+  def delete
+    @accession.destroy
+  end 
+
+
   def after_create
     parent_id = params[:collection_id]
     logger.warn "Parent id = #{parent_id}"
