@@ -15,11 +15,12 @@
 require 'spec_helper'
 
 describe AccessionsController do
-  #before(:each) { @routes = Hydra::Collections::Engine.routes }
+  let(:user) { FactoryGirl.create :user }
+
   before do
     controller.stub(:has_access?).and_return(true)
     User.stub(:groups).and_return([])
-    login_user
+    sign_in user
   end
 
   describe '#create' do
@@ -36,7 +37,7 @@ describe AccessionsController do
   describe '#destroy' do
     context "valid accession destroy" do
       clear_accessions
-      Given (:accession) {define_accession 'accession num'}
+      Given (:accession) {define_accession 'accession num', user.login}
       When {delete :destroy, :id=>accession.pid}
       Then { expect {Accession.find(accession.id)}.to raise_error ActiveFedora::ObjectNotFoundError}
       #Then {response.should redirect_to(Sufia::Engine.routes.url_helpers.dashboard_index_path)}

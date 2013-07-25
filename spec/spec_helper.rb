@@ -52,7 +52,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  #config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = true
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -72,14 +72,14 @@ module FactoryGirl
 end
 
 
-def define_collection (title = 'title', description ='description', collection_num = '123', user = 'jilluser')
+def define_collection (title = 'title', user = 'jilluser', description ='description', collection_num = '123')
   collection = Collection.new( title:title, description:description, collection_num:collection_num)
   collection.apply_depositor_metadata(user)
   collection.save
   collection
 end
 
-def define_accession (accession_num = '123', disk_num = '123', disk_image = 'no', disk_label = 'label', user = 'jilluser')
+def define_accession (accession_num = '123', user = 'jilluser', disk_num = '123', disk_image = 'no', disk_label = 'label')
   accession = Accession.new( accession_num:accession_num, disk_num:disk_num, disk_image:disk_image, disk_label:disk_label)
   accession.apply_depositor_metadata(user)
   accession.save
