@@ -19,6 +19,11 @@ class AccessionsController < ApplicationController
   include BlacklightAdvancedSearch::Controller
   include Sufia::Noid # for normalize_identifier method
   prepend_before_filter :normalize_identifier, :except => [:index, :create, :new]
+
+  # this is a little bit of magic to copy the collection params to the accession params since the update wants it in the collection
+  #  and the create wants it in the accession and our form is the same for update or create we are handling that here.
+  prepend_before_filter :set_accession_params , only:[:create]
+
   before_filter :set_accession
   before_filter :filter_docs_with_read_access!, :except => [:show]
   before_filter :has_access?, :except => [:show]
@@ -76,6 +81,13 @@ class AccessionsController < ApplicationController
 
   def set_accession
     @accession = @collection
+  end
+
+  # this is a little bit of magic to copy the collection params to the accession params since the update wants it in the collection
+  #  and the create wants it in the accession and our form is the same for update or create we are handling that here.
+  def set_accession_params
+    logger.warn "\n\n\n before create #{params[:collection]}"
+    params[:accession] = params[:collection]
   end
 
 end
