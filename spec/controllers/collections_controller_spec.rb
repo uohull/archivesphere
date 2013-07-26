@@ -34,6 +34,17 @@ describe CollectionsController do
      end
   end
 
+ describe '#update' do
+    context "update collection metadata" do
+     clear_collections
+     Given (:collection) {define_collection 'title in', user.login}
+     When {put :update, id:collection.pid, collection: {title:"updated title", description:"updated description"}}
+     Then {response.should redirect_to(@routes.url_helpers.collection_path(collection))}
+     Then {collection.reload.title.should == "updated title"}
+     Then {collection.reload.description.should == "updated description"}
+     end
+  end
+
   describe '#destroy' do
     context "valid collection destroy" do
       clear_collections

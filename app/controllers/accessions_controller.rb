@@ -40,16 +40,6 @@ class AccessionsController < ApplicationController
     @accession.initialize_fields
   end
 
-  def update
-    process_member_changes
-    @accession.update_attributes(params[:accession].except(:members))
-    if @accession.save
-      after_update
-    else
-      after_update_error
-    end
-  end
-
   def delete
     @accession.destroy
   end 
@@ -69,6 +59,14 @@ class AccessionsController < ApplicationController
       format.json { render json: @accession, status: :created, location: @accession }
     end
   end
+
+  def after_update
+    respond_to do |format|
+      format.html { redirect_to accession_path(@accession), notice: 'Accession was successfully updated.' }
+      format.json { render json: @accession, status: :updated, location: @accession }
+    end
+  end
+
 
   private
 

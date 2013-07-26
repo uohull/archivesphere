@@ -1,5 +1,5 @@
 <div class="container">
-<%= form_for( @accession) do |f| %>
+<%= form_for( @accession, as: "collection") do |f| %>
   <% if @accession.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@accession.errors.count, "error") %> prohibited this topic from being saved:</h2>
