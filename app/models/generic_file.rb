@@ -4,6 +4,8 @@ class GenericFile < ActiveFedora::Base
   include Auditable
   include ArchivalDerivatives 
   include ActiveFedora::RelsInt
+  include Hydra::Derivatives
+
 
   # alias the collection in the generic File to accession since that is what it really is
   alias  :accessions :collections
