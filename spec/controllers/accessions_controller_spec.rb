@@ -50,10 +50,13 @@ describe AccessionsController do
   describe '#destroy' do
     context "valid accession destroy" do
       clear_accessions
+      Given (:collection) {define_collection 'title', user.login}
       Given (:accession) {define_accession 'accession num', user.login}
+      When { accession.collections = [collection]; accession.save}
+      When {puts "\n\n #{accession.reload.collections} \n\n"}
       When {delete :destroy, :id=>accession.pid}
       Then { expect {Accession.find(accession.id)}.to raise_error ActiveFedora::ObjectNotFoundError}
-      #Then {response.should redirect_to(Sufia::Engine.routes.url_helpers.dashboard_index_path)}
+      Then {response.should redirect_to(Hydra::Collections::Engine.routes.url_helpers.collection_path(collection))}
     end
 
   end

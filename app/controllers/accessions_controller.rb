@@ -34,12 +34,16 @@ class AccessionsController < ApplicationController
 
 
   #todo where should the delete go?
-  #def after_destroy (id)
-  #  respond_to do |format|
-  #    format.html { redirect_to dashboard_path, notice: 'Collection was successfully deleted.' }
-  #    format.json { render json: {id:id}, status: :destroyed, location: @collection }
-  #  end
-  #end
+  def after_destroy (id)
+    path = sufia.dashboard_index_path
+    puts "\n\n collection #{@accession.collections}"
+    path = collections.collection_path(@accession.collections[0]) unless @accession.collections.blank?
+    puts "path = #{path}\n\n"
+    respond_to do |format|
+      format.html { redirect_to path, notice: 'Collection was successfully deleted.' }
+      format.json { render json: {id:id}, status: :destroyed, location: @accession }
+    end
+  end
   
   def initialize_fields_for_edit
     @accession.initialize_fields
@@ -87,7 +91,7 @@ class AccessionsController < ApplicationController
   #  and the create wants it in the accession and our form is the same for update or create we are handling that here.
   def set_accession_params
     logger.warn "\n\n\n before create #{params[:collection]}"
-    params[:accession] = params[:collection]
+    params[:accession] ||= params[:collection]
   end
 
 end
