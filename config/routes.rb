@@ -9,11 +9,19 @@ Archivesphere::Application.routes.draw do
   get 'logout' => 'sessions#destroy', :as => :destroy_user_session
   get 'login' => 'sessions#new', :as => :new_user_session
 
-  resources :accessions, except: :index
+  constraints RestrictUsers do
+    resources :accessions, except: :index
+  end
 
   devise_for :users
-  mount Hydra::Collections::Engine => '/'
-  mount Sufia::Engine => '/'
+
+  constraints RestrictUsers do
+    mount Hydra::Collections::Engine => '/'
+  end
+
+  constraints RestrictUsers do
+    mount Sufia::Engine => '/'
+  end
 
 
   # The priority is based upon order of creation:
