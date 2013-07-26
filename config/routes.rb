@@ -1,7 +1,9 @@
 Archivesphere::Application.routes.draw do
   root :to => "dashboard#index"
 
-  Blacklight.add_routes(self)
+  constraints RestrictUsers do
+    Blacklight.add_routes(self)
+  end
   HydraHead.add_routes(self)
   Hydra::BatchEdit.add_routes(self)
 

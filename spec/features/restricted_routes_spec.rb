@@ -27,17 +27,30 @@ describe 'restricted routes', describe_options do
 
   describe 'test restricted routes' do
     let(:agreed_to_terms_of_service) { false }
+    let (:test_urls) {[{url:'/collections/new',text:'Create new Collection'}, {url:'/accessions/new',text:'Create new Accession'},
+                      {url:'/dashboard',text:'Dashboard'}, {url:'catalog',text:'Recently Uploaded'}]}
     it 'should  allow a user within the archivesphere-admin-viewers group' do
       login_as ("cam156")
       #to do how do I add the groups
       #user.stub(:groups).and_return (['umg/up.dlt.archivesphere-admin-viewers'])
       visit '/'
-      visit '/collections/new'
-      page.has_content?('Create new Collection')
+      test_urls.each  do |test|
+        visit test[:url]
+        page.has_content?(test[:text])
+      end
     end
     it 'should not allow any user' do
       login_as (user.user_key)
-      lambda {visit '/accessions/new'}.should raise_error ActionController::RoutingError
+      visit '/'
+      test_urls.each  do |test|
+        lambda {visit test[:url]}.should raise_error ActionController::RoutingError
+      end
     end
+    it 'should not allow non logged user' do
+      test_urls.each  do |test|
+        lambda {visit test[:url]}.should raise_error ActionController::RoutingError
+      end
+    end
+
   end
 end
