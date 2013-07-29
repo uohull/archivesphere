@@ -28,7 +28,8 @@ class AccessionsController < ApplicationController
   before_filter :filter_docs_with_read_access!, :except => [:show]
   before_filter :has_access?, :except => [:show]
   before_filter :initialize_fields_for_edit, only:[:edit, :new]
-  layout "sufia-one-column"
+  #layout "sufia-one-column"
+  layout "archivesphere"
 
   before_filter :set_parent_id, :only => [:new]
 
@@ -49,10 +50,10 @@ class AccessionsController < ApplicationController
     @accession.initialize_fields
   end
 
-  def delete
-    @accession.destroy
-  end 
-
+  def show
+    @tree = @accession.sort_member_paths
+    @html = ''
+  end
 
   def after_create
     parent_id = params[:collection_id]
@@ -68,14 +69,6 @@ class AccessionsController < ApplicationController
       format.json { render json: @accession, status: :created, location: @accession }
     end
   end
-
-  def after_update
-    respond_to do |format|
-      format.html { redirect_to accession_path(@accession), notice: 'Accession was successfully updated.' }
-      format.json { render json: @accession, status: :updated, location: @accession }
-    end
-  end
-
 
   private
 

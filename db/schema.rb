@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20130708155658) do
     t.integer  "user_id",     null: false
     t.string   "document_id"
     t.string   "title"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "user_type"
   end
 
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20130708155658) do
     t.integer  "pass"
     t.string   "expected_result"
     t.string   "actual_result"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "checksum_audit_logs", ["pid", "dsid"], name: "by_pid_and_dsid"
@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 20130708155658) do
     t.integer  "follower_id",                     null: false
     t.string   "follower_type",                   null: false
     t.boolean  "blocked",         default: false, null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables"
@@ -117,8 +117,8 @@ ActiveRecord::Schema.define(version: 20130708155658) do
   create_table "searches", force: true do |t|
     t.text     "query_params"
     t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "user_type"
   end
 
@@ -129,8 +129,8 @@ ActiveRecord::Schema.define(version: 20130708155658) do
     t.string   "path"
     t.string   "itemId"
     t.datetime "expires"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "subject_local_authority_entries", force: true do |t|
@@ -144,8 +144,8 @@ ActiveRecord::Schema.define(version: 20130708155658) do
   create_table "trophies", force: true do |t|
     t.integer  "user_id"
     t.string   "generic_file_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
@@ -159,8 +159,8 @@ ActiveRecord::Schema.define(version: 20130708155658) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "guest",                  default: false
     t.string   "facebook_handle"
     t.string   "twitter_handle"
@@ -195,8 +195,8 @@ ActiveRecord::Schema.define(version: 20130708155658) do
     t.string   "datastream_id"
     t.string   "version_id"
     t.string   "committer_login"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
