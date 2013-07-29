@@ -20,10 +20,15 @@ describe GenericFile do
     end
   end
 
-  describe "adding files" do
-    subject do
-      GenericFile.new.tap {|g| g.apply_depositor_metadata(user.user_key) }
+  describe "to_solr" do
+    subject { FactoryGirl.build(:generic_file, relative_path: 'fortune/smiles/on/the/bold.mkv').to_solr }
+    it "should have indexed relative_path" do
+      subject['relative_path_tesim'].should == ['fortune/smiles/on/the/bold.mkv']
     end
+  end
+
+  describe "adding files" do
+    subject { FactoryGirl.build :generic_file, user: user }
     describe "a png file" do
       it "should create derivatives" do
         subject.add_file(File.open(fixture_path + '/world.png'), 'content', "world.png")

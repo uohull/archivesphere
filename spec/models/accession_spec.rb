@@ -72,6 +72,5 @@ describe Accession do
         }
       }
     end
-
   end
 end
