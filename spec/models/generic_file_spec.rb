@@ -6,7 +6,7 @@ describe GenericFile do
   describe "auditing" do
     describe "when metadata is updated" do
       before do
-        subject.audit(user, 'updated stuff')
+        subject.log_audit(user, 'updated stuff')
       end
       it "should get an entry" do
         subject.audit_log.who.should == [user.user_key]
