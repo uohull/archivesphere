@@ -10,4 +10,16 @@ class ApplicationController < ActionController::Base
   layout 'sufia-one-column'
 
   protect_from_forgery
+
+  before_filter :restrict_user
+
+  protected
+
+  def restrict_user
+    render :template => '/error/401', :layout => "error", :formats => [:html], :status => 401 unless  current_user && (current_user.groups.include? 'umg/up.dlt.archivesphere-admin-viewers')
+  end
+
+  def not_found
+    raise ActionController::RoutingError.new('Restricted')
+  end
 end

@@ -21,6 +21,7 @@ describe CollectionsController do
 
   before do
     controller.stub(:has_access?).and_return(true)
+    controller.stub(:restrict_user).and_return(true)
     User.stub(:groups).and_return([])
     sign_in user 
   end

@@ -19,6 +19,7 @@ describe AccessionsController do
 
   before do
     controller.stub(:has_access?).and_return(true)
+    controller.stub(:restrict_user).and_return(true)
     User.stub(:groups).and_return([])
     sign_in user
   end
@@ -39,7 +40,6 @@ describe AccessionsController do
      clear_accessions
      Given (:accession) {define_accession 'accession num', user.login}
      When {put :update, id:accession.pid, collection: {accession_num:"456", disk_num:"disk number 456", disk_image:"yes", disk_label:"label 456"}}
-     When {puts "Collection = #{assigns(:collection).inspect}"}
      Then {response.should redirect_to(Rails.application.routes.url_helpers.accession_path(accession))}
      Then {accession.reload.accession_num.should == "456"}
      Then {accession.reload.disk_num.should == "disk number 456"}
@@ -54,7 +54,6 @@ describe AccessionsController do
       Given (:collection) {define_collection 'title', user.login}
       Given (:accession) {define_accession 'accession num', user.login}
       When { accession.collections = [collection]; accession.save}
-      When {puts "\n\n #{accession.reload.collections} \n\n"}
       When {delete :destroy, :id=>accession.pid}
       Then { expect {Accession.find(accession.id)}.to raise_error ActiveFedora::ObjectNotFoundError}
       Then {response.should redirect_to(Hydra::Collections::Engine.routes.url_helpers.collection_path(collection))}

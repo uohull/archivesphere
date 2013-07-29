@@ -43,12 +43,13 @@ describe 'restricted routes', describe_options do
       login_as (user.user_key)
       visit '/'
       test_urls.each  do |test|
-        lambda {visit test[:url]}.should raise_error ActionController::RoutingError
+        page.status_code.should == 401
       end
     end
     it 'should not allow non logged user' do
       test_urls.each  do |test|
-        lambda {visit test[:url]}.should raise_error ActionController::RoutingError
+        visit test[:url]
+        page.status_code.should == 401
       end
     end
 
