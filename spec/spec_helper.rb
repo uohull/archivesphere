@@ -90,10 +90,10 @@ def define_accession (accession_num = '123', user = 'jilluser', disk_num = '123'
 end
 
 def define_generic_file (title = 'test', file_name = 'test.pdf', read_groups = ['public'], user = 'jilluser')
-  gf = GenericFile.new(title:title, filename:file_name, read_groups:read_groups)
-  gf.apply_depositor_metadata(user)
-  gf.save
-  gf
+  GenericFile.new(title:title, filename:file_name, read_groups:read_groups).tap do |gf|
+    gf.apply_depositor_metadata(user)
+    gf.save
+  end
 end
 
 def login_user (user = :user)

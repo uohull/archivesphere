@@ -42,4 +42,36 @@ describe Accession do
     Then { file1.collections == [accession]}
     Then { file2.collections == [accession]}
   end
+
+ 
+  describe "#sort_member_paths" do
+    let (:user) { FactoryGirl.create(:user) }
+    let (:file1) { FactoryGirl.create(:generic_file, user: user, relative_path: '/astest/file1.txt') }
+    let (:file2) { FactoryGirl.create(:generic_file, user: user, relative_path: '/astest/level 1/file2.txt') }
+    let (:file3) { FactoryGirl.create(:generic_file, user: user, relative_path: '/astest/level 1/level1-2/file3.txt') }
+    let (:file4) { FactoryGirl.create(:generic_file, user: user, relative_path: '/astest/level 1/level1-2/level1-2-3/file4.txt') }
+    before do
+      subject.members << file1 << file2 << file3 << file4
+    end
+
+    it "Should sort em" do
+      subject.sort_member_paths.should == { 
+        "/"=> {
+          "/astest"=> {
+            "/astest/file1.txt"=>{},
+            "/astest/level 1"=> {
+              "/astest/level 1/file2.txt"=>{},
+              "/astest/level 1/level1-2"=> {
+                "/astest/level 1/level1-2/file3.txt"=>{},
+                "/astest/level 1/level1-2/level1-2-3"=> {
+                  "/astest/level 1/level1-2/level1-2-3/file4.txt"=>{}
+                }
+              }
+            }
+          }
+        }
+      }
+    end
+
+  end
 end
