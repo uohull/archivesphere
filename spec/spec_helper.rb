@@ -76,23 +76,23 @@ end
 
 
 def define_collection (title = 'title', user = 'jilluser', description ='description', collection_num = '123')
-  collection = Collection.new( title:title, description:description, collection_num:collection_num)
-  collection.apply_depositor_metadata(user)
-  collection.save
-  collection
+  Collection.new( title:title, description:description, collection_num:collection_num).tap do |collection|
+    collection.apply_depositor_metadata(user)
+    collection.save!
+  end
 end
 
 def define_accession (accession_num = '123', user = 'jilluser', disk_num = '123', disk_image = 'no', disk_label = 'label')
-  accession = Accession.new( accession_num:accession_num, disk_num:disk_num, disk_image:disk_image, disk_label:disk_label)
-  accession.apply_depositor_metadata(user)
-  accession.save
-  accession
+  Accession.new( accession_num:accession_num, disk_num:disk_num, disk_image:disk_image, disk_label:disk_label).tap do |accession|
+    accession.apply_depositor_metadata(user)
+    accession.save!
+  end
 end
 
 def define_generic_file (title = 'test', file_name = 'test.pdf', read_groups = ['public'], user = 'jilluser')
   GenericFile.new(title:title, filename:file_name, read_groups:read_groups).tap do |gf|
     gf.apply_depositor_metadata(user)
-    gf.save
+    gf.save!
   end
 end
 

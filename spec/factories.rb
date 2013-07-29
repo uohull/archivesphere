@@ -27,3 +27,12 @@ FactoryGirl.define do
   end
 end
 
+FactoryGirl.define do
+  factory :accession do 
+    ignore do
+      user nil
+    end
+    after(:build) { |gf, evaluator| gf.apply_depositor_metadata(evaluator.user) }
+  end
+end
+

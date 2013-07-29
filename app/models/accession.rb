@@ -54,8 +54,8 @@ class Accession < ActiveFedora::Base
     self.set_visibility("open")
   end
 
-  def sort_member_paths
-    sorted = self.members.sort_by { |s| s.relative_path }
+  def sort_member_paths(members)
+    sorted = members.sort_by { |s| s.relative_path }
     
     tree = {}
     sorted.each do |s|

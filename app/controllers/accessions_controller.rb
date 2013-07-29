@@ -37,9 +37,7 @@ class AccessionsController < ApplicationController
   #todo where should the delete go?
   def after_destroy (id)
     path = sufia.dashboard_index_path
-    puts "\n\n collection #{@accession.collections}"
     path = collections.collection_path(@accession.collections[0]) unless @accession.collections.blank?
-    puts "path = #{path}\n\n"
     respond_to do |format|
       format.html { redirect_to path, notice: 'Collection was successfully deleted.' }
       format.json { render json: {id:id}, status: :destroyed, location: @accession }
@@ -51,7 +49,8 @@ class AccessionsController < ApplicationController
   end
 
   def show
-    @tree = @accession.sort_member_paths
+    (_, member_docs) = get_search_results({:q => params[:cq]}, :rows=>1004)
+    @tree = @accession.sort_member_paths(member_docs)
     @html = ''
   end
 
