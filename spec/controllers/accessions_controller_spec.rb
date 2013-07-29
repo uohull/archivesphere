@@ -39,6 +39,7 @@ describe AccessionsController do
      clear_accessions
      Given (:accession) {define_accession 'accession num', user.login}
      When {put :update, id:accession.pid, collection: {accession_num:"456", disk_num:"disk number 456", disk_image:"yes", disk_label:"label 456"}}
+     When {puts "Collection = #{assigns(:collection).inspect}"}
      Then {response.should redirect_to(Rails.application.routes.url_helpers.accession_path(accession))}
      Then {accession.reload.accession_num.should == "456"}
      Then {accession.reload.disk_num.should == "disk number 456"}
