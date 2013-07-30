@@ -69,6 +69,13 @@ class AccessionsController < ApplicationController
     end
   end
 
+  def after_update
+    respond_to do |format|
+      format.html { redirect_to accession_path(@accession), notice: 'Accession was successfully updated.' }
+      format.json { render json: @accession, status: :updated, location: @accession }
+    end
+  end 
+
   private
 
   def set_parent_id
