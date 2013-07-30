@@ -1,1 +1,4 @@
-<%= render partial:'catalog/document_list', locals:{documents: documents} %>
+<table id="accession_table">
+<%= print_tree(@tree, '').html_safe %>
+</table>
+

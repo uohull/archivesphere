@@ -58,6 +58,25 @@ describe AccessionsController do
       Then { expect {Accession.find(accession.id)}.to raise_error ActiveFedora::ObjectNotFoundError}
       Then {response.should redirect_to(Hydra::Collections::Engine.routes.url_helpers.collection_path(collection))}
     end
+  end
 
+
+  describe '#show' do
+    let(:file1) { FactoryGirl.create(:generic_file, user: user, relative_path: 'fortune/smiles/on/the/bold.mkv') }
+    let(:file2) { FactoryGirl.create(:generic_file, user: user, label: 'foo.txt') }
+    let(:file3) { FactoryGirl.create(:generic_file, user: user, relative_path: 'mouth/tooth.png') }
+    subject { FactoryGirl.create(:accession, user: user, members: [file1, file2, file3]) }
+
+    it "should show everything" do
+      get :show, id: subject.pid
+      assigns(:tree).should == {"/fortune" => {"/fortune/smiles"=>{"/fortune/smiles/on"=>{"/fortune/smiles/on/the"=>{"/fortune/smiles/on/the/bold.mkv"=>{}}}}},
+       "/mouth" => {"/mouth/tooth.png"=>{}},
+       "/foo.txt" => {}}
+    end
+
+    it "should show things that match the search" do
+      get :show, id: subject.pid, cq: 'tooth.png'
+      assigns(:tree).should == { "/mouth" => {"/mouth/tooth.png"=>{}} }
+    end
   end
 end

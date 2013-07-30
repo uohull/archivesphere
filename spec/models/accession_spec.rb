@@ -42,4 +42,30 @@ describe Accession do
     Then { file1.collections == [accession]}
     Then { file2.collections == [accession]}
   end
+
+ 
+  describe "#sort_member_paths" do
+    let (:user) { FactoryGirl.create(:user) }
+    let (:members) { [SolrDocument.new(relative_path_tesim: 'astest/file1.txt'),
+                      SolrDocument.new(relative_path_tesim: 'astest/level 1/file2.txt'),
+                      SolrDocument.new(relative_path_tesim: 'astest/level 1/level1-2/file3.txt'),
+                      SolrDocument.new(relative_path_tesim: 'astest/level 1/level1-2/level1-2-3/file4.txt')] }
+
+    it "Should sort em" do
+      subject.sort_member_paths(members).should == { 
+        "/astest"=> {
+          "/astest/file1.txt"=>{},
+          "/astest/level 1"=> {
+            "/astest/level 1/file2.txt"=>{},
+            "/astest/level 1/level1-2"=> {
+              "/astest/level 1/level1-2/file3.txt"=>{},
+              "/astest/level 1/level1-2/level1-2-3"=> {
+                "/astest/level 1/level1-2/level1-2-3/file4.txt"=>{}
+              }
+            }
+          }
+        }
+      }
+    end
+  end
 end
