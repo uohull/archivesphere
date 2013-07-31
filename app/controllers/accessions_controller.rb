@@ -32,6 +32,7 @@ class AccessionsController < ApplicationController
   layout "archivesphere"
 
   before_filter :set_parent_id, :only => [:new]
+  AccessionsController.solr_search_params_logic += [:exclude_unwanted_models]
 
 
   #todo where should the delete go?
@@ -91,6 +92,11 @@ class AccessionsController < ApplicationController
   def set_accession_params
     logger.warn "\n\n\n before create #{params[:collection]}"
     params[:accession] ||= params[:collection]
+  end
+
+  def exclude_unwanted_models(solr_parameters, user_parameters)
+    solr_parameters[:fq] ||= []
+    solr_parameters[:fq] << "#{Solrizer.solr_name("has_model", :symbol)}:\"info:fedora/afmodel:GenericFile\""
   end
 
 end

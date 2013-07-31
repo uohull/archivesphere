@@ -16,7 +16,7 @@ gem 'active-fedora', github: 'projecthydra/active_fedora', ref: 'eba5760' # > 6.
 
 #gem 'hydra-collections', git:'git://github.com/psu-stewardship/hydra-collections.git', ref:'ee120ae377138cc90fd94747a'
 #gem 'hydra-collections', path:'../hydra-collections'
-gem 'hydra-collections', git: 'git://github.com/projecthydra/hydra-collections.git', ref:'fc7d31ae8baa5'
+gem 'hydra-collections', git: 'git://github.com/projecthydra/hydra-collections.git', ref:'f0d36d3'
 #gem 'hydra-collections'
 gem 'hydra-ldap', '0.1.0'
 
@@ -34,6 +34,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.3.0'
   gem 'capybara'
+  gem 'launchy'
 end
 
 gem 'jquery-rails'
