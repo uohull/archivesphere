@@ -33,8 +33,8 @@ GIT
 
 GIT
   remote: git://github.com/projecthydra/hydra-collections.git
-  revision: fc7d31ae8baa591a79781e74ed40b0a1f98ed1ff
-  ref: fc7d31ae8baa5
+  revision: f0d36d382b98dc0f3fb92f9cbbbf4675a65f725c
+  ref: f0d36d3
   specs:
     hydra-collections (1.0.0)
       blacklight
@@ -224,6 +224,8 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.0)
+    launchy (2.3.0)
+      addressable (~> 2.3)
     libv8 (3.3.10.4)
     logger (1.2.8)
     mail (2.5.4)
@@ -414,6 +416,7 @@ DEPENDENCIES
   jettywrapper
   jquery-rails
   kaminari!
+  launchy
   rails (= 4.0.0)
   rspec
   rspec-given

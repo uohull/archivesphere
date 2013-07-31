@@ -15,19 +15,19 @@
 FactoryGirl.define do
   factory :user, :class => User do |u|
     sequence(:login) {|n| "user#{n}" }
-  end
-end
 
-FactoryGirl.define do
+    factory :approved_user do
+      after(:build) { |u, evaluator| u.stub(:groups).and_return(['umg/up.dlt.archivesphere-admin-viewers']) }
+    end
+  end
+
   factory :generic_file do 
     ignore do
       user nil
     end
     after(:build) { |gf, evaluator| gf.apply_depositor_metadata(evaluator.user) }
   end
-end
 
-FactoryGirl.define do
   factory :accession do 
     ignore do
       user nil

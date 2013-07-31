@@ -67,14 +67,6 @@ RSpec.configure do |config|
   config.include UserLogin, type: :feature
 end
 
-module FactoryGirl
-  def self.find_or_create(handle, by=:login)
-    tmpl = FactoryGirl.build(handle)
-    tmpl.class.send("find_by_#{by}".to_sym, tmpl.send(by)) || FactoryGirl.create(handle)
-  end
-end
-
-
 def define_collection (title = 'title', user = 'jilluser', description ='description', collection_num = '123')
   Collection.new( title:title, description:description, collection_num:collection_num).tap do |collection|
     collection.apply_depositor_metadata(user)
@@ -96,16 +88,10 @@ def define_generic_file (title = 'test', file_name = 'test.pdf', read_groups = [
   end
 end
 
-def login_user (user = :user)
-  user = FactoryGirl.find_or_create(:user)
-  sign_in user
-  user
-end
-
 def clear_collections
-  Collection.all.each {|c|c.destroy}
+  Collection.destroy_all
 end
 
 def clear_accessions
-  Accession.all.each {|a|a.destroy}
+  Accession.destroy_all
 end
