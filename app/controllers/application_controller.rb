@@ -13,10 +13,18 @@ class ApplicationController < ActionController::Base
 
   before_filter :restrict_user
 
+  rescue_from CanCan::AccessDenied, :with => :render_401
+
   protected
 
+  def render_401
+    render :template => '/error/401', :layout => "error", :formats => [:html], :status => 401
+  end
+
+  # Raises CanCan::AccessDenied if the user does not have access to the site.
   def restrict_user
-    render :template => '/error/401', :layout => "error", :formats => [:html], :status => 401 unless  current_user && (current_user.groups.include? 'umg/up.dlt.archivesphere-admin-viewers')
+    return if controller_name == 'sessions'
+    authorize! :access, :site
   end
 
   def not_found
