@@ -55,6 +55,12 @@ class AccessionsController < ApplicationController
     @html = ''
   end
 
+  def edit
+    (_, member_docs) = get_search_results({:q => params[:cq]}, :rows=>1004)
+    @tree = @accession.sort_member_paths(member_docs)
+    @html = ''
+  end
+
   def after_create
     parent_id = params[:collection_id]
     logger.warn "Parent id = #{parent_id}"

@@ -54,19 +54,23 @@ class Accession < ActiveFedora::Base
     self.set_visibility("open")
   end
 
-  def sort_member_paths(members)
-    sorted = members.sort_by { |s| s.relative_path }
-    
+  def sort_member_paths(members)    start = Time.now
     tree = {}
-    sorted.each do |s|
-      current = tree
-      s.relative_path.split("/").inject("") do |sub_path,dir|
-        sub_path = File.join(sub_path, dir)
-        current[sub_path] ||= {}
-        current = current[sub_path]
-        sub_path
-      end 
-    end 
+    unless (members.blank?)
+      sorted = members.sort_by { |s| s.relative_path.blank? ?  s.label : s.relative_path }
+
+      sorted.each do |s|
+        current = tree
+        s.relative_path.split("/").inject("") do |sub_path,dir|
+          sub_path = File.join(sub_path, dir)
+          current[sub_path] ||= {}
+          current[sub_path][:member] = s if (sub_path == "/"+s.relative_path)
+          current = current[sub_path]
+          sub_path
+        end
+      end
+    end
+
     tree
   end
 

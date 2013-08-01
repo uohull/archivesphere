@@ -52,20 +52,20 @@ describe Accession do
                       SolrDocument.new(relative_path_tesim: 'astest/level 1/level1-2/level1-2-3/file4.txt')] }
 
     it "Should sort em" do
-      subject.sort_member_paths(members).should == { 
-        "/astest"=> {
-          "/astest/file1.txt"=>{},
-          "/astest/level 1"=> {
-            "/astest/level 1/file2.txt"=>{},
-            "/astest/level 1/level1-2"=> {
-              "/astest/level 1/level1-2/file3.txt"=>{},
-              "/astest/level 1/level1-2/level1-2-3"=> {
-                "/astest/level 1/level1-2/level1-2-3/file4.txt"=>{}
-              }
-            }
-          }
-        }
-      }
+      tree = subject.sort_member_paths(members)
+      member = tree["/astest"]["/astest/file1.txt"][:member]
+      member.should_not be_nil
+      member["relative_path_tesim"].should == "astest/file1.txt"
+      member = tree["/astest"]["/astest/level 1"]["/astest/level 1/file2.txt"][:member]
+      member.should_not be_nil
+      member["relative_path_tesim"].should == "astest/level 1/file2.txt"
+      member = tree["/astest"]["/astest/level 1"]["/astest/level 1/level1-2"]["/astest/level 1/level1-2/file3.txt"][:member]
+      member.should_not be_nil
+      member["relative_path_tesim"].should == "astest/level 1/level1-2/file3.txt"
+      member = tree["/astest"]["/astest/level 1"]["/astest/level 1/level1-2"]["/astest/level 1/level1-2/level1-2-3"]["/astest/level 1/level1-2/level1-2-3/file4.txt"][:member]
+      member.should_not be_nil
+      member["relative_path_tesim"].should == "astest/level 1/level1-2/level1-2-3/file4.txt"
+
     end
   end
 end

@@ -69,14 +69,26 @@ describe AccessionsController do
 
     it "should show everything" do
       get :show, id: subject.pid
-      assigns(:tree).should == {"/fortune" => {"/fortune/smiles"=>{"/fortune/smiles/on"=>{"/fortune/smiles/on/the"=>{"/fortune/smiles/on/the/bold.mkv"=>{}}}}},
-       "/mouth" => {"/mouth/tooth.png"=>{}},
-       "/foo.txt" => {}}
+      member = assigns(:tree)["/fortune"]["/fortune/smiles"]["/fortune/smiles/on"]["/fortune/smiles/on/the"]["/fortune/smiles/on/the/bold.mkv"][:member]
+      member.should_not be_nil
+      member["id"].should == file1.id
+      member = assigns(:tree)["/mouth"]["/mouth/tooth.png"][:member]
+      member.should_not be_nil
+      member["id"].should == file3.id
+      member = assigns(:tree)["/foo.txt"][:member]
+      member.should_not be_nil
+      member["id"].should == file2.id
     end
 
     it "should show things that match the search" do
       get :show, id: subject.pid, cq: 'tooth.png'
-      assigns(:tree).should == { "/mouth" => {"/mouth/tooth.png"=>{}} }
+      member = assigns(:tree)["/mouth"]["/mouth/tooth.png"][:member]
+      member.should_not be_nil
+      member["id"].should == file3.id
+      member = assigns(:tree)["/fortune"]
+      member.should be_nil
+      member = assigns(:tree)["/foo.txt"]
+      member.should be_nil
     end
   end
 end

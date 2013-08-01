@@ -1,0 +1,10 @@
+<div class="btn-group">
+  <button class="btn btn-small" href="#"><i class="icon-wrench"></i> Select an action</button>
+  <button class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="icon-caret-down"></span></button>
+  <ul class="dropdown-menu">
+   <li>
+     <%= render partial:'/accessions/button_remove_from_collection', locals:{label:'Remove from Accession', document:gf}%>
+   </li>
+  </ul>
+</div>
+

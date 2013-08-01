@@ -11,7 +11,7 @@ gem 'sufia', github: 'projecthydra/sufia', ref: '7cb5169' #> 3.0.0
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 
-gem 'active_fedora_relsint', github: 'projecthydra/active_fedora_relsint'
+gem 'active_fedora_relsint', github: 'projecthydra/active_fedora_relsint', ref: 'f0c6bf091a4007e73b39efa4'
 gem 'active-fedora', github: 'projecthydra/active_fedora', ref: 'eba5760' # > 6.4.3
 
 #gem 'hydra-collections', git:'git://github.com/psu-stewardship/hydra-collections.git', ref:'ee120ae377138cc90fd94747a'

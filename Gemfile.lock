@@ -25,7 +25,8 @@ GIT
 
 GIT
   remote: git://github.com/projecthydra/active_fedora_relsint.git
-  revision: 8fddd7e0ead47a3e7c153bafba05e5dd1f91cd78
+  revision: f0c6bf091a4007e73b39efa41592df04961854c3
+  ref: f0c6bf091a4007e73b39efa4
   specs:
     active_fedora_relsint (0.2.0)
       active-fedora (>= 6.0)
