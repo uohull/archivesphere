@@ -26,6 +26,8 @@ gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'
 gem 'execjs', '1.4.0'
 gem 'therubyracer', '0.10.2'
 
+gem 'clamav', '0.4.1'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
