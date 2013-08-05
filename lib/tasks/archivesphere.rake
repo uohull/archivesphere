@@ -53,4 +53,12 @@ namespace :archivesphere do
     raise "test failures: #{error}" if error
   end
 
+  desc "Clear LDPA load Times to force a reload from ldap"
+  task :clear_ldap => :environment do
+    User.all.each do |u|
+      u.groups_last_update = nil
+      u.ldap_last_update = nil
+      u.save
+    end
+  end
 end
