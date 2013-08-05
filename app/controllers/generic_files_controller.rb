@@ -17,29 +17,39 @@ class GenericFilesController < ApplicationController
   include Sufia::Controller
   include Sufia::FilesControllerBehavior
 
-  before_filter  :add_ids, only:[:new]
   after_filter  :update_accession, only:[:create]
-  def add_ids
-    logger.warn "\n Got to add_ids \n\n"
+
+  # routed to /files/new
+  def new
+    @generic_file = ::GenericFile.new
     #get the collection and accession ids to pass to the form
     @collection_id = params["collection"]
     @accession_id = params["accession"]
-    logger.warn "\n Got to add_ids #{@accession_id}\n\n"
     if @accession_id.blank?
       accession = Accession.create
       @accession_id = accession.id
     end
+    @batch_noid = @accession_id
   end
+
 
   def update_accession
     @accession_id = params["accession_id"]
-    logger.warn "\n Got to update accession id:#{@accession_id}: #{@accession_id.blank?} #{@generic_file}\n\n"
+    @accession_id ||= params["batch_id"]
+    logger.warn "\n\n\n Update accession #{@accession_id}: #{@generic_file} #{@generic_files}\n\n\n"
     unless @accession_id.blank?
       accession = Accession.find(@accession_id)
-      logger.warn "\n\n Got accession #{accession} #{@generic_file.id}"
-      accession.members << @generic_file
+      if (@generic_files)
+        @generic_files.each {|gf|  accession.members << gf}
+      elsif (@generic_file)
+        accession.members << @generic_file
+      end
       accession.save
-      logger.warn "\n\n Members #{accession.members}"
     end
   end
+
+  def self.upload_complete_path(id)
+    return Rails.application.routes.url_helpers.accession_path(id)
+  end
+
 end

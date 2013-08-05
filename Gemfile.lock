@@ -42,9 +42,9 @@ GIT
       hydra-head
 
 GIT
-  remote: git://github.com/projecthydra/sufia.git
-  revision: 7cb5169561ee676a7aa59767008c5a5d49dccd05
-  ref: 7cb5169
+  remote: git://github.com/psu-stewardship/sufia.git
+  revision: 822107abd18b54c8d3a1993e512145b134393cf8
+  ref: 822107abd18b5
   specs:
     sufia (3.0.0)
       blacklight (~> 4.0)
@@ -301,7 +301,7 @@ GEM
       nokogiri (>= 1.5.0)
       rdf (>= 0.3.4)
     redis (3.0.4)
-    redis-namespace (1.3.0)
+    redis-namespace (1.3.1)
       redis (~> 3.0.0)
     resque (1.23.1)
       multi_json (~> 1.0)

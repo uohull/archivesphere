@@ -57,5 +57,9 @@ module Archivesphere
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Configure base directory for local file import
+    config.local_file_import_directory = '/dlt/archivesphere/upload'
+
   end
 end

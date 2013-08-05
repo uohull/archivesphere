@@ -50,7 +50,9 @@ class User < ActiveRecord::Base
   end
   
   def directory
-    "/dlt/archivesphere/upload/#{user_key}"
+    @file_import_dir ||= File.join(Archivesphere::Application.config.local_file_import_directory,user_key)
+    @file_import_dir
+    #"/dlt/archivesphere/upload/#{user_key}"
   end
 
   def to_s

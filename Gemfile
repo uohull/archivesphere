@@ -7,7 +7,8 @@ gem 'rails', '4.0.0'
 
 gem 'blacklight'
 gem 'hydra-head'
-gem 'sufia', github: 'projecthydra/sufia', ref: '7cb5169' #> 3.0.0
+#gem 'sufia', github: 'projecthydra/sufia', ref: '7cb5169' #> 3.0.0
+gem 'sufia', github: 'psu-stewardship/sufia', ref: '822107abd18b5' # redirect override & return of files create
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 
