@@ -7,8 +7,7 @@ gem 'rails', '4.0.0'
 
 gem 'blacklight'
 gem 'hydra-head'
-#gem 'sufia', github: 'projecthydra/sufia', ref: '7cb5169' #> 3.0.0
-gem 'sufia', github: 'psu-stewardship/sufia', ref: '822107abd18b5' # redirect override & return of files create
+gem 'sufia', github: 'projecthydra/sufia', ref: '59d6ffc30e1534a20cf7ec369a5525f8d1bf481d' #> 3.0.0
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 
@@ -66,4 +65,5 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-given'
   gem 'factory_girl_rails', '~> 4.1.0'
+  gem 'minitest'
 end

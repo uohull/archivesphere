@@ -1,5 +1,14 @@
 GIT
-  remote: git://github.com/harai/kaminari.git
+  remote: git://github.com/projecthydra/hydra-collections.git
+  revision: f0d36d382b98dc0f3fb92f9cbbbf4675a65f725c
+  ref: f0d36d3
+  specs:
+    hydra-collections (1.0.0)
+      blacklight
+      hydra-head
+
+GIT
+  remote: https://github.com/harai/kaminari.git
   revision: 384fcb5d11b66a0cc8fad030104bf80f82616355
   branch: route_prefix_prototype
   specs:
@@ -8,7 +17,7 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
-  remote: git://github.com/projecthydra/active_fedora.git
+  remote: https://github.com/projecthydra/active_fedora.git
   revision: eba5760d9e00168b342aae95ee1f061ccb280842
   ref: eba5760
   specs:
@@ -24,7 +33,7 @@ GIT
       rubydora (~> 1.6, >= 1.6.5)
 
 GIT
-  remote: git://github.com/projecthydra/active_fedora_relsint.git
+  remote: https://github.com/projecthydra/active_fedora_relsint.git
   revision: f0c6bf091a4007e73b39efa41592df04961854c3
   ref: f0c6bf091a4007e73b39efa4
   specs:
@@ -33,18 +42,9 @@ GIT
       activesupport (>= 3.2.0, < 5.0)
 
 GIT
-  remote: git://github.com/projecthydra/hydra-collections.git
-  revision: f0d36d382b98dc0f3fb92f9cbbbf4675a65f725c
-  ref: f0d36d3
-  specs:
-    hydra-collections (1.0.0)
-      blacklight
-      hydra-head
-
-GIT
-  remote: git://github.com/psu-stewardship/sufia.git
-  revision: 822107abd18b54c8d3a1993e512145b134393cf8
-  ref: 822107abd18b5
+  remote: https://github.com/projecthydra/sufia.git
+  revision: 59d6ffc30e1534a20cf7ec369a5525f8d1bf481d
+  ref: 59d6ffc30e1534a20cf7ec369a5525f8d1bf481d
   specs:
     sufia (3.0.0)
       blacklight (~> 4.0)
@@ -372,7 +372,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     sqlite3 (1.3.7)
-    stomp (1.2.10)
+    stomp (1.2.11)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
     thor (0.18.1)
@@ -420,6 +420,7 @@ DEPENDENCIES
   jquery-rails
   kaminari!
   launchy
+  minitest
   rails (= 4.0.0)
   rspec
   rspec-given

@@ -17,8 +17,6 @@ class GenericFilesController < ApplicationController
   include Sufia::Controller
   include Sufia::FilesControllerBehavior
 
-  after_filter  :update_accession, only:[:create]
-
   # routed to /files/new
   def new
     @generic_file = ::GenericFile.new
@@ -46,6 +44,17 @@ class GenericFilesController < ApplicationController
       end
       accession.save
     end
+  end
+
+  # override metadata creation to include accession into the metadata
+  def create_metadata(file)
+    logger.warn "\n\n\n Got to my create_metadata \n\n\n\n"
+    Sufia::GenericFile::Actions.create_metadata(file, current_user, params[:batch_id])
+    @accession_id = params["accession_id"]
+    @accession_id ||= params["batch_id"]
+    @accession = Accession.find(@accession_id)
+    @accession.members << file
+    @accession.save
   end
 
   def self.upload_complete_path(id)
