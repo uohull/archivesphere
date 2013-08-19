@@ -36,6 +36,8 @@ group :assets do
 
   gem 'uglifier', '>= 1.3.0'
   gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
   gem 'launchy'
 end
 
