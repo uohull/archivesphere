@@ -28,8 +28,7 @@ class AccessionsController < ApplicationController
   before_filter :filter_docs_with_read_access!, :except => [:show]
   before_filter :has_access?, :except => [:show]
   before_filter :initialize_fields_for_edit, only:[:edit, :new]
-  #layout "sufia-one-column"
-  layout "archivesphere"
+  layout "sufia-one-column"
 
   before_filter :set_parent_id, :only => [:new]
   AccessionsController.solr_search_params_logic += [:exclude_unwanted_models]
