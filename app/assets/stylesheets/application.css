@@ -9,6 +9,14 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require sufia
+ *= require application-bootstrap
+ *= require trophy
+ *= require blacklight_more_facets
+ *= require batch_edit
+ *= require generic_files
+ *= require video-js
+ *= require audio-js
+ *= require dashboard
+ *= require jquery-ui
  *= require_tree .
  */
