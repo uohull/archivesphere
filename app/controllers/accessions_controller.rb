@@ -34,6 +34,8 @@ class AccessionsController < ApplicationController
   before_filter :set_parent_id, :only => [:new]
   AccessionsController.solr_search_params_logic += [:exclude_unwanted_models]
 
+  before_filter :move_thumb_param, only: [:create,:update]
+  after_filter :grab_thumbnail , only:[:create,:update]
 
   #todo where should the delete go?
   def after_destroy (id)
@@ -81,7 +83,7 @@ class AccessionsController < ApplicationController
       format.html { redirect_to accession_path(@accession), notice: 'Accession was successfully updated.' }
       format.json { render json: @accession, status: :updated, location: @accession }
     end
-  end 
+  end
 
   private
 
@@ -96,6 +98,7 @@ class AccessionsController < ApplicationController
   # this is a little bit of magic to copy the collection params to the accession params since the update wants it in the collection
   #  and the create wants it in the accession and our form is the same for update or create we are handling that here.
   def set_accession_params
+    move_thumb_param
     logger.warn "\n\n\n before create #{params[:collection]}"
     params[:accession] ||= params[:collection]
   end
@@ -103,6 +106,22 @@ class AccessionsController < ApplicationController
   def exclude_unwanted_models(solr_parameters, user_parameters)
     solr_parameters[:fq] ||= []
     solr_parameters[:fq] << "#{Solrizer.solr_name("has_model", :symbol)}:\"info:fedora/afmodel:GenericFile\""
+  end
+
+  #get the thumbnail and stuff it into the accession
+  def grab_thumbnail()
+    thumbnail = params[:thumbnail]
+    return unless thumbnail
+    if (@accession.virus_check (thumbnail)) == 0
+      Sufia::GenericFile::Actions.create_content(@accession, thumbnail, thumbnail.original_filename, "thumbnail", current_user)
+    end
+  end
+
+  # move the thumbnail out of the collection params so that the collection does not get it when it runs update_parameters
+  def move_thumb_param
+    return unless  params[:collection] && params[:collection][:thumbnail]
+    params[:thumbnail] = params[:collection][:thumbnail]
+    params[:collection].except!(:thumbnail)
   end
 
 end

@@ -27,6 +27,10 @@ class SolrDocument
     Array(self[Solrizer.solr_name('relative_path', :stored_searchable)]).first || label 
   end
 
+  def image_avail?
+    avail = self[Solrizer.solr_name('image_avail', Sufia::GenericFile.noid_indexer)]
+    avail.blank? ? false : (avail == 'true') ? true : false
+  end
 
   # self.unique_key = 'id'
 end

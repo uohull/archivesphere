@@ -30,10 +30,15 @@
 
   <div class="field">
     <%= f.label 'Disk Image ?' %><br />
-    <%= radio_button_tag(:disk_label, true) %>
-    <%= label_tag(:age_child, "yes") %>
-    <%= radio_button_tag(:disk_label, false) %>
-    <%= label_tag(:age_adult, "no") %>
+    <%= f.radio_button(:disk_label, true) %>
+    <%= f.label("yes") %>
+    <%= f.radio_button(:disk_label, false) %>
+    <%= f.label("no") %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Select Image File'%>
+    <%= f.file_field 'thumbnail' %></p>
   </div>
 
   <%- unless params[:batch_document_ids].nil? || params[:batch_document_ids].empty? %>

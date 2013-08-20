@@ -16,31 +16,56 @@ require 'rspec/given'
 require 'spec_helper'
 
 describe Accession do
+  let(:user) { FactoryGirl.create :user }
 
   context "basic model" do
-    Given(:accession) { Accession.new( accession_num:'123', disk_num:'123', disk_image:'no', disk_label:'label') }
-    Then {accession.accession_num == '123'}
-    Then {accession.disk_num == '123'}
-    Then {accession.disk_image == 'no'}
-    Then {accession.disk_label == 'label'}
+    let (:accession) { Accession.new( accession_num:'123', disk_num:'123', disk_image:'no', disk_label:'label') }
+    it "should access attributes" do
+      accession.accession_num.should == '123'
+      accession.disk_num.should  == '123'
+      accession.disk_image.should == 'no'
+      accession.disk_label.should == 'label'
+    end
+
+
+    it "should have thumbnail data stream" do
+      accession.apply_depositor_metadata(user)
+      file = File.new(Rails.root + 'spec/fixtures/world.png')
+      data = File.open("spec/fixtures/world.png", "rb") {|io| io.read}
+      Sufia::GenericFile::Actions.create_content(accession, file, "original_filename", "thumbnail", user)
+      accession.thumbnail.content.should_not be_nil
+      accession.thumbnail.content.should == data
+      accession.thumbnail.label.should == "original_filename"
+    end
   end
 
   context "part of collection" do
-    Given(:collection) { define_collection }
-    Given(:accession) { define_accession }
-    When { collection.members << accession; collection.save; accession.reload}
-    Then { accession.collections == [collection]}
-    Then { collection.members == [accession]}
+    let (:collection) { define_collection }
+    let (:accession) { define_accession }
+
+    it "should allow access to the relatiobnship both ways" do
+      collection.members << accession
+      collection.save
+      accession.reload
+      accession.collections.should == [collection]
+      collection.members.should == [accession]
+    end
   end
 
   context "has member files" do
-    Given(:accession) { define_accession }
-    Given(:file1) {define_generic_file 'title 1'}
-    Given(:file2) {define_generic_file 'title 2'}
-    When { accession.members << file1; accession.members << file2; accession.save; file1.reload; file2.reload}
-    Then { accession.members == [file1, file2]}
-    Then { file1.collections == [accession]}
-    Then { file2.collections == [accession]}
+    let (:accession) { define_accession }
+    let (:file1) {define_generic_file 'title 1'}
+    let (:file2) {define_generic_file 'title 2'}
+    it "should allow access to the file relationship" do
+      accession.members << file1
+      accession.members << file2
+      accession.save
+      file1.reload
+      file2.reload
+      accession.members == [file1, file2]
+      file1.collections == [accession]
+      file2.collections == [accession]
+    end
   end
 
  

@@ -22,6 +22,7 @@ class Accession < ActiveFedora::Base
   before_save :update_permissions
 
   has_metadata :name => "properties", :type => AccessionPropertiesDatastream
+  has_file_datastream :name => "thumbnail", :type => FileContentDatastream
 
   delegate_to :properties, [:accession_num, :disk_num, :disk_image, :disk_label], :unique => true
 
@@ -47,6 +48,8 @@ class Accession < ActiveFedora::Base
   def to_solr(solr_doc={}, opts={})
     super(solr_doc, opts)
     solr_doc[Solrizer.solr_name("noid", Sufia::GenericFile.noid_indexer)] = noid
+    solr_doc[Solrizer.solr_name("image_avail", Sufia::GenericFile.noid_indexer)] = image_avail?
+    index_collection_pids(solr_doc)
     return solr_doc
   end
 
@@ -72,6 +75,31 @@ class Accession < ActiveFedora::Base
     end
 
     tree
+  end
+
+  def virus_check( file)
+    stat = Sufia::GenericFile::Actions.virus_check(file)
+    flash[:error] = "Virus checking did not pass for #{File.basename(file.path)} status = #{stat}" unless stat == 0
+    stat
+  end
+
+
+  def record_version_committer(user)
+    version = thumbnail.latest_version
+    # thumbnail datastream not (yet?) present
+    return if version.nil?
+    VersionCommitter.create(:obj_id => version.pid,
+                            :datastream_id => version.dsid,
+                            :version_id => version.versionID,
+                            :committer_login => user.user_key)
+  end
+
+  def content
+    thumbnail
+  end
+
+  def image_avail?
+    !thumbnail.content.blank?
   end
 
 end

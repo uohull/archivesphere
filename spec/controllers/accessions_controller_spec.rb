@@ -27,11 +27,21 @@ describe AccessionsController do
   describe '#create' do
      context "valid accession post" do
       clear_accessions
-      Given {post :create, accession: {accession_num: "123", disk_num: "disk number"}}
+      #post as a collection since the form thinks of the accession as a collection.  This is how the views are sending information
+      Given {post :create, collection: {accession_num: "123", disk_num: "disk number"}}
       When (:accession) {Accession.all.last}
       Then {response.should redirect_to(Rails.application.routes.url_helpers.accession_path(accession))}
       Then {accession.accession_num.should == "123"}
       Then {accession.disk_num.should == "disk number"}
+     end
+
+     it "should allow for a thumnail" do
+       file = fixture_file_upload('/world.png','image/png')
+       #post as a collection since the form thinks of the accession as a collection.  This is how the views are sending information
+       post :create, collection: {accession_num: "123", disk_num: "disk number", thumbnail:file}
+       accession = assigns[:accession]
+       accession.thumbnail.mimeType.should == 'image/png'
+       accession.thumbnail.label.should == 'world.png'
      end
   end
 

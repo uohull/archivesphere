@@ -1,6 +1,7 @@
 <% logger.warn "\n\n\ Document: #{document.inspect}\n\n"      %>
 <li>
   <h2>
+    <%= render partial: 'accessions/image_display', locals: {item:document, width:40} %>
     <%= link_to document.accession_num, accession_path(document.noid) %>   <%= document.disk_num %>
   </h2>
 </li>
