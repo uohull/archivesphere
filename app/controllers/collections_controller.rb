@@ -24,6 +24,9 @@ class CollectionsController < ApplicationController
 #  before_filter :initialize_fields_for_edit, only:[:edit, :new]
   layout "sufia-one-column"
 
+  prepend_before_filter :move_thumb_param, only: [:create,:update]
+  after_filter :grab_thumbnail , only:[:create,:update]
+
   def after_destroy (id)
     respond_to do |format|
       format.html { redirect_to sufia.dashboard_index_path, notice: 'Collection was successfully deleted.' }
@@ -40,6 +43,22 @@ class CollectionsController < ApplicationController
 
   def initialize_fields_for_edit
     @collection.initialize_fields
+  end
+
+  #get the thumbnail and stuff it into the collection
+  def grab_thumbnail()
+    thumbnail = params[:thumbnail]
+    return unless thumbnail
+    if (@collection.virus_check (thumbnail)) == 0
+      Sufia::GenericFile::Actions.create_content(@collection, thumbnail, thumbnail.original_filename, "thumbnail", current_user)
+    end
+  end
+
+  # move the thumbnail out of the collection params so that the collection does not get it when it runs update_parameters
+  def move_thumb_param
+    return unless  params[:collection] && params[:collection][:thumbnail]
+    params[:thumbnail] = params[:collection][:thumbnail]
+    params[:collection].except!(:thumbnail)
   end
 
 end

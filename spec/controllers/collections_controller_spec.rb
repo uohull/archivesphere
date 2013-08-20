@@ -33,6 +33,16 @@ describe CollectionsController do
       When (:collection) {Collection.all.last}
       Then {response.should redirect_to(Rails.application.routes.url_helpers.new_accession_path+"?collection_id=#{collection.id}")}
      end
+
+     it "should allow for a thumnail" do
+       file = fixture_file_upload('/world.png','image/png')
+       #post as a collection since the form thinks of the accession as a collection.  This is how the views are sending information
+       post :create, collection:  {title: "My First Collection ", description: "The Description\r\n\r\nand more", thumbnail:file}
+       collection = assigns[:collection]
+       collection.thumbnail.mimeType.should == 'image/png'
+       collection.thumbnail.label.should == 'world.png'
+     end
+
   end
 
  describe '#update' do
