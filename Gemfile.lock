@@ -151,12 +151,19 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    columnize (0.3.6)
     curationexperts-mailboxer (0.10.3)
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
       rails (> 3.0.0)
     daemons (1.1.9)
     database_cleaner (1.0.1)
+    debugger (1.6.1)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.3)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.3)
     deprecation (0.0.5)
       activesupport
     devise (3.0.0)
@@ -417,6 +424,7 @@ DEPENDENCIES
   clamav (= 0.4.1)
   coffee-rails (~> 4.0.0)
   database_cleaner
+  debugger
   devise
   devise-guests (~> 0.3)
   execjs (= 1.4.0)

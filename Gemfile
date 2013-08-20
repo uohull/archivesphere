@@ -39,6 +39,7 @@ group :assets do
   gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'debugger'
 end
 
 gem 'jquery-rails'
