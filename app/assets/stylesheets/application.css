@@ -19,5 +19,6 @@
  *= require dashboard
  *= require jquery-ui
  *= require accession
+ *= require collection
  *= require_tree .
  */

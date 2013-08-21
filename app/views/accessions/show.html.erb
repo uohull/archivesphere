@@ -1,13 +1,4 @@
 <h1>Accession: <%=@accession.accession_num%><h1>
-<div class="accession controls">
-  <%= link_to 'Back To Dashboard',  "#{sufia.dashboard_index_path}",  {:class => "btn btn-primary"}  %>
-  <% unless @accession.collections.blank? %>
-    <%= link_to 'Back to Collection', collections.collection_path(@accession.collections.first), {:class => "btn btn-primary"}  %>
-  <% end %>
-  <%= link_to 'Edit Accession',    "#{edit_accession_path}?accessionid=#{@accession.id}",  {:class => "btn btn-primary"}  %>
-  <%= link_to 'Delete Accession',  "#{accession_path(@accession)}", {:class => "btn btn-primary", method:'delete'}  %>
-  <%= link_to '<i class="icon-upload-alt"></i> Add File(s)'.html_safe, "#{sufia.new_generic_file_path}?accession=#{@accession.id}", {:class => "btn btn-primary"}  %><br />
-</div>
 <div class="accession image">
   <%= render partial: 'image_display', locals: {item:@accession} %>
 </div>
@@ -17,6 +8,15 @@
   <h3><%=@accession.disk_label.to_s%> </h3>
   <h3>Disk Image:  <%=display_disk_image(@accession.disk_image)%> </h3>
 </div>
+  <div class="accession controls">
+    <%= link_to 'Back To Dashboard',  "#{sufia.dashboard_index_path}",  {:class => "btn btn-primary"}  %>
+    <% unless @accession.collections.blank? %>
+        <%= link_to 'Back to Collection', collections.collection_path(@accession.collections.first), {:class => "btn btn-primary"}  %>
+    <% end %>
+    <%= link_to 'Edit Accession',    "#{edit_accession_path}?accessionid=#{@accession.id}",  {:class => "btn btn-primary"}  %>
+    <%= link_to 'Delete Accession',  "#{accession_path(@accession)}", {:class => "btn btn-primary", method:'delete'}  %>
+    <%= link_to '<i class="icon-upload-alt"></i> Add File(s)'.html_safe, "#{sufia.new_generic_file_path}?accession=#{@accession.id}", {:class => "btn btn-primary"}  %><br />
+  </div>
 <div class="accession files">
   <h3> <u>Contained Files </u></h3>
   <%= render partial: 'search_form'%>
