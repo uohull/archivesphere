@@ -30,4 +30,10 @@ class ApplicationController < ActionController::Base
   def not_found
     raise ActionController::RoutingError.new('Restricted')
   end
+
+  def remove_select_something
+    flash[:notice] = nil if flash[:notice] == "Select something first"
+    logger.warn "\n\nflash #{flash[:notice]}\n\n"
+  end
+
 end

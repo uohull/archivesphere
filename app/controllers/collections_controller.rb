@@ -24,6 +24,8 @@ class CollectionsController < ApplicationController
 #  before_filter :initialize_fields_for_edit, only:[:edit, :new]
   layout "sufia-one-column"
 
+  before_filter :remove_select_something
+
   prepend_before_filter :move_thumb_param, only: [:create,:update]
   after_filter :grab_thumbnail , only:[:create,:update]
 

@@ -36,6 +36,8 @@ class AccessionsController < ApplicationController
   before_filter :move_thumb_param, only: [:create,:update]
   after_filter :grab_thumbnail , only:[:create,:update]
 
+  before_filter :remove_select_something
+
   #todo where should the delete go?
   def after_destroy (id)
     path = sufia.dashboard_index_path
