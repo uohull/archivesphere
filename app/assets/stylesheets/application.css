@@ -18,5 +18,6 @@
  *= require audio-js
  *= require dashboard
  *= require jquery-ui
+ *= require accession
  *= require_tree .
  */
