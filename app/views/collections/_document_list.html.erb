@@ -1,8 +1,18 @@
+<% @document_list = documents %>
+<% @batch_size_on_other_page = 0 %>
+<% @all_checked = false %>
+<% @max_batch_size = 100 %>
+<% @user = current_user %>
+
 <% page_info = paginate_params(@response) %>
 <div id="search-results">
-  <ol class="catalog" start="<%=1+((page_info.current_page-1)*page_info.limit_value)%>">
-    <% documents.each_with_index do |document,counter| %>
-        <%= render :partial => 'list_files', :locals => {:document => document, :counter => counter} %>
-    <% end %>
-  </ol>
+  <% if params[:action] == "edit" %>
+    <%= render partial:'dashboard/_index_partials/default_group', locals:{documents: documents, docs:documents} %>
+  <% else %>
+      <ol class="catalog" start="<%=1+((page_info.current_page-1)*page_info.limit_value)%>">
+        <% documents.each_with_index do |document,counter| %>
+            <%= render :partial => 'list_files', :locals => {:document => document, :counter => counter} %>
+        <% end %>
+      </ol>
+   <%end %>
 </div>

@@ -22,6 +22,10 @@ class SolrDocument
     Array(self[Solrizer.solr_name('fields_disk_num', :stored_searchable)]).first
   end
 
+  def disk_label
+    Array(self[Solrizer.solr_name('fields_disk_label')]).first
+  end
+
   # if available, show the relative path, otherwise just the filename (label)
   def relative_path
     Array(self[Solrizer.solr_name('relative_path', :stored_searchable)]).first || label 
