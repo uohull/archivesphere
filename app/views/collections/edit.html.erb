@@ -1,4 +1,8 @@
 <h1>Edit Collection</h1>
 
 <%= render 'form' %>
+
+<% render_pagination_info @response, :entry_name=>'item' %>
+<%= render 'sort_and_per_page' %>
+
 <%= render partial:'document_list', locals:{documents: @member_docs} %>

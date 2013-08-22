@@ -18,16 +18,34 @@ class CollectionsController < ApplicationController
   include BlacklightAdvancedSearch::ParseBasicQ
   include BlacklightAdvancedSearch::Controller
   include Sufia::Noid # for normalize_identifier method
+  include Hydra::Collections::SelectsCollections
+
   prepend_before_filter :normalize_identifier, :except => [:index, :create, :new]
   before_filter :filter_docs_with_read_access!, :except => [:show]
   before_filter :has_access?, :except => [:show]
 #  before_filter :initialize_fields_for_edit, only:[:edit, :new]
   layout "sufia-one-column"
 
+  # remove the flash that requires the user to select something since we are not doing a batch edit
   before_filter :remove_select_something
 
   prepend_before_filter :move_thumb_param, only: [:create,:update]
   after_filter :grab_thumbnail , only:[:create,:update]
+
+  before_filter :find_collections, only: [:edit]
+
+  # Queries Solr for members of the collection.
+  # Populates @response and @member_docs similar to Blacklight Catalog#index populating @response and @documents
+  def query_collection_members
+    query = params[:cq]
+
+    #default the rows to 100 if not specified then merge in the user parameters and the attach the collection query
+    solr_params =  {rows:100}.merge(params).merge({:q => query})
+
+    # run the solr query to find the collections
+    (@response, @member_docs) = get_search_results(solr_params)
+  end
+
 
   def after_destroy (id)
     respond_to do |format|
