@@ -8,7 +8,17 @@ Bundler.require(:default, Rails.env)
 
 module Archivesphere
   class Application < Rails::Application
-    
+
+    def get_vhost_by_host
+      hostname = Socket.gethostname
+      vhost = config.hosts_vhosts_map[hostname] || "https://#{hostname}/"
+      uri = URI.parse(vhost)
+      service = uri.host
+      port = uri.port
+      service << "-#{port}" unless port == 443
+      [service, vhost]
+    end
+
     config.generators do |g|
       g.test_framework :rspec, :spec => true
     end
@@ -60,6 +70,10 @@ module Archivesphere
 
     # Configure base directory for local file import
     config.local_file_import_directory = '/dlt/archivesphere/upload'
+
+    config.hosts_vhosts_map = {
+        'as1qa' => 'https://archivesphere-qa.dlt.psu.edu'
+    }
 
   end
 end
