@@ -2,6 +2,11 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.0'
 
+group :production, :integration do
+  gem 'passenger'
+  gem 'pg'
+end
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -11,6 +16,7 @@ gem 'sufia', github: 'projecthydra/sufia', ref: '59d6ffc30e1534a20cf7ec369a5525f
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 
+gem 'activerecord-import'
 gem 'active_fedora_relsint', github: 'projecthydra/active_fedora_relsint', ref: 'f0c6bf091a4007e73b39efa4'
 gem 'active-fedora', github: 'projecthydra/active_fedora', ref: 'eba5760' # > 6.4.3
 
@@ -63,6 +69,7 @@ gem "devise"
 gem "devise-guests", "~> 0.3"
 gem "bootstrap-sass"
 group :development, :test do
+  gem "mysql2"
   gem "rspec-rails"
   gem "jettywrapper"
   gem 'rspec'

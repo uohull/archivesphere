@@ -9,7 +9,7 @@ on element ids -->
   </td>
   <td width="37%">
     <a href="" title="Click for more details"><i id="expand_<%= noid.gsub(":", "_") %>" class="icon-plus icon-large fleft"></i></a>&nbsp;
-    <%= link_to image_tag("/assets/folder.png", {:width=>36}), collections.collection_path(noid) %>
+    <%= render partial: 'collections/image_display', locals: {item:document, width:40} %>
     <span class=center><%= link_to document.title_or_label, collections.collection_path(noid), :id => "src_copy_link#{noid}" %> <br /></span>
   </td>
   <td width="17%"><%= document.date_uploaded %> </td>
