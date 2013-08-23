@@ -38,6 +38,7 @@ namespace :archivesphere do
   desc "Execute Continuous Integration build (docs, tests with coverage)"
   task :ci => :environment do
     Rake::Task["jetty:config"].invoke
+    Rake::Task["archivesphere:generate_secret"].invoke
     Rake::Task["db:migrate"].invoke
 
     require 'jettywrapper'
