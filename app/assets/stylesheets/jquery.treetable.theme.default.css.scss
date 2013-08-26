@@ -14,7 +14,7 @@ table.treetable caption {
 }
 
 table.treetable thead {
-  background: #aaa url(bg-table-thead.png) repeat-x top left;
+  background: #aaa image_url('bg-table-thead.png') repeat-x top left;
   font-size: .9em;
 }
 
@@ -37,19 +37,19 @@ table.treetable span {
 }
 
 table.treetable span.file {
-  background-image: url(file.png);
+  background-image: image_url('file.png');
 }
 
 table.treetable span.folder {
-  background-image: url(folder.png);
+  background-image: image_url('folder.png');
 }
 
 table.treetable tr.collapsed span.indenter a {
-  background-image: url(expand.png);
+  background-image: image_url('expand.png');
 }
 
 table.treetable tr.expanded span.indenter a {
-  background-image: url(collapse.png);
+  background-image: image_url('collapse.png');
 }
 
 table.treetable tr.branch {
@@ -62,11 +62,11 @@ table.treetable tr.selected {
 }
 
 table.treetable tr.collapsed.selected span.indenter a {
-  background-image: url(expand-light.png);
+  background-image: image_url('expand.png');
 }
 
 table.treetable tr.expanded.selected span.indenter a {
-  background-image: url(collapse-light.png);
+  background-image: image_url('collapse-light.png');
 }
 
 table.treetable tr.accept {
@@ -75,9 +75,9 @@ table.treetable tr.accept {
 }
 
 table.treetable tr.collapsed.accept td span.indenter a {
-  background-image: url(expand-light.png);
+  background-image: image_url('expand-light.png');
 }
 
 table.treetable tr.expanded.accept td span.indenter a {
-  background-image: url(collapse-light.png);
+  background-image: image_url('collapse-light.png');
 }
