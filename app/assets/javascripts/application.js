@@ -16,5 +16,6 @@
 // Required by Blacklight
 //= require blacklight/blacklight
 //= require sufia
+//= require as_upload
 
 //= require_tree .
