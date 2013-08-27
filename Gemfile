@@ -12,7 +12,7 @@ end
 
 gem 'blacklight'
 gem 'hydra-head'
-gem 'sufia', github: 'projecthydra/sufia', ref: '59d6ffc30e1534a20cf7ec369a5525f8d1bf481d' #> 3.0.0
+gem 'sufia', github: 'projecthydra/sufia', ref: '571e66892785c44fee7d41d975f7497e711dc3db' #> 3.0.0
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 
