@@ -14,11 +14,13 @@
  *= require blacklight_more_facets
  *= require batch_edit
  *= require generic_files
+ *= require _font-awesome
  *= require video-js
  *= require audio-js
  *= require dashboard
  *= require jquery-ui
  *= require accession
  *= require collection
- *= require_tree .
+ *= require icons
+ *= require blacklight
  */
