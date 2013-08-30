@@ -37,10 +37,11 @@ describe CollectionsController do
      it "should allow for a thumnail" do
        file = fixture_file_upload('/world.png','image/png')
        #post as a collection since the form thinks of the accession as a collection.  This is how the views are sending information
-       post :create, collection:  {title: "My First Collection ", description: "The Description\r\n\r\nand more", thumbnail:file}
+       post :create, collection:  {title: "My First Collection", description: "The Description\r\n\r\nand more", thumbnail:file}
        collection = assigns[:collection]
        collection.thumbnail.mimeType.should == 'image/png'
        collection.thumbnail.label.should == 'world.png'
+       collection.title.should == "My First Collection"
      end
 
   end
@@ -54,6 +55,18 @@ describe CollectionsController do
      Then {collection.reload.title.should == "updated title"}
      Then {collection.reload.description.should == "updated description"}
      end
+
+    it "should allow for a thumnail" do
+      file = fixture_file_upload('/world.png','image/png')
+      collection = define_collection 'title in', user.login
+      #post as a collection since the form thinks of the accession as a collection.  This is how the views are sending information
+      put :update, id:collection.pid, collection:  {title: "updated title", description: "updated description", thumbnail:file}
+      collection = assigns[:collection]
+      collection.thumbnail.mimeType.should == 'image/png'
+      collection.thumbnail.label.should == 'world.png'
+      collection.title.should == "updated title"
+    end
+
   end
 
   describe '#destroy' do

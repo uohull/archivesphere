@@ -69,8 +69,12 @@ class CollectionsController < ApplicationController
   def grab_thumbnail()
     thumbnail = params[:thumbnail]
     return unless thumbnail
+    title = @collection.title
+    @collection = @collection.reload
     if (@collection.virus_check (thumbnail)) == 0
       Sufia::GenericFile::Actions.create_content(@collection, thumbnail, thumbnail.original_filename, "thumbnail", current_user)
+      @collection.title = title
+      @collection.save
     end
   end
 
