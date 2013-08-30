@@ -1,17 +1,18 @@
 <h1>Collection: <%=@collection.title%><h1>
+  <h3> <%=@collection.collection_num%> </h3>
   <div class="collection image">
     <%= render partial: 'collections/image_display', locals: {item:@collection} %>
   </div>
 
 <div class="collection data">
-  <h3>Description: <%=@collection.description%> </h3>
-  <h3>Collection Number: <%=@collection.collection_num%> </h3>
+  <h3/>
+  <h3><%=@collection.description%> </h3>
 </div>
 
 <div class="collection controls">
+  <%= link_to 'Edit Collection',    "#{collections.edit_collection_path}?collection_id=#{@collection.id}",  {:class => "btn btn-primary"}  %>
  <%= link_to 'Add Accession',      "#{new_accession_path}?collection_id=#{@collection.id}",  {:class => "btn btn-primary"}  %>
  <%= link_to 'Back To Dashboard',  "#{sufia.dashboard_index_path}",  {:class => "btn btn-primary"}  %>
- <%= link_to 'Edit Collection',    "#{collections.edit_collection_path}?collection_id=#{@collection.id}",  {:class => "btn btn-primary"}  %>
 </div>
   <h3> <u>Accessions </u></h3>
 <%#= render partial: 'search_form'%>

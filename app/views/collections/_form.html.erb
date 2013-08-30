@@ -14,18 +14,24 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br />
+    <%= f.label :title, "Name" %><br />
     <%= f.text_field :title %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
   </div>
 
   <div class="field">
-    <%= f.label 'Select Image File'%>
+    <%= f.label :collection_num, "Number" %><br />
+    <%= f.text_field :collection_num %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Upload Photo'%>
+    <%= render partial: 'collections/image_display', locals: {item:@collection, width:60} %>
     <%= f.file_field 'thumbnail' %></p>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
   </div>
 
   <%= hidden_collection_members %>
