@@ -14,7 +14,7 @@ describe "Creating a new accession", :js=>true do
   it "should be successful" do
     visit '/'
     click_on "Create Collection"
-    fill_in "Title", with: "A Test Collection"
+    fill_in "Name", with: "A Test Collection"
     click_button "Create Collection"
     fill_in "collection_accession_num", with: "Test #1234"
     click_button "Create Accession"
