@@ -9,9 +9,9 @@ module ApplicationHelper
       end
       id_list << id
       @html += "\n"
-      content =  File.basename(path)
+      content =  render partial:'accessions/path', locals: {path: File.basename(path)}
       unless subtree[:member].blank?
-      content = link_to File.basename(path),sufia.generic_file_path(subtree[:member].id)
+      content = render partial:'accessions/file', locals: {path: File.basename(path), id:subtree[:member].id}
       end
       if parent_node != ''
         tag_content = content_tag(:tr, content_tag(:td, content), {"data-tt-parent-id" => parent_node, "data-tt-id" => id} )
@@ -23,6 +23,10 @@ module ApplicationHelper
     end
 
     @html
+  end
+
+  def edit?
+    params[:action] == "edit"
   end
 
 end

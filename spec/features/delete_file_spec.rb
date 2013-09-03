@@ -1,6 +1,7 @@
 require 'spec_helper'
+require 'features/common'
 
-describe "Creating a new accession", :js=>true do
+describe "Deleting a file from an accession", :js=>true do
   let(:approved_user) { FactoryGirl.create(:approved_user) }
   before do
     # Stub the ability to access the site to avoid an LDAP call
@@ -26,5 +27,17 @@ describe "Creating a new accession", :js=>true do
       # No rows, because no files have been uploaded
       page.should have_selector('tr',text: "world.png")
     end
+    click_on "Edit Accession"
+    within ('#accession_table') do
+      find(".dropdown-toggle").click
+      click_on "Delete File"
+      page.driver.browser.switch_to.alert.accept
+    end
+
+    within ('#accession_table') do
+      # No rows, because no files have been uploaded
+      page.should_not have_selector('tr',text: "world.png")
+    end
+
   end
 end

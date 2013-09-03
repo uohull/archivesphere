@@ -1,0 +1,4 @@
+  <%=link_to File.basename(path),sufia.generic_file_path(id)%>
+  <% if edit? %>
+    <%= render partial:'dashboard/action_menu', locals:{noid:id, gf:nil} %>
+  <% end %>

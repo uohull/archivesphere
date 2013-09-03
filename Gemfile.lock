@@ -43,8 +43,8 @@ GIT
 
 GIT
   remote: https://github.com/projecthydra/sufia.git
-  revision: 571e66892785c44fee7d41d975f7497e711dc3db
-  ref: 571e66892785c44fee7d41d975f7497e711dc3db
+  revision: 69ffbd26a51390a7c40553769b74008ca80d0ef9
+  ref: 69ffbd26a51390a7c40553769b74008ca80d0ef9
   specs:
     sufia (3.1.1)
       blacklight (~> 4.0)
@@ -73,6 +73,7 @@ GIT
       zipruby (= 0.3.6)
 
 GEM
+  remote: https://rubygems.org/
   remote: https://rubygems.org/
   specs:
     actionmailer (4.0.0)

@@ -1,5 +1,7 @@
 
 .btn [class^="icon-"],
-.btn [class*=" icon-"] {
+.btn [class*=" icon-"],
+.itemicon [class^="icon-"],
+.itemicon [class*=" icon-"]{
   background-image:none;
 }

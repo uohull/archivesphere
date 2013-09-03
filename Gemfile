@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', '4.0.0'
 
@@ -12,7 +13,7 @@ end
 
 gem 'blacklight'
 gem 'hydra-head'
-gem 'sufia', github: 'projecthydra/sufia', ref: '571e66892785c44fee7d41d975f7497e711dc3db' #> 3.0.0
+gem 'sufia', github: 'projecthydra/sufia', ref: '69ffbd26a51390a7c40553769b74008ca80d0ef9' #> 3.0.0
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 

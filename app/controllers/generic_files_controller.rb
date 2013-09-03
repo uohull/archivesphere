@@ -61,4 +61,8 @@ class GenericFilesController < ApplicationController
     return Rails.application.routes.url_helpers.accession_path(id)
   end
 
+  def self.destroy_complete_path(params)
+    return Rails.application.routes.url_helpers.accession_path(params[:accession_id])
+  end
+
 end
