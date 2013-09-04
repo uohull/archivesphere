@@ -43,10 +43,11 @@ group :assets do
 
   gem 'uglifier', '>= 1.3.0'
   gem 'capybara'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '2.35'
   gem 'database_cleaner'
   gem 'launchy'
   gem 'debugger'
+  gem 'rubyzip', '0.9.9', :require => 'zip/zip'
 end
 
 gem 'jquery-rails'
