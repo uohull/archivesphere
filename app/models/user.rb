@@ -44,6 +44,15 @@ class User < ActiveRecord::Base
   has_many :can_make_deposits_for, through: :deposit_rights_received, source: :grantor
 
 
+  def self.audituser
+    User.find_by_user_key(audituser_key) || User.create!(login:audituser_key)
+  end
+
+  def self.audituser_key
+    'audituser'
+  end
+
+
   #put in to remove deprication warnings since the parent class overrides our login with it's own
   def login
     self[:login]
