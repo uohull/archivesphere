@@ -16,6 +16,10 @@ jetty
 
 .idea
 
+## control ruby, gems, etc.
+.ruby-gemset
+.rvmrc
+/.bundle
 
 # Ignore all logfiles and tempfiles.
 /log/*.log

@@ -1,14 +1,5 @@
 GIT
-  remote: git://github.com/projecthydra/hydra-collections.git
-  revision: f0d36d382b98dc0f3fb92f9cbbbf4675a65f725c
-  ref: f0d36d3
-  specs:
-    hydra-collections (1.0.0)
-      blacklight
-      hydra-head
-
-GIT
-  remote: https://github.com/harai/kaminari.git
+  remote: git://github.com/harai/kaminari.git
   revision: 384fcb5d11b66a0cc8fad030104bf80f82616355
   branch: route_prefix_prototype
   specs:
@@ -17,7 +8,7 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
-  remote: https://github.com/projecthydra/active_fedora.git
+  remote: git://github.com/projecthydra/active_fedora.git
   revision: eba5760d9e00168b342aae95ee1f061ccb280842
   ref: eba5760
   specs:
@@ -33,7 +24,7 @@ GIT
       rubydora (~> 1.6, >= 1.6.5)
 
 GIT
-  remote: https://github.com/projecthydra/active_fedora_relsint.git
+  remote: git://github.com/projecthydra/active_fedora_relsint.git
   revision: f0c6bf091a4007e73b39efa41592df04961854c3
   ref: f0c6bf091a4007e73b39efa4
   specs:
@@ -42,7 +33,16 @@ GIT
       activesupport (>= 3.2.0, < 5.0)
 
 GIT
-  remote: https://github.com/projecthydra/sufia.git
+  remote: git://github.com/projecthydra/hydra-collections.git
+  revision: f0d36d382b98dc0f3fb92f9cbbbf4675a65f725c
+  ref: f0d36d3
+  specs:
+    hydra-collections (1.0.0)
+      blacklight
+      hydra-head
+
+GIT
+  remote: git://github.com/projecthydra/sufia.git
   revision: 69ffbd26a51390a7c40553769b74008ca80d0ef9
   ref: 69ffbd26a51390a7c40553769b74008ca80d0ef9
   specs:
@@ -130,6 +130,19 @@ GEM
       sass (~> 3.2)
     builder (3.1.4)
     cancan (1.6.10)
+    capistrano (2.15.5)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
+    capistrano-ext (1.2.1)
+      capistrano (>= 1.0.0)
+    capistrano-platform-resources (0.1.3)
+      capistrano (< 3)
+    capistrano-rbenv (1.0.5)
+      capistrano (< 3)
+      capistrano-platform-resources (>= 0.1.3)
     capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -155,7 +168,6 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     columnize (0.3.6)
-    daemon_controller (1.1.5)
     daemons (1.1.9)
     database_cleaner (1.0.1)
     debugger (1.6.1)
@@ -189,10 +201,11 @@ GEM
     font-awesome-sass-rails (3.0.2.2)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
-    foreigner (1.4.2)
+    foreigner (1.5.0)
       activerecord (>= 3.0.0)
     given_core (3.0.0)
       sorcerer (>= 0.3.7)
+    highline (1.6.19)
     hike (1.2.3)
     hooks (0.3.1)
     hydra-access-controls (6.3.2)
@@ -256,6 +269,13 @@ GEM
     nest (1.1.2)
       redis
     net-ldap (0.3.1)
+    net-scp (1.1.2)
+      net-ssh (>= 2.6.5)
+    net-sftp (2.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.6.8)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
     noid (0.6.6)
       backports
     nokogiri (1.6.0)
@@ -280,10 +300,6 @@ GEM
       mime-types
     parslet (1.5.0)
       blankslate (~> 2.0)
-    passenger (4.0.14)
-      daemon_controller (>= 1.1.0)
-      rack
-      rake (>= 0.8.1)
     pg (0.16.0)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -310,7 +326,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (1.1.4)
     rake (10.1.0)
-    rdf (1.0.7)
+    rdf (1.0.8)
       addressable (>= 2.2)
     rdf-rdfxml (1.0.1)
       rdf (>= 1.0)
@@ -396,7 +412,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     sqlite3 (1.3.7)
-    stomp (1.2.11)
+    stomp (1.2.14)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
     thor (0.18.1)
@@ -431,6 +447,9 @@ DEPENDENCIES
   activerecord-import
   blacklight
   bootstrap-sass
+  capistrano
+  capistrano-ext
+  capistrano-rbenv
   capybara
   clamav (= 0.4.1)
   coffee-rails (~> 4.0.0)
@@ -450,7 +469,6 @@ DEPENDENCIES
   launchy
   minitest
   mysql2
-  passenger
   pg
   rails (= 4.0.0)
   rspec

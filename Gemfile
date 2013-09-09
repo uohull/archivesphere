@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 group :production, :integration do
-  gem 'passenger'
   gem 'pg'
 end
 
@@ -61,11 +60,11 @@ gem 'jquery-rails'
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
-
 # To use debugger
 # gem 'debugger'
+
+# rake needs rspec in all environments
+gem 'rspec'
 
 gem "devise"
 gem "devise-guests", "~> 0.3"
@@ -74,8 +73,10 @@ group :development, :test do
   gem "mysql2"
   gem "rspec-rails"
   gem "jettywrapper"
-  gem 'rspec'
   gem 'rspec-given'
   gem 'factory_girl_rails', '~> 4.1.0'
   gem 'minitest'
+  gem 'capistrano'
+  gem 'capistrano-ext'
+  gem 'capistrano-rbenv'
 end
