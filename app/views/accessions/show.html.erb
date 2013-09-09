@@ -14,7 +14,7 @@
         <%= link_to 'Back to Collection', collections.collection_path(@accession.collections.first), {:class => "btn btn-primary"}  %>
     <% end %>
     <%= link_to 'Edit Accession',    "#{edit_accession_path}?accessionid=#{@accession.id}",  {:class => "btn btn-primary"}  %>
-    <%= link_to 'Delete Accession',  "#{accession_path(@accession)}", {:class => "btn btn-primary", method:'delete'}  %>
+    <%= link_to 'Delete Accession',  "#{accession_path(@accession)}", {:class => "btn btn-primary", method:'delete', :confirm => "Deleting an accession from #{t('sufia.product_name')} is permanent. Click OK to delete this accession from #{t('sufia.product_name')}, or Cancel to cancel this operation"}  %>
     <%= link_to '<i class="icon-upload-alt"></i> Add File(s)'.html_safe, "#{sufia.new_generic_file_path}?accession=#{@accession.id}", {:class => "btn btn-primary"}  %><br />
   </div>
 <div class="accession files">
