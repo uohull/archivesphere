@@ -2,7 +2,8 @@ module ArchivalDerivatives
   extend ActiveSupport::Concern
 
   included do
-    makes_derivatives do |obj| 
+    makes_derivatives do |obj|
+      puts "\n\n HERE mime Type #{obj.mime_type}\n\n\n"
       case obj.mime_type
       when 'image/png'
         obj.transform_datastream :content, { :access => {format: 'jpg', datastream: 'access'} }
@@ -12,8 +13,19 @@ module ArchivalDerivatives
         obj.transform_datastream :content, { :access => {format: 'jpg', datastream: 'access'},
                                              :preservation => {format: 'tiff', datastream: 'preservation'}}
 
+      when 'text/rtf'
+        puts "got to transform"
+        obj.transform_datastream :content, { :access => { :format=>'pdf' , datastream: 'access'},
+                                             :preservation=> {:format => 'odf' , datastream: 'preservation'}  }, processor: 'document'
+
+      when 'application/msword'
+        obj.transform_datastream :content, { :access => { :format=>'pdf' , datastream: 'access'},
+                                             :preservation=> {:format => 'docx' , datastream: 'preservation'}  }, processor: 'document'
+
       end
+
     end
+
   end
 
 

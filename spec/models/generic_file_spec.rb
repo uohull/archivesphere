@@ -52,6 +52,31 @@ describe GenericFile do
         subject.preservation_datastream.mimeType.should == 'image/tiff'
       end
     end
+
+    describe "an rtf file" do
+      it "should create derivatives" do
+        subject.add_file(File.open(fixture_path + '/sample.rtf'), 'content', "sample.rtf")
+        subject.save!
+        subject.reload
+
+        subject.access_datastream.mimeType.should == 'application/pdf'
+        subject.preservation_datastream.mimeType.should == 'application/vnd.oasis.opendocument.text'
+      end
+    end
+
+    describe "an doc file" do
+      it "should create derivatives" do
+        subject.add_file(File.open(fixture_path + '/test.doc'), 'content', "test.doc")
+        puts subject.inspect
+        subject.save!
+        subject.mime_type = "application/msword"
+        subject.create_derivatives
+        subject.reload
+        puts subject.inspect
+        subject.access_datastream.mimeType.should == 'application/pdf'
+        subject.preservation_datastream.mimeType.should == 'application/vnd.oasis.opendocument.text'
+      end
+    end
   end
 
 end
