@@ -1,10 +1,12 @@
-# Example Usage: 
+# Example Usage:
 #   deploy to staging: cap staging deploy
 #   deploy a specific branch to qa: cap -s branch=cappy qa deploy
+#   deploy a specific revision to staging: cap -s revision=c9800f1 staging deploy
+#   deploy a specific tag to production: cap -s tag=my_tag production deploy
 #   keep only the last 3 releases on staging: cap -s keep_releases=3 staging deploy:cleanup
 
 require 'bundler/capistrano'
-require "capistrano-rbenv"
+require 'capistrano-rbenv'
 require 'capistrano/ext/multistage'
 
 set :application, "archivesphere"
@@ -21,6 +23,7 @@ set :use_sudo, false
 default_run_options[:pty] = true
 
 set :rbenv_ruby_version, "2.0.0-p247"
+set :rbenv_setup_shell, false
 
 # override default restart task for apache passenger
 namespace :deploy do
@@ -73,15 +76,17 @@ before "deploy:restart", "deploy:resquepoolrestart"
 
 # Passenger.
 namespace :passenger do
-  desc "build passenger gem and apache module"
-  task :build, :roles => :web  do
+  desc "install (or upgrade) passenger gem and apache module"
+  task :install, :roles => :web  do
     run <<-CMD.compact
     gem install passenger --no-ri --no-rdoc &&
+    rbenv rehash &&
     passenger-install-apache2-module --auto
     CMD
+    passenger.update_config
   end
 
-  desc "Configure Passenger"
+  desc "Update passenger conf file"
   task :update_config, :roles => :web do
     version = 'ERROR' # default
 
@@ -107,11 +112,14 @@ namespace :passenger do
         #PassengerLogLevel 3
         #PassengerDebugLogFile /var/log/httpd/passenger_debug.log
 
-        PassengerTempDir /opt/heracles/tmp
+        PassengerTempDir #{current_path}/tmp
         EOF
 
         put passenger_config, "/opt/heracles/deploy/.passenger.tmp"
-        run "sudo /bin/mv /opt/heracles/deploy/.passenger.tmp /etc/httpd/conf.d/passenger.conf && sudo /sbin/service httpd restart"
+        run <<-CMD.compact
+        sudo /bin/mv /opt/heracles/deploy/.passenger.tmp /etc/httpd/conf.d/passenger.conf &&
+        sudo /sbin/service httpd restart
+        CMD
   end
 
   desc "warm up passenger"
@@ -119,10 +127,11 @@ namespace :passenger do
     run "curl -s -k -o /dev/null --head https://$(hostname -f)"
   end
 end
+after "rbenv:setup", "passenger:install"
 after "deploy:restart", "passenger:warmup"
 
 # Keep the last X number of releases.
 set :keep_releases, 5
-after "passenger:warmup", "deploy:cleanup"
+#after "passenger:warmup", "deploy:cleanup"
 
 # end
