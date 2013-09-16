@@ -8,7 +8,20 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
+<<<<<<< HEAD
   remote: git://github.com/projecthydra/active_fedora.git
+=======
+  remote: https://github.com/plataformatec/mail_form.git
+  revision: 9eb221a9c5e3f6dad631a547c7518fc0d1cde070
+  ref: 9eb221a9c5e3
+  specs:
+    mail_form (1.5.0.rc)
+      actionmailer (>= 3.2, < 5)
+      activemodel (>= 3.2, < 5)
+
+GIT
+  remote: https://github.com/projecthydra/active_fedora.git
+>>>>>>> Add additional derivatives and show them in the views
   revision: eba5760d9e00168b342aae95ee1f061ccb280842
   ref: eba5760
   specs:
@@ -33,6 +46,7 @@ GIT
       activesupport (>= 3.2.0, < 5.0)
 
 GIT
+<<<<<<< HEAD
   remote: git://github.com/projecthydra/hydra-collections.git
   revision: f0d36d382b98dc0f3fb92f9cbbbf4675a65f725c
   ref: f0d36d3
@@ -43,6 +57,19 @@ GIT
 
 GIT
   remote: git://github.com/projecthydra/sufia.git
+=======
+  remote: https://github.com/projecthydra/hydra-derivatives.git
+  revision: 11430ca8ef1b83b35509ccbf0db32f6e3402fe4a
+  ref: 11430ca8ef1b83b35
+  specs:
+    hydra-derivatives (0.0.5)
+      active-fedora
+      activesupport (>= 3.2.13, < 5.0)
+      mini_magick
+
+GIT
+  remote: https://github.com/projecthydra/sufia.git
+>>>>>>> Add additional derivatives and show them in the views
   revision: 69ffbd26a51390a7c40553769b74008ca80d0ef9
   ref: 69ffbd26a51390a7c40553769b74008ca80d0ef9
   specs:
@@ -71,14 +98,6 @@ GIT
       resque (~> 1.23.0)
       resque-pool (= 0.3.0)
       zipruby (= 0.3.6)
-
-PATH
-  remote: ../hydra-derivatives
-  specs:
-    hydra-derivatives (0.0.5)
-      active-fedora
-      activesupport (>= 3.2.13, < 5.0)
-      mini_magick
 
 GEM
   remote: https://rubygems.org/
@@ -258,7 +277,6 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mail_form (1.3.0)
     mailboxer (0.11.0)
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
@@ -478,6 +496,7 @@ DEPENDENCIES
   jquery-rails
   kaminari!
   launchy
+  mail_form!
   minitest
   mysql2
   pg

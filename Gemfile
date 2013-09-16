@@ -19,8 +19,9 @@ gem 'font-awesome-sass-rails'
 gem 'activerecord-import'
 gem 'active_fedora_relsint', github: 'projecthydra/active_fedora_relsint', ref: 'f0c6bf091a4007e73b39efa4'
 gem 'active-fedora', github: 'projecthydra/active_fedora', ref: 'eba5760' # > 6.4.3
+gem 'mail_form', github: 'plataformatec/mail_form', ref:'9eb221a9c5e3'
 
-gem 'hydra-derivatives', path:'../hydra-derivatives'
+gem 'hydra-derivatives', github: 'projecthydra/hydra-derivatives', ref: '11430ca8ef1b83b35'
 
 #gem 'hydra-collections', git:'git://github.com/psu-stewardship/hydra-collections.git', ref:'ee120ae377138cc90fd94747a'
 #gem 'hydra-collections', path:'../hydra-collections'

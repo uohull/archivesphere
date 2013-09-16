@@ -26,7 +26,9 @@ limitations under the License.
   initialize_audio();
 <% end %>
 
-<%= render :partial => 'generic_files/breadcrumbs' %>
+
+<%= link_to 'Back To Dashboard',  "#{sufia.dashboard_index_path}",  {:class => "btn btn-primary"}  %>
+<%= link_to 'Back to Accession', accession_path(@generic_file.accessions.first), {:class => "btn btn-primary"}  %>
 
 <h1 class="lower"><%= @generic_file %></h1>
 
@@ -34,7 +36,6 @@ limitations under the License.
   <div class="span40">
     <%= render :partial => 'generic_files/media_display' %>
   </div>
-  <div class="span2">&nbsp;</div>
   <div itemscope itemtype="http://schema.org/CreativeWork" class="span68"><!-- class="column second"> -->
     <%= render partial: 'show_actions' %>
     <%= render partial: 'show_details' %>

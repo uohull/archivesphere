@@ -29,17 +29,26 @@ describe GenericFile do
 
   describe "adding files" do
     subject { FactoryGirl.build :generic_file, user: user }
-    describe "a png file" do
+
+    describe "a jpg file" do
       it "should create derivatives" do
-        subject.add_file(File.open(fixture_path + '/world.png'), 'content', "world.png")
+        subject.add_file(File.open(fixture_path + '/test.jpg'), 'content', "test.jpg")
         subject.save!
         subject.reload
         subject.access_datastream.mimeType.should == 'image/jpeg'
+        subject.preservation_datastream.mimeType.should == 'image/tiff'
 
-        # it's not going to return the real preservation datastream, just proxy the original
-        subject.datastreams['preservation'].should be_nil
-        subject.preservation_datastream.mimeType.should == 'image/png' 
-        subject.preservation_datastream.dsid.should == 'content' 
+        # it's not going to return the real web datastream, just proxy the access
+        subject.datastreams['web'].should be_nil
+        subject.web_datastream.mimeType.should == 'image/jpeg'
+        subject.web_datastream.dsid.should == 'access'
+      end
+    end
+
+    describe "a png file" do
+      it "should create derivatives" do
+        file_with_produced_access_and_thumbnail  'world.png',  'image/png', 'image/jpeg', 'image/png'
+
       end
     end
 
@@ -50,12 +59,18 @@ describe GenericFile do
         subject.reload
         subject.access_datastream.mimeType.should == 'image/jpeg'
         subject.preservation_datastream.mimeType.should == 'image/tiff'
+
+        # it's not going to return the real web datastream, just proxy the access
+        subject.datastreams['web'].should be_nil
+        subject.web_datastream.mimeType.should == 'image/jpeg'
+        subject.web_datastream.dsid.should == 'access'
       end
     end
 
     describe "an rtf file" do
       it "should create derivatives" do
         subject.add_file(File.open(fixture_path + '/sample.rtf'), 'content', "sample.rtf")
+        subject.mime_type = 'text/rtf'
         subject.save!
         subject.reload
 
@@ -66,17 +81,96 @@ describe GenericFile do
 
     describe "an doc file" do
       it "should create derivatives" do
-        subject.add_file(File.open(fixture_path + '/test.doc'), 'content', "test.doc")
-        puts subject.inspect
-        subject.save!
-        subject.mime_type = "application/msword"
-        subject.create_derivatives
-        subject.reload
-        puts subject.inspect
-        subject.access_datastream.mimeType.should == 'application/pdf'
-        subject.preservation_datastream.mimeType.should == 'application/vnd.oasis.opendocument.text'
+        file_with_produced_web_and_thumbnail('test.doc', 'application/msword')
       end
     end
+
+    describe "an docx file" do
+      it "should create derivatives" do
+        file_with_produced_web_and_thumbnail('test.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+      end
+    end
+
+    describe "an excel file" do
+      it "should create derivatives" do
+        file_with_produced_web_and_thumbnail('test.xls', 'application/vnd.ms-excel')
+      end
+    end
+
+    describe "an open excel file" do
+      it "should create derivatives" do
+        file_with_produced_web_and_thumbnail('test.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+      end
+    end
+
+    describe "an powerpoint file" do
+      it "should create derivatives" do
+        file_with_produced_access_and_thumbnail  'FlashPix.ppt',  'application/vnd.ms-powerpoint','application/pdf'
+      end
+    end
+
+    describe "an open powerpoint file" do
+      it "should create derivatives" do
+        file_with_produced_access_and_thumbnail  'FlashPix.pptx',  'application/vnd.openxmlformats-officedocument.presentationml.presentation','application/pdf'
+      end
+    end
+
   end
 
+end
+
+def file_with_produced_access_and_thumbnail (file_name, input_mime_type, access_mime_type, image_mime_type = 'image/jpeg')
+
+  add_file(file_name)
+
+  check_types input_mime_type, access_mime_type, access_mime_type
+  subject.thumbnail.mimeType.should == image_mime_type
+
+  # it's not going to return the real web preservation, just proxy the original
+  mapped_preservation_content
+  mapped_web_access
+
+end
+
+def file_with_produced_web_and_thumbnail (file_name, mime_type)
+
+  add_file(file_name)
+
+  check_types mime_type, mime_type, 'application/pdf'
+  subject.thumbnail.mimeType.should == 'image/jpeg'
+
+  # it's not going to return the real web preservation, just proxy the original
+  mapped_preservation_content
+  # it's not going to return the real web access, just proxy the original
+  mapped_access_content
+
+end
+
+
+def add_file(file_name)
+  subject.add_file(File.open(File.join(fixture_path ,file_name)), 'content', file_name)
+  subject.save!
+  subject.reload
+end
+
+def check_types (preservation_type, access_type, web_type)
+  subject.web_datastream.mimeType.should ==  web_type
+  subject.access_datastream.mimeType.should == access_type
+  subject.preservation_datastream.mimeType.should == preservation_type
+end
+
+
+def mapped_preservation_content
+  subject.datastreams['preservation'].should be_nil
+  subject.preservation_datastream.dsid.should == 'content'
+end
+
+def mapped_access_content
+  subject.datastreams['access'].should be_nil
+  subject.access_datastream.dsid.should == 'content'
+end
+
+def mapped_web_access
+  subject.datastreams['web'].should be_nil
+  subject.web_datastream.dsid.should == 'access'
 end

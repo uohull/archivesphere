@@ -11,6 +11,9 @@ class GenericFile < ActiveFedora::Base
   alias  :accessions :collections
   alias :accessions= :collections=
 
+  def self.office_mime_types
+    ['application/msword','application/vnd.ms-excel','application/vnd.ms-powerpoint']
+  end
 
 
   def terms_for_editing
@@ -21,5 +24,10 @@ class GenericFile < ActiveFedora::Base
   def terms_for_display
     super.map{|v| v.to_sym}
   end
+
+  def office?
+    self.class.office_mime_types.include? self.mime_type
+  end
+
 
 end

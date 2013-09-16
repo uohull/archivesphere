@@ -3,27 +3,37 @@ module ArchivalDerivatives
 
   included do
     makes_derivatives do |obj|
-      puts "\n\n HERE mime Type #{obj.mime_type}\n\n\n"
       case obj.mime_type
       when 'image/png'
         obj.transform_datastream :content, { :access => {format: 'jpg', datastream: 'access'} }
         obj.rels_int.add_relationship(obj.content, :is_preservation_copy_of, obj.datastreams['content'])
-        
+        obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
+
       when 'image/x-bmp', 'image/gif', 'image/jpeg', 'image/x-pict', 'image/vnd.adobe.photoshop', 'image/tiff', 'image/x-targa'
         obj.transform_datastream :content, { :access => {format: 'jpg', datastream: 'access'},
                                              :preservation => {format: 'tiff', datastream: 'preservation'}}
+        obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
 
       when 'text/rtf'
-        puts "got to transform"
         obj.transform_datastream :content, { :access => { :format=>'pdf' , datastream: 'access'},
                                              :preservation=> {:format => 'odf' , datastream: 'preservation'}  }, processor: 'document'
+        obj.transform_datastream :access, { :access => {format: 'jpg', datastream: 'thumbnail'}}
+        obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
 
-      when 'application/msword'
-        obj.transform_datastream :content, { :access => { :format=>'pdf' , datastream: 'access'},
-                                             :preservation=> {:format => 'docx' , datastream: 'preservation'}  }, processor: 'document'
+      when 'application/msword', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        obj.transform_datastream :content, { :access => { :format=>'pdf' , datastream: 'web'} }, processor: 'document'
+        obj.transform_datastream :web, { :access => {format: 'jpg', datastream: 'thumbnail'}}
+        obj.rels_int.add_relationship(obj.content, :is_preservation_copy_of, obj.datastreams['content'])
+        obj.rels_int.add_relationship(obj.content, :is_access_copy_of, obj.datastreams['content'])
+
+      when 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+        obj.transform_datastream :content, { :access => { :format=>'pdf'  , datastream: 'access'} }, processor: 'document'
+        obj.transform_datastream :access, { :access => {format: 'jpg', datastream: 'thumbnail'}}
+        obj.rels_int.add_relationship(obj.content, :is_preservation_copy_of, obj.datastreams['content'])
+        obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
 
       end
-
     end
 
   end
@@ -57,6 +67,22 @@ module ArchivalDerivatives
       datastreams[preservation_dsid]
     else
       datastreams['preservation']
+    end
+  end
+
+  # Sometimes the preservation datastream is the same as the original, so this method
+  # interrogates RELS-INT first to see if there is a predicate indicating which
+  # datastream to use for access. If there isn't one, just return the
+  # datastream named 'preservation'
+  # @return the preservation datastream for this model.
+  def web_datastream
+    web_uri = rels_int.relationships(datastreams['content'], :is_web_copy_of).first
+    web_uri ||= rels_int.relationships(datastreams['access'], :is_web_copy_of).first
+    if web_uri
+      web_dsid = web_uri.object.to_s.split('/')[-1]
+      datastreams[web_dsid]
+    else
+      datastreams['web']
     end
   end
 
