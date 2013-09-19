@@ -69,6 +69,9 @@ gem 'jquery-rails'
 # rake needs rspec in all environments
 gem 'rspec'
 
+# for cron jobs
+gem 'whenever'
+
 gem "devise"
 gem "devise-guests", "~> 0.3"
 gem "bootstrap-sass"
