@@ -65,4 +65,19 @@ class GenericFilesController < ApplicationController
     return Rails.application.routes.url_helpers.accession_path(params[:accession_id])
   end
 
+
+  def perform_local_ingest
+    if Sufia.config.enable_local_ingest && current_user.respond_to?(:directory)
+      accession_id = params["accession_id"]
+      accession_id ||= params["batch_id"]
+      logger.warn "\n\n\n\n directory: #{current_user.directory}, files: #{params[:local_file]}, user: #{current_user.user_key}, id: #{accession_id}"
+      Sufia.queue.push( IngestLocalJob.new( current_user.directory, params[:local_file], current_user.user_key, accession_id))
+      redirect_to GenericFilesController.upload_complete_path( params[:batch_id]), {notice: "Your files are being uploaded in the background.  You will receive a notification when the upload is complete" }
+    else
+      flash[:alert] = "Your account is not configured for importing files from a user-directory on the server."
+      render :new
+    end
+  end
+
+
 end
