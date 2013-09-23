@@ -25,4 +25,5 @@ Archivesphere::Application.routes.draw do
   mount Hydra::Collections::Engine => '/'
   mount Sufia::Engine => '/'
 
+  delete 'notifications/:uid/delete' => 'mailbox#delete', :as => :mailbox_delete
 end
