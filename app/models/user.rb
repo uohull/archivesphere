@@ -45,11 +45,19 @@ class User < ActiveRecord::Base
 
 
   def self.audituser
-    User.find_by_user_key(audituser_key) || User.create!(login:audituser_key)
+    User.find_by_user_key(audituser_key) || User.create!(login:audituser_key, email: audituser_key )
   end
 
   def self.audituser_key
     'audituser'
+  end
+
+  def self.batchuser
+    User.find_by_user_key(batchuser_key) || User.create!(login:batchuser_key, email: batchuser_key)
+  end
+
+  def batchuser_key
+    'batchuser'
   end
 
 
