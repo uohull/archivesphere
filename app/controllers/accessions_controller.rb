@@ -91,7 +91,7 @@ class AccessionsController < ApplicationController
   # include filters into the query to only include the collection memebers
   def include_collection_ids(solr_parameters, user_parameters)
     solr_parameters[:fq] ||= []
-    solr_parameters[:fq] << 'is_part_of_ssim:"info:fedora/'+@collection.id+'"'
+    solr_parameters[:fq] << Solrizer.solr_name(:collection)+':"'+@collection.id+'"'
   end
 
 

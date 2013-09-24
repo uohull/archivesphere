@@ -32,5 +32,12 @@ class GenericFile < ActiveFedora::Base
     self.class.office_mime_types.include? self.mime_type
   end
 
+  alias_method :orig_to_solr, :to_solr
+  def to_solr(solr_doc={}, opts={})
+    solr_doc = orig_to_solr(solr_doc, opts)
+    solr_doc = index_collection_pids(solr_doc)
+    return solr_doc
+  end
+
 
 end
