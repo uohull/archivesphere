@@ -27,6 +27,10 @@ default_run_options[:pty] = true
 set :rbenv_ruby_version, "2.0.0-p247"
 set :rbenv_setup_shell, false
 
+namespace :rbenv do
+  task :dependencies do ; end
+end
+
 # override default restart task for apache passenger
 namespace :deploy do
   task :start do ; end
@@ -41,12 +45,12 @@ namespace :deploy do
   desc "Link shared files"
   task :symlink_shared do
     run <<-CMD.compact
-    ln -sf /dlt/#{application}/config_#{stage}/as/database.yml #{release_path}/config/ &&
-    ln -sf /dlt/#{application}/config_#{stage}/as/fedora.yml #{release_path}/config/ &&
-    ln -sf /dlt/#{application}/config_#{stage}/as/hydra-ldap.yml #{release_path}/config/ &&
-    ln -sf /dlt/#{application}/config_#{stage}/as/solr.yml #{release_path}/config/ &&
-    ln -sf /dlt/#{application}/config_#{stage}/as/redis.yml #{release_path}/config/ &&
-    ln -sf /dlt/#{application}/config_#{stage}/as/secret_token.rb #{release_path}/config/initializers/
+    ln -sf /dlt/#{application}/config_#{stage}/#{application}/database.yml #{release_path}/config/ &&
+    ln -sf /dlt/#{application}/config_#{stage}/#{application}/fedora.yml #{release_path}/config/ &&
+    ln -sf /dlt/#{application}/config_#{stage}/#{application}/hydra-ldap.yml #{release_path}/config/ &&
+    ln -sf /dlt/#{application}/config_#{stage}/#{application}/solr.yml #{release_path}/config/ &&
+    ln -sf /dlt/#{application}/config_#{stage}/#{application}/redis.yml #{release_path}/config/ &&
+    ln -sf /dlt/#{application}/config_#{stage}/#{application}/secret_token.rb #{release_path}/config/initializers/
     CMD
   end
 end
@@ -65,13 +69,13 @@ namespace :deploy do
     CMD
   end
 end
-after "deploy:migrate", "deploy:resolrize"
+#after "deploy:migrate", "deploy:resolrize"
 
 # Restart resque-pool.
 namespace :deploy do
   desc "restart resque-pool"
   task :resquepoolrestart do
-    run "sudo /sbin/service resque restart"
+    run "sudo /sbin/service resque_pool restart"
   end
 end
 before "deploy:restart", "deploy:resquepoolrestart"

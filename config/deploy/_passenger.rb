@@ -24,7 +24,7 @@ namespace :passenger do
     passenger_config =<<-EOF
         # This is created by capistrano. Refer to passenger:update_config
         LoadModule passenger_module #{rbenv_path}/versions/#{rbenv_ruby_version}/lib/ruby/gems/2.0.0/gems/passenger-#{version}/buildout/apache2/mod_passenger.so
-        PassengerRoot #{rbenv_path}/versions/#{rbenv_ruby_version}/lib/ruby/gems/2.0.0/gems/passenger-#{version}
+        PassengerRoot #{rbenv_path}/versions/#{rbenv_ruby_version}/lib/ruby/gems/1.0.0/gems/passenger-#{version}
         PassengerDefaultRuby #{rbenv_path}/versions/#{rbenv_ruby_version}/bin/ruby
 
         PassengerSpawnMethod smart
@@ -36,14 +36,14 @@ namespace :passenger do
         #PassengerLogLevel 3
         #PassengerDebugLogFile /var/log/httpd/passenger_debug.log
 
-        PassengerTempDir #{shared_path}/passenger
+        PassengerTempDir /opt/heracles/deploy/passenger
         EOF
 
-        put passenger_config, "/opt/heracles/deploy/.passenger.tmp"
+        put passenger_config, "/opt/heracles/deploy/passenger/.passenger.tmp"
         run <<-CMD.compact
         mkdir #{shared_path}/passenger &&
-        sudo /bin/mv /opt/heracles/deploy/.passenger.tmp /etc/httpd/conf.d/passenger.conf &&
-        sudo /sbin/service httpd restart
+        sudo /bin/mv /opt/heracles/deploy/passenger/.passenger.tmp /etc/httpd/conf.d/passenger.conf &&
+        sudo /bin/systemctl restart httpd
         CMD
         passenger.warmup
   end

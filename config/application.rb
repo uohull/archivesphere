@@ -72,7 +72,8 @@ module Archivesphere
     config.local_file_import_directory = '/dlt/archivesphere/upload'
 
     config.hosts_vhosts_map = {
-        'as1qa' => 'https://archivesphere-qa.dlt.psu.edu'
+        'as1qa' => 'https://archivesphere-qa.dlt.psu.edu',
+        'as2qa' => 'https://archivesphere-qa.dlt.psu.edu'
     }
 
   end
