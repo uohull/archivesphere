@@ -1,9 +1,11 @@
 language: ruby
 rvm:
   - 2.0.0
-
 before_install:
   - sudo apt-get install -qq libclamav-dev
-
+before_script:
+  - "cp config/database.yml.travis config/database.yml"
+script:
+  - "bundle exec rake db:migrate spec"
 notifications:
   irc: "irc.freenode.org#scholarsphere"
