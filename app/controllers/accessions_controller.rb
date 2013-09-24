@@ -86,6 +86,15 @@ class AccessionsController < ApplicationController
     end
   end
 
+  protected
+
+  # include filters into the query to only include the collection memebers
+  def include_collection_ids(solr_parameters, user_parameters)
+    solr_parameters[:fq] ||= []
+    solr_parameters[:fq] << 'is_part_of_ssim:"info:fedora/'+@collection.id+'"'
+  end
+
+
   private
 
   def set_parent_id
