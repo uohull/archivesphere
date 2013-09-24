@@ -17,6 +17,9 @@ class GenericFilesController < ApplicationController
   include Sufia::Controller
   include Sufia::FilesControllerBehavior
 
+  after_filter :update_accession, :except => [:show,:destroy]
+
+
   # routed to /files/new
   def new
     @generic_file = ::GenericFile.new
