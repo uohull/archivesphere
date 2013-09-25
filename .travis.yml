@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.0.0
 before_install:
-  - sudo apt-get install -qq libclamav libclamav-dev
+  - sudo apt-get install -qq clamav-daemon libclamav-dev
 before_script:
   - "cp config/database.yml.travis config/database.yml"
 services:
