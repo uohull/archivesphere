@@ -21,6 +21,9 @@ class Accession < ActiveFedora::Base
 
   before_save :update_permissions
 
+  after_find :set_loaded_members
+  after_initialize :set_loaded_members
+
   has_metadata :name => "properties", :type => AccessionPropertiesDatastream
   has_file_datastream :name => "thumbnail", :type => FileContentDatastream
 
@@ -50,6 +53,7 @@ class Accession < ActiveFedora::Base
     solr_doc[Solrizer.solr_name("noid", Sufia::GenericFile.noid_indexer)] = noid
     solr_doc[Solrizer.solr_name("image_avail", Sufia::GenericFile.noid_indexer)] = image_avail?
     index_collection_pids(solr_doc)
+    solr_doc[Solrizer.solr_name(:collection)] = "unassigned" if collection_ids.size == 0
     return solr_doc
   end
 
@@ -100,6 +104,29 @@ class Accession < ActiveFedora::Base
 
   def image_avail?
     !thumbnail.content.blank?
+  end
+
+  def current_members
+    ids_for_outbound(:has_collection_member)
+  end
+
+  def set_loaded_members
+    @member_ids_at_load_time = current_members
+  end
+
+  def members_change
+    (@member_ids_at_load_time - current_members)+(current_members - @member_ids_at_load_time)
+  end
+
+  # cause the members to index the relationship
+  def local_update_members
+    if self.respond_to?(:members)
+      self.members.reject{|item| members_change.include?(item.pid)}.each do |member|
+        member =  member.reload
+        member.update_index
+      end
+    end
+    @member_ids_at_load_time = current_members
   end
 
 end
