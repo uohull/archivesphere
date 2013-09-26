@@ -37,12 +37,11 @@ class GenericFilesController < ApplicationController
   def update_accession
     @accession_id = params["accession_id"]
     @accession_id ||= params["batch_id"]
-    logger.warn "\n\n\n Update accession #{@accession_id}: #{@generic_file} #{@generic_files}\n\n\n"
     unless @accession_id.blank?
       accession = Accession.find(@accession_id)
       if (@generic_files)
         @generic_files.each {|gf|  accession.members << gf}
-      elsif (@generic_file)
+      elsif (@generic_file && @generic_file.persisted?)
         accession.members << @generic_file
       end
       accession.save
@@ -51,7 +50,6 @@ class GenericFilesController < ApplicationController
 
   # override metadata creation to include accession into the metadata
   def create_metadata(file)
-    logger.warn "\n\n\n Got to my create_metadata \n\n\n\n"
     Sufia::GenericFile::Actions.create_metadata(file, current_user, params[:batch_id])
     @accession_id = params["accession_id"]
     @accession_id ||= params["batch_id"]
