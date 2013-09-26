@@ -39,12 +39,13 @@ class GenericFilesController < ApplicationController
     @accession_id ||= params["batch_id"]
     unless @accession_id.blank?
       accession = Accession.find(@accession_id)
+      @generic_files ||= [@generic_file]
       if (@generic_files)
         @generic_files.each {|gf|  accession.members << gf}
-      elsif (@generic_file && @generic_file.persisted?)
-        accession.members << @generic_file
+        accession.save
+        @generic_files.each {|gf| gf.collections << accession; gf.update_index}
       end
-      accession.save
+
     end
   end
 
