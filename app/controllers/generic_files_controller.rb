@@ -38,8 +38,9 @@ class GenericFilesController < ApplicationController
     @accession_id = params["accession_id"]
     @accession_id ||= params["batch_id"]
     unless @accession_id.blank?
+      logger.warn "Generic file #{@generic_file.inspect} #{@generic_files}"
       accession = Accession.find(@accession_id)
-      @generic_files ||= [@generic_file]
+      @generic_files ||= [@generic_file] unless @generic_file.inner_object.class == ActiveFedora::UnsavedDigitalObject
       if (@generic_files)
         @generic_files.each {|gf|  accession.members << gf}
         accession.save
