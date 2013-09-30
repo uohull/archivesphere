@@ -21,8 +21,8 @@ class Accession < ActiveFedora::Base
 
   before_save :update_permissions
 
-  after_find :set_loaded_members
-  after_initialize :set_loaded_members
+  #after_find :set_loaded_members
+  #after_initialize :set_loaded_members
 
   has_metadata :name => "properties", :type => AccessionPropertiesDatastream
   has_file_datastream :name => "thumbnail", :type => FileContentDatastream
@@ -106,21 +106,21 @@ class Accession < ActiveFedora::Base
     !thumbnail.content.blank?
   end
 
-  def current_members
-    ids_for_outbound(:has_collection_member)
-  end
-
-  def set_loaded_members
-    @member_ids_at_load_time = current_members
-  end
-
-  def members_added
-    (current_members - @member_ids_at_load_time)
-  end
-
-  def members_removed
-    (@member_ids_at_load_time - current_members)
-  end
+  #def current_members
+  #  ids_for_outbound(:has_collection_member)
+  #end
+  #
+  #def set_loaded_members
+  #  @member_ids_at_load_time = current_members
+  #end
+  #
+  #def members_added
+  #  (current_members - @member_ids_at_load_time)
+  #end
+  #
+  #def members_removed
+  #  (@member_ids_at_load_time - current_members)
+  #end
 
   # cause the members to index the relationship
   def local_update_members
@@ -139,7 +139,7 @@ class Accession < ActiveFedora::Base
     #    end
     #  end
     #end
-    @member_ids_at_load_time = current_members
+    #@member_ids_at_load_time = current_members
   end
 
 end

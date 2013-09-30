@@ -34,6 +34,8 @@ class GenericFile < ActiveFedora::Base
 
   alias_method :orig_to_solr, :to_solr
   def to_solr(solr_doc={}, opts={})
+    # since I may have been loaded via solr and I can not solorize if I have reify myself
+    self.reify! if  self.inner_object.is_a? ActiveFedora::SolrDigitalObject
     solr_doc = orig_to_solr(solr_doc, opts)
     solr_doc = index_collection_pids(solr_doc)
     return solr_doc
