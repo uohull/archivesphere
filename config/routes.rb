@@ -11,6 +11,8 @@ Archivesphere::Application.routes.draw do
 
   resources :accessions, except: :index
 
+  get 'collections/index' => "collections#index", as: :unassigned_collection
+
   devise_for :users
 
 

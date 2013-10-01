@@ -34,6 +34,22 @@ class CollectionsController < ApplicationController
 
   before_filter :find_collections, only: [:edit]
 
+  # this is really unassigned just tyring to get around loading a specific object w/ load and authorize
+  def index
+    @collection = Collection.new(title:'Unassigned Accesions',description:'Accessions that are unassigned to any collection')
+
+    query = "{!lucene}#{Solrizer.solr_name(:collection)}:unassigned"
+    #default the rows to 100 if not specified then merge in the user parameters and the attach the collection query
+    solr_params =  {rows:100}.merge(params).merge({:q => query})
+
+    # run the solr query to find the collections
+    (@response, @member_docs) = get_search_results(solr_params)
+    find_collections
+
+    render :unassigned
+  end
+
+
   # Queries Solr for members of the collection.
   # Populates @response and @member_docs similar to Blacklight Catalog#index populating @response and @documents
   def query_collection_members
@@ -83,6 +99,13 @@ class CollectionsController < ApplicationController
     return unless  params[:collection] && params[:collection][:thumbnail]
     params[:thumbnail] = params[:collection][:thumbnail]
     params[:collection].except!(:thumbnail)
+  end
+
+  # include filters into the query to only include the collection memebers
+  def include_collection_ids(solr_parameters, user_parameters)
+    return solr_parameters if (params[:action] == "index")
+    solr_parameters[:fq] ||= []
+    solr_parameters[:fq] << Solrizer.solr_name(:collection)+':"'+@collection.id+'"'
   end
 
 end

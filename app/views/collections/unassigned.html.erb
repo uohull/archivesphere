@@ -1,0 +1,10 @@
+<%= render partial:'descriptions', locals:{collection: @collection} %>
+
+<div class="collection controls">
+  <%= link_to 'Add Accession',      new_accession_path,  {:class => "btn btn-primary"}  %>
+</div>
+
+<h3> <u>Unassigned Accessions </u></h3>
+<% render_pagination_info @response, :entry_name=>'item' %>
+<%= render 'sort_and_per_page' %>
+<%= render partial:'document_list', locals:{documents: @member_docs} %>

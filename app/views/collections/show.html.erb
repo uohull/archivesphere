@@ -1,13 +1,4 @@
-<h1>Collection: <%=@collection.title%><h1>
-  <h3> <%=@collection.collection_num%> </h3>
-  <div class="collection image">
-    <%= render partial: 'collections/image_display', locals: {item:@collection} %>
-  </div>
-
-<div class="collection data">
-  <h3/>
-  <h3><%=@collection.description%> </h3>
-</div>
+<%= render partial:'descriptions', locals:{collection: @collection} %>
 
 <div class="collection controls">
   <%= link_to 'Edit Collection',    "#{collections.edit_collection_path}?collection_id=#{@collection.id}",  {:class => "btn btn-primary"}  %>

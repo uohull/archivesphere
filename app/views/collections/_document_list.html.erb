@@ -6,7 +6,7 @@
 
 <% page_info = paginate_params(@response) %>
 <div id="search-results">
-  <% if params[:action] == "edit" %>
+  <% if ["edit", "index"].include? params[:action] %>
     <%= render partial:'dashboard/_index_partials/default_group', locals:{documents: documents, docs:documents} %>
   <% else %>
       <ol class="catalog" start="<%=1+((page_info.current_page-1)*page_info.limit_value)%>">

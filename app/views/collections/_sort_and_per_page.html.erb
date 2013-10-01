@@ -23,7 +23,8 @@ limitations under the License.
    </div>
    <div class="sort-toggle">
      <% unless @response.response['numFound'] < 2 %>
-        <%= form_tag collections.edit_collection_path, :method=>:get, :class=>'per_page form-inline' do %>
+        <% path = params[:action]== "edit" ? collections.edit_collection_path : unassigned_collection_path %>
+        <%= form_tag path, :method=>:get, :class=>'per_page form-inline' do %>
           <%= label_tag(:sort, "<span>Sort By:</span>".html_safe) %>
           <%= select_tag(:sort, options_for_select(sort_fields, h(params[:sort])), :class => "span15") %>
           &nbsp;&nbsp;&nbsp;

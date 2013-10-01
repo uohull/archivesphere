@@ -31,7 +31,7 @@ module Devise
         if remote_user.present?
           u = User.find_by_login(remote_user)
           if u.nil?
-            u = User.create(:login => remote_user)
+            u = User.create(login: remote_user, email: remote_user)
             u.populate_attributes
           end
           success!(u)
