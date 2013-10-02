@@ -10,6 +10,7 @@ require 'capistrano-rbenv'
 require 'capistrano/ext/multistage'
 set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
+require 'capistrano-notification'
 
 set :application, "archivesphere"
 

@@ -85,4 +85,5 @@ group :development, :test do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'capistrano-rbenv'
+  gem 'capistrano-notification'
 end

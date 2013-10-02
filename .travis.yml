@@ -11,4 +11,14 @@ services:
 script:
   - "bundle exec rake db:migrate spec"
 notifications:
-  irc: "irc.freenode.org#scholarsphere"
+  email:
+    recipients:
+      - "ul-dlt-hydra@lists.psu.edu"
+    on_success: "change"
+    on_failure: "always"
+  irc:
+    channels:
+      - "irc.freenode.org#scholarsphere"
+    template:
+      - "%{repository}//%{branch}@%{commit} by %{author}: %{message} - %{build_url}"
+
