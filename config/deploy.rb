@@ -32,6 +32,13 @@ namespace :rbenv do
   task :dependencies do ; end
 end
 
+notification.irc do |irc|
+  irc.user    'cappy'
+  irc.host    'chat.freenode.net'
+  irc.channel '#scholarsphere'
+  irc.message { "[#{irc.user}] #{local_user} deployed #{application} to #{stage}" }
+end
+
 # override default restart task for apache passenger
 namespace :deploy do
   task :start do ; end
