@@ -6,8 +6,10 @@
         <% if user_collections.blank? %>
             <em> You do not have access to any existing collections. You may create a new collection.</em><br><br><br><br>
             <%= button_for_create_collection %>
-        <% else %>
+        <% elsif params[:action] == "edit" %>
             <%= render partial: "form_for_select_destination_collection", locals: {user_collections: @user_collections} %>
+        <% else %>
+            <%= render partial: "form_for_select_collection", locals: {user_collections: @user_collections} %>
         <% end %> <!-- else -->
       </div><!-- collection-list-box -->
     </div><!-- vertical-offest -->

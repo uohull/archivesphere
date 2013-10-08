@@ -108,4 +108,20 @@ class CollectionsController < ApplicationController
     solr_parameters[:fq] << Solrizer.solr_name(:collection)+':"'+@collection.id+'"'
   end
 
+
+  def after_update
+    change_members = []
+    batch.each do |pid|
+      ActiveFedora::Base.find(pid, :cast=>true).update_index
+    end
+
+    if flash[:notice].nil?
+      flash[:notice] = 'Collection was successfully updated.'
+    end
+    respond_to do |format|
+      format.html { redirect_to collections.collection_path(@collection) }
+      format.json { render json: @collection, status: :updated, location: @collection }
+    end
+  end
+
 end
