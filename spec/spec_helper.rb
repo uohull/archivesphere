@@ -25,6 +25,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 Resque.inline = Rails.env.test?
 
+$in_travis = !ENV['TRAVIS'].nil? && ENV['TRAVIS'] == 'true'
+
 
 RSpec.configure do |config|
 #  config.before(:suite) do
@@ -49,6 +51,10 @@ RSpec.configure do |config|
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
   #
   #config.mock_with :mocha
+
+  if $in_travis
+    config.filter_run_excluding travis_broken:true
+  end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

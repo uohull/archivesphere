@@ -1,0 +1,6 @@
+[submodule "fits"]
+	path = fits
+	url = https://github.com/harvard-lts/fits.git
+[submodule "hydra-fits"]
+	path = hydra-fits
+	url = https://github.com/psu-stewardship/hydra-fits

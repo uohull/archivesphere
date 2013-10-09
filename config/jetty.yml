@@ -3,12 +3,12 @@ default:
   java_opts:
     - "-XX:MaxPermSize=128m" 
     - "-Xmx256m"
-  startup_wait: 60
+  startup_wait: 100
 
 test:
   jetty_port: 8984
   java_opts:
     - "-XX:MaxPermSize=128m" 
     - "-Xmx256m"
-  startup_wait: 60
+  startup_wait: 100
 

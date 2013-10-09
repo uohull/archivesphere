@@ -77,7 +77,7 @@ Sufia.config do |config|
     # config.id_namespace = "sufia"
     
     # Specify the path to the file characterization tool:
-    # config.fits_path = "fits.sh"
+    config.fits_path = Rails.root.join("fits/fits.sh").to_s
 
 end
 

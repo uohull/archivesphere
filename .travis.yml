@@ -3,13 +3,17 @@ rvm:
   - 2.0.0
 before_install:
   - sudo apt-get install -qq clamav-daemon libclamav-dev
+  - sudo freshclam -v
+  - sudo apt-get install libreoffice
 before_script:
   - "cp config/database.yml.travis config/database.yml"
   - "cp config/redis.yml.sample config/redis.yml"
+  - "bundle exec rails g hydra:jetty"
+  - "grep port jetty/etc/jetty.xml"
 services:
   - redis-server
 script:
-  - "bundle exec rake db:migrate spec"
+  - "bundle exec rake archivesphere:ci"
 notifications:
   email:
     recipients:

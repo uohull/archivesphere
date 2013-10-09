@@ -85,7 +85,7 @@ describe GenericFile do
       end
     end
 
-    describe "an docx file" do
+    describe "an docx file", travis_broken: true do
       it "should create derivatives" do
         file_with_produced_web_and_thumbnail('test.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
       end
@@ -97,7 +97,7 @@ describe GenericFile do
       end
     end
 
-    describe "an open excel file" do
+    describe "an open excel file", travis_broken: true do
       it "should create derivatives" do
         file_with_produced_web_and_thumbnail('test.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
       end
@@ -109,7 +109,7 @@ describe GenericFile do
       end
     end
 
-    describe "an open powerpoint file" do
+    describe "an open powerpoint file", travis_broken: true do
       it "should create derivatives" do
         file_with_produced_access_and_thumbnail  'FlashPix.pptx',  'application/vnd.openxmlformats-officedocument.presentationml.presentation','application/pdf'
       end
@@ -151,6 +151,7 @@ def add_file(file_name)
   subject.add_file(File.open(File.join(fixture_path ,file_name)), 'content', file_name)
   subject.save!
   subject.reload
+  puts "\n\n **** \n\n #{file_name} #{subject.mime_type} \n\n **** \n\n"
 end
 
 def check_types (preservation_type, access_type, web_type)
