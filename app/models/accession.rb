@@ -64,7 +64,7 @@ class Accession < ActiveFedora::Base
   def sort_member_paths(members)    start = Time.now
     tree = {}
     unless (members.blank?)
-      sorted = members.sort_by { |s| s.relative_path.blank? ?  s.label : s.relative_path }
+      sorted = members.sort_by { |s| s.relative_path.blank? ?  s.label.blank? ? "": s.label  : s.relative_path }
 
       sorted.each do |s|
         current = tree
