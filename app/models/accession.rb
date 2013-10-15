@@ -64,11 +64,11 @@ class Accession < ActiveFedora::Base
   def sort_member_paths(members)    start = Time.now
     tree = {}
     unless (members.blank?)
-      sorted = members.sort_by { |s| s.relative_path.blank? ?  s.label.blank? ? "": s.label  : s.relative_path }
+      sorted = members.sort_by { |s| s[:sort_path] = s.relative_path.blank? ?  s.label.blank? ? "": s.label  : s.relative_path }
 
       sorted.each do |s|
         current = tree
-        s.relative_path.split("/").inject("") do |sub_path,dir|
+        s[:sort_path].split("/").inject("") do |sub_path,dir|
           sub_path = File.join(sub_path, dir)
           current[sub_path] ||= {}
           current[sub_path][:member] = s if (sub_path == "/"+s.relative_path)
