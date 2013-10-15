@@ -13,18 +13,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 %>
-
+<% editing = true if editing.nil? %>
 <table class="table table-striped dashboard">
   <caption class="accessible-hidden">Listing of files you have deposited in <%= t('sufia.product_name') %></caption>
 <% unless params[:display_type] == 'list' %>
   <thead>
   <tr>
-    <th class="sm"><%= render :partial => 'batch_edits/check_all' %></th>
+    <% if editing %>
+        <th class="sm"><%= render :partial => 'batch_edits/check_all' %></th>
+    <% end %>
     <th>&nbsp;</th>
     <th class="center">Title</th>
     <th class="sorts-dash"><i id="desc_metadata__date_uploaded_dt" class="<%=params[:sort]== "desc_metadata__date_uploaded_dt desc" ? 'icon-caret-down' : params[:sort]== "desc_metadata__date_uploaded_dt asc" ? 'icon-caret-up' : ''%>"></i>Date Uploaded</th>
     <th>Visibility</th>
-    <th class="center">Action</th>
+    <% if editing %>
+        <th class="center">Action</th>
+    <% end %>
   </tr>
   </thead>
   <% end %>
@@ -32,11 +36,11 @@ limitations under the License.
   <% docs.each_with_index do |document,counter| %>
     <% case document.hydra_model %>
     <% when "GenericFile" %>
-      <%= render :partial => 'dashboard/_index_partials/list_files', :locals => {:document => document, :counter => counter} %>
+      <%= render :partial => 'dashboard/_index_partials/list_files', :locals => {document: document, counter: counter, editing: editing} %>
     <% when "Collection" %>
-      <%= render :partial => 'dashboard/_index_partials/list_collections', :locals => {:document => document, :counter => counter} %>
+      <%= render :partial => 'dashboard/_index_partials/list_collections', :locals => {document: document, counter: counter, editing: editing} %>
     <% when "Accession" %>
-      <%= render :partial => 'dashboard/_index_partials/list_accessions', :locals => {:document => document, :counter => counter} %>
+      <%= render :partial => 'dashboard/_index_partials/list_accessions', :locals => {document: document, counter: counter, editing: editing} %>
     <% else %>
       <tr><td colspan='6'><%= "#{document.hydra_model} : #{document.id}" %></td></tr>
     <% end %>

@@ -1,4 +1,7 @@
 <h2 class="heading1">My Dashboard</h2>
-<%=button_for_create_collection %>
-<%= link_to "Unassigned Accessions", unassigned_collection_path, :class=> 'btn btn-primary' %>
+<div class="dashboard controls">
+  <%= link_to "Unassigned Ingests", unassigned_collection_path, :class=> 'btn btn-primary' %>
+    <%=button_for_create_collection %>
+  <%= link_to 'Create Ingest',      new_accession_path,  {:class => "btn btn-primary"}  %>
+</div>
 

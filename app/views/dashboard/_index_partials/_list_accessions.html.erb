@@ -4,11 +4,13 @@
 on element ids -->
 <% noid = document.noid %>
 <tr id="document_<%= noid %>" class="<%= cycle("","zebra") %>">
-  <td width="3%"><%= batch_edit_select(document) %>&nbsp;</td>
+  <% if editing %>
+      <td width="3%"><%= batch_edit_select(document) %>&nbsp;</td>
+  <% end %>
   <td width="1%">
+    <a href="" title="Click for more details"><i id="expand_<%= noid.gsub(":", "_") %>" class="icon-plus icon-large fleft"></i></a>&nbsp;
   </td>
   <td width="37%">
-    <a href="" title="Click for more details"><i id="expand_<%= noid.gsub(":", "_") %>" class="icon-plus icon-large fleft"></i></a>&nbsp;
     <%= render partial: 'accessions/image_display', locals: {item:document, width:40} %>
     <span class=center><%= link_to document.accession_num, accession_path(noid), :id => "src_copy_link#{noid}" %> <br /></span>
   </td>
@@ -23,9 +25,12 @@ on element ids -->
     <% end %>
 
   </td>
-  <td width="23%" class="center">
-    <%= render partial:"#{controller_name}/accession_action_menu", locals:{noid:noid} %>
-  </td>
+  <% if editing %>
+
+    <td width="23%" class="center">
+        <%= render partial:"#{controller_name}/accession_action_menu", locals:{noid:noid} %>
+    </td>
+  <% end %>
 </tr>
 <tr class="hide" id="detail_<%= noid.gsub(":", "_") %>"> <!--  document detail"> -->
   <td colspan="6">

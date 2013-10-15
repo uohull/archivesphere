@@ -36,11 +36,11 @@ class CollectionsController < ApplicationController
 
   # this is really unassigned just tyring to get around loading a specific object w/ load and authorize
   def index
-    @collection = Collection.new(title:'Unassigned Accesions',description:'Accessions that are unassigned to any collection')
+    @collection = Collection.new(title:'Unassigned Ingests',description:'Ingests that are unassigned to any collection')
 
     query = "{!lucene}#{Solrizer.solr_name(:collection)}:unassigned"
     #default the rows to 100 if not specified then merge in the user parameters and the attach the collection query
-    solr_params =  {rows:100}.merge(params).merge({:q => query})
+    solr_params =  {rows:100}.merge(params.symbolize_keys).merge({:q => query})
 
     # run the solr query to find the collections
     (@response, @member_docs) = get_search_results(solr_params)
@@ -56,7 +56,7 @@ class CollectionsController < ApplicationController
     query = params[:cq]
 
     #default the rows to 100 if not specified then merge in the user parameters and the attach the collection query
-    solr_params =  {rows:100}.merge(params).merge({:q => query})
+    solr_params =  {rows:100}.merge(params.symbolize_keys).merge({:q => query})
 
     # run the solr query to find the collections
     (@response, @member_docs) = get_search_results(solr_params)

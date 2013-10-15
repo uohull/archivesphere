@@ -2,6 +2,8 @@
 .btn [class^="icon-"],
 .btn [class*=" icon-"],
 .itemicon [class^="icon-"],
-.itemicon [class*=" icon-"]{
+.itemicon [class*=" icon-"],
+td [class^="icon-"],
+td [class*=" icon-"]{
   background-image:none;
 }

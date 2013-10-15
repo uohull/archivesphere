@@ -1,10 +1,22 @@
-<%= render partial:'descriptions', locals:{collection: @collection} %>
+<% editing =  !params[:edit].nil? %>
 
 <div class="collection controls">
-  <%= link_to 'Add Accession',      new_accession_path,  {:class => "btn btn-primary"}  %>
+  <% if editing %>
+      <%= link_to "Cancel", unassigned_collection_path, :class=> 'btn btn-primary' %>
+  <% else %>
+      <%= link_to "Edit", unassigned_collection_path(edit:true), :class=> 'btn btn-primary' %>
+  <% end %>
+  <%= link_to 'Create Ingest',      new_accession_path,  {:class => "btn btn-primary"}  %>
+  <%= link_to 'Back To Dashboard',  "#{sufia.dashboard_index_path}",  {:class => "btn btn-primary"}  %>
 </div>
 
-<h3> <u>Unassigned Accessions </u></h3>
-<% render_pagination_info @response, :entry_name=>'item' %>
-<%= render 'sort_and_per_page' %>
-<%= render partial:'document_list', locals:{documents: @member_docs} %>
+<%= render partial:'descriptions', locals:{collection: @collection} %>
+&nbsp;
+<div class="collection files">
+<h3> <u>Unassigned Ingests </u></h3>
+
+  <% render_pagination_info @response, :entry_name=>'item' %>
+  <%= render 'sort_and_per_page' %>
+
+  <%= render partial:'document_list', locals:{documents: @member_docs} %>
+</div>

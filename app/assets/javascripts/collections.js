@@ -11,15 +11,24 @@ function modal_collection_list(action, event){
     event.preventDefault();
 }
 
+function toggle_batch_sort() {
+    var n = $(".batch_document_selector:checked").length;
+    if (n>0 || (($('input#check_all').length>=1) && $('input#check_all')[0].checked)) {
+        $('.sort-toggle').hide();
+        $('.batch-toggle').show();
+    } else {
+        $('.sort-toggle').show();
+        $('.batch-toggle').hide();
+    }
+
+}
+
 $(document).ready(function() {
+    toggle_batch_sort();
+
     // toggle button on or off based on boxes being clicked
     $(".batch_document_selector, .batch_document_selector_all, .batch_document_selector_none, #check_all").bind('click', function(e) {
-        var n = $(".batch_document_selector:checked").length;
-        if (n>0 || $('input#check_all')[0].checked) {
-            $('.sort-toggle').hide();
-        } else {
-            $('.sort-toggle').show();
-        }
+        toggle_batch_sort();
 
     });
 
