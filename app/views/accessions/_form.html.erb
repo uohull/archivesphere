@@ -19,29 +19,47 @@
   </div>
 
   <div class="field">
-    <%= f.label 'Disk #' %><br />
-    <%= f.text_field :disk_num %>
+    <%= f.label 'Ingest Type' %><br />
+    <%= f.select :accession_type, ["Disk Media", "Virtual Transfer"] %>
   </div>
 
-   <div class="field">
-    <%= f.label 'Disk Label' %><br />
-    <%= f.text_field :disk_label %>
+      <div class="disk-image">
+
+      <div class="field">
+        <%= f.label 'Disk #' %><br />
+        <%= f.text_field :disk_num %>
+      </div>
+
+       <div class="field">
+        <%= f.label 'Disk Label' %><br />
+        <%= f.text_field :disk_label %>
+      </div>
+
+      <div class="field">
+        <%= f.label 'Forensic Image Created?' %><br />
+        <%= f.radio_button(:disk_image, true) %>
+        <%= f.label("yes") %>
+        <%= f.radio_button(:disk_image, false) %>
+        <%= f.label("no") %>
+      </div>
+
+      <div class="field ">
+        <%= f.label 'Disk Photograph Upload'%>
+        <%= f.file_field 'thumbnail' %></p>
+      </div>
+
   </div>
 
-  <div class="field">
-    <%= f.label 'Disk Image ?' %><br />
-    <%= f.radio_button(:disk_image, true) %>
-    <%= f.label("yes") %>
-    <%= f.radio_button(:disk_image, false) %>
-    <%= f.label("no") %>
+  <div class="virtual-transfer none">
+
+    <div class="field">
+      <%= f.label 'Decsription' %><br />
+      <%= f.text_field :description %>
+    </div>
+
   </div>
 
-  <div class="field">
-    <%= f.label 'Select Image File'%>
-    <%= f.file_field 'thumbnail' %></p>
-  </div>
-
-  <%- unless params[:batch_document_ids].nil? || params[:batch_document_ids].empty? %>
+      <%- unless params[:batch_document_ids].nil? || params[:batch_document_ids].empty? %>
     <%- params[:batch_document_ids].each do |batch_item| %>
       <input type="hidden" name="batch_document_ids[]" value="<%= batch_item %>"/>
     <%- end %>

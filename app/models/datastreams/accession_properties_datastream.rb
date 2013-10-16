@@ -22,6 +22,7 @@ class AccessionPropertiesDatastream < ActiveFedora::OmDatastream
     t.accession_num path: 'accession_num', :index_as=>:stored_searchable
     t.disk_label path: 'disk_label', :index_as=>:stored_searchable
     t.disk_image path: 'disk_image', :index_as=>:stored_searchable
+    t.accession_type path: 'accession_type', :index_as=>:stored_searchable
   end
 
   def self.xml_template

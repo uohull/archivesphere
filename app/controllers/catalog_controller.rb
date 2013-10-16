@@ -146,6 +146,7 @@ class CatalogController < ApplicationController
     #accession information
     config.add_show_field solr_name('fields_disk_num', :stored_searchable), :label => "Disk Number"
     config.add_show_field solr_name('fields_accession_num', :stored_searchable), :label => "Accession Number"
+    config.add_show_field solr_name('accession_type', :stored_searchable), :label => "Ingest Type"
 
     #collection information
     config.add_show_field solr_name('fields_collection_num', :stored_searchable), :label => "Collection Number"

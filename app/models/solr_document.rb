@@ -18,6 +18,10 @@ class SolrDocument
     Array(self[Solrizer.solr_name('fields_accession_num', :stored_searchable)]).first
   end
 
+  def accession_type
+    Array(self[Solrizer.solr_name('fields_accession_type', :stored_searchable)]).first
+  end
+
   def disk_num
     Array(self[Solrizer.solr_name('fields_disk_num', :stored_searchable)]).first
   end
