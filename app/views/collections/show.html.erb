@@ -1,10 +1,13 @@
-<%= render partial:'descriptions', locals:{collection: @collection} %>
 
 <div class="collection controls">
   <%= link_to 'Edit Collection',    "#{collections.edit_collection_path}?collection_id=#{@collection.id}",  {:class => "btn btn-primary"}  %>
- <%= link_to 'Add Accession',      "#{new_accession_path}?collection_id=#{@collection.id}",  {:class => "btn btn-primary"}  %>
+ <%= link_to 'Add Ingest',      "#{new_accession_path}?collection_id=#{@collection.id}",  {:class => "btn btn-primary"}  %>
  <%= link_to 'Back To Dashboard',  "#{sufia.dashboard_index_path}",  {:class => "btn btn-primary"}  %>
 </div>
-  <h3> <u>Accessions </u></h3>
+<%= render partial:'descriptions', locals:{collection: @collection} %>
+
+<div class="collection files">
+  <h3> <u>Ingests </u></h3>
 <%#= render partial: 'search_form'%>
 <%= render partial:'document_list', locals:{documents: @member_docs} %>
+</div>
