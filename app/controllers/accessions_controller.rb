@@ -66,11 +66,10 @@ class AccessionsController < ApplicationController
 
   def after_create
     parent_id = params[:collection_id]
-    logger.warn "Parent id = #{parent_id}"
     unless parent_id.blank?
       parent = Collection.find(parent_id)
-      logger.warn "\n\nparent = #{parent}\n\n"
-      parent.members << @accession
+      parent.members << @collection
+      parent.update_index
       parent.save
     end
     respond_to do |format|
