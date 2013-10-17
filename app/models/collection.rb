@@ -84,4 +84,14 @@ class Collection < ActiveFedora::Base
     !thumbnail.content.blank?
   end
 
+
+  def remove_all_members
+    self.members.each do |member|
+      member.reify! rescue
+      member.to_solr # not sure why this to_solr is needed but it caused the removal and update to work
+      member.collections.delete(self) if member.respond_to?(:collections)
+      member.update_index
+    end
+  end
+
 end
