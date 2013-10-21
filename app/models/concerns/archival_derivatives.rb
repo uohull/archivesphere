@@ -33,11 +33,24 @@ module ArchivalDerivatives
         obj.rels_int.add_relationship(obj.content, :is_preservation_copy_of, obj.datastreams['content'])
         obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
 
-      end
+      when 'audio/x-wave'
+        obj.transform_datastream :content, { :access => {format: 'mp3', datastream: 'access'} },processor: :audio
+        obj.rels_int.add_relationship(obj.content, :is_preservation_copy_of, obj.datastreams['content'])
+        obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
+
+      when 'audio/mpeg'
+        obj.transform_datastream :content, { :preservation => {format: 'wav', datastream: 'preservation'} },processor: :audio
+        obj.rels_int.add_relationship(obj.content, :is_web_copy_of, obj.datastreams['content'])
+        obj.rels_int.add_relationship(obj.content, :is_access_copy_of, obj.datastreams['content'])
+      when 'application/octet-stream', 'audio/x-aiff', 'audio/x-ms-wma'
+        obj.transform_datastream :content, { :preservation => {format: 'wav', datastream: 'preservation', input_format:"ac3"}  },processor: :audio
+        obj.transform_datastream :content, { :access => {format: 'mp3', datastream: 'access'} },processor: :audio
+        obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
+    end
+
     end
 
   end
-
 
 
   # Sometimes a access datastream is the same as the original, so this method

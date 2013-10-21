@@ -115,6 +115,25 @@ describe GenericFile do
       end
     end
 
+    describe "a wav file" do
+      it "should create derivatives" do
+        file_with_produced_access_and_thumbnail  'piano_note.wav',  'audio/x-wav', 'audio/mpeg', nil
+
+      end
+    end
+
+    describe "a mp3 file" do
+      it "should create derivatives" do
+        file_with_produced_preservation  'horse.mp3', 'audio/mpeg',  'audio/wav'
+      end
+    end
+
+    describe "a ac3 file" do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access "diatonis_soal_48k.ac3", 'application/octet-stream',  'audio/wav', 'audio/mpeg'
+      end
+    end
+
   end
 
 end
@@ -143,6 +162,24 @@ def file_with_produced_web_and_thumbnail (file_name, mime_type)
   mapped_preservation_content
   # it's not going to return the real web access, just proxy the original
   mapped_access_content
+end
+
+def file_with_produced_preservation(file_name, mime_type, preservation_mime_type)
+
+  add_file(file_name)
+
+  check_types preservation_mime_type, mime_type, mime_type
+
+  # it's not going to return the real web access, just proxy the original
+  mapped_access_content
+
+end
+
+def file_with_produced_preservation_and_access(file_name, mime_type, preservation_mime_type, access_mime_type)
+
+  add_file(file_name)
+
+  check_types preservation_mime_type, access_mime_type, access_mime_type
 
 end
 
@@ -151,7 +188,6 @@ def add_file(file_name)
   subject.add_file(File.open(File.join(fixture_path ,file_name)), 'content', file_name)
   subject.save!
   subject.reload
-  puts "\n\n **** \n\n #{file_name} #{subject.mime_type} \n\n **** \n\n"
 end
 
 def check_types (preservation_type, access_type, web_type)
@@ -169,6 +205,11 @@ end
 def mapped_access_content
   subject.datastreams['access'].should be_nil
   subject.access_datastream.dsid.should == 'content'
+end
+
+def mapped_web_content
+  subject.datastreams['web'].should be_nil
+  subject.web_datastream.dsid.should == 'content'
 end
 
 def mapped_web_access

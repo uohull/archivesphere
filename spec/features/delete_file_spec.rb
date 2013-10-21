@@ -27,7 +27,7 @@ describe "Deleting a file from an accession", :js=>true do
       # No rows, because no files have been uploaded
       page.should have_selector('tr',text: "world.png")
     end
-    click_on "Edit Accession"
+    click_on "Edit"
     within ('#accession_table') do
       find(".dropdown-toggle").click
       click_on "Delete File"
