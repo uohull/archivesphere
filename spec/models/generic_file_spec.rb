@@ -145,32 +145,32 @@ describe GenericFile do
       end
     end
 
-    describe "a wav file" do
+    describe "a wav file", travis_broken: true do
       it "should create derivatives" do
         file_with_produced_access_and_thumbnail  'piano_note.wav',  'audio/x-wav', 'audio/mpeg', nil
 
       end
     end
 
-    describe "a mp3 file" do
+    describe "a mp3 file", travis_broken: true do
       it "should create derivatives" do
         file_with_produced_preservation  'horse.mp3', 'audio/mpeg',  'audio/wav'
       end
     end
 
-    describe "an ac3 file" do
+    describe "an ac3 file", travis_broken: true do
       it "creates derivatives" do
         file_with_produced_preservation_and_access "diatonis_soal_48k.ac3", 'application/octet-stream',  'audio/wav', 'audio/mpeg'
       end
     end
 
-    describe "a wma file" do
+    describe "a wma file", travis_broken: true do
       it "creates derivatives" do
         file_with_produced_preservation_and_access "wma9.wma", 'application/octet-stream',  'audio/wav', 'audio/mpeg'
       end
     end
 
-    describe "an aiff file" do
+    describe "an aiff file", travis_broken: true do
       it "creates derivatives" do
         file_with_produced_preservation_and_access "M1F1-AlawC-AFsp.aif", 'application/octet-stream',  'audio/wav', 'audio/mpeg'
       end
