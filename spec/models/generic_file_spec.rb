@@ -52,6 +52,13 @@ describe GenericFile do
       end
     end
 
+    describe "a JP2 file" do
+      it "should create derivatives" do
+        file_with_produced_access_and_thumbnail  'world.jp2',  'image/jp2', 'image/jpeg', 'image/png'
+
+      end
+    end
+
     describe "a tiff file" do
       it "should create derivatives" do
         subject.add_file(File.open(fixture_path + '/Duck.tif'), 'content', "Duck.tif")
@@ -87,7 +94,7 @@ describe GenericFile do
 
     describe "a tga file" do
       it "creates derivatives" do
-        file_with_produced_preservation_and_access  'CBW8.tga',  'image/tga','image/tiff', 'image/jpeg'
+        file_with_produced_preservation_and_access  'CBW8.TGA',  'image/tga','image/tiff', 'image/jpeg'
       end
     end
 

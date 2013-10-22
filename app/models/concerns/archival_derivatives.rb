@@ -4,7 +4,7 @@ module ArchivalDerivatives
   included do
     makes_derivatives do |obj|
       case obj.mime_type
-      when 'image/png'
+      when 'image/png', 'image/jp2'
         obj.transform_datastream :content, { :access => {format: 'jpg', datastream: 'access'} }
         obj.rels_int.add_relationship(obj.content, :is_preservation_copy_of, obj.datastreams['content'])
         obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
