@@ -1,6 +1,7 @@
 Hydra::Derivatives::Audio.class_eval do
   def options_for(format)
-    "-f #{File.extname(@object.filename[0]).sub(".","")}"
+    extension = File.extname(@object.filename[0]).sub(".","").downcase
+    "-f #{extension}" if ["ac3"].include? extension
   end
 
   def self.encode(path, options, output_file)

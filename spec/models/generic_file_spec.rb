@@ -67,6 +67,36 @@ describe GenericFile do
       end
     end
 
+    describe "a bmp file" do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access  'test1.bmp',  'image/x-bmp','image/tiff', 'image/jpeg'
+      end
+    end
+
+    describe "a gif file" do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access  'dc217.gif',  'image/gif','image/tiff', 'image/jpeg'
+      end
+    end
+
+    describe "a psd file" do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access  'John-OConnor_Spring-Reflections_example.psd',  'image/vnd.adobe.photoshop','image/tiff', 'image/jpeg'
+      end
+    end
+
+    describe "a tga file" do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access  'CBW8.tga',  'image/tga','image/tiff', 'image/jpeg'
+      end
+    end
+
+    describe "a pct file" do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access  'BLK.PCT',  'application/octet-stream','image/tiff', 'image/jpeg'
+      end
+    end
+
     describe "an rtf file" do
       it "should create derivatives" do
         subject.add_file(File.open(fixture_path + '/sample.rtf'), 'content', "sample.rtf")
@@ -128,9 +158,21 @@ describe GenericFile do
       end
     end
 
-    describe "a ac3 file" do
+    describe "an ac3 file" do
       it "creates derivatives" do
         file_with_produced_preservation_and_access "diatonis_soal_48k.ac3", 'application/octet-stream',  'audio/wav', 'audio/mpeg'
+      end
+    end
+
+    describe "a wma file" do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access "wma9.wma", 'application/octet-stream',  'audio/wav', 'audio/mpeg'
+      end
+    end
+
+    describe "an aiff file" do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access "M1F1-AlawC-AFsp.aif", 'application/octet-stream',  'audio/wav', 'audio/mpeg'
       end
     end
 
