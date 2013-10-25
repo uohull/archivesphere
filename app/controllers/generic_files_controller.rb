@@ -37,27 +37,26 @@ class GenericFilesController < ApplicationController
   def update_accession
     @accession_id = params["accession_id"]
     @accession_id ||= params["batch_id"]
-    unless @accession_id.blank?
-      logger.warn "Generic file #{@generic_file.inspect} #{@generic_files}"
-      accession = Accession.find(@accession_id)
-      @generic_files ||= [@generic_file] unless @generic_file.inner_object.class == ActiveFedora::UnsavedDigitalObject
-      if (@generic_files)
-        @generic_files.each {|gf|  accession.members << gf}
-        accession.save
-        @generic_files.each {|gf| gf.collections << accession; gf.update_index}
-      end
-
-    end
+    #unless @accession_id.blank?
+    #  logger.warn "Generic file #{@generic_file.inspect} #{@generic_files}"
+    #  accession = Accession.find(@accession_id)
+    #  @generic_files ||= [@generic_file] unless @generic_file.inner_object.class == ActiveFedora::UnsavedDigitalObject
+    #  if (@generic_files)
+    #    @generic_files.each {|gf|  accession.members << gf}
+    #    accession.save
+    #    @generic_files.each {|gf| gf.collections << accession; gf.update_index}
+    #  end
+    #
+    #end
   end
 
   # override metadata creation to include accession into the metadata
   def create_metadata(file)
-    Sufia::GenericFile::Actions.create_metadata(file, current_user, params[:batch_id])
-    @accession_id = params["accession_id"]
-    @accession_id ||= params["batch_id"]
-    @accession = Accession.find(@accession_id)
-    @accession.members << file
-    @accession.save
+    accession_id = params["accession_id"]
+    accession_id ||= params["batch_id"]
+    accession = Accession.find(accession_id)
+    file.collections << accession
+    Sufia::GenericFile::Actions.create_metadata(file, current_user, nil)
   end
 
   def self.upload_complete_path(id)

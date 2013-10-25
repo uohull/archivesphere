@@ -16,81 +16,6 @@ GIT
       actionmailer (>= 3.2, < 5)
       activemodel (>= 3.2, < 5)
 
-GIT
-  remote: git://github.com/projecthydra/active_fedora.git
-  revision: eba5760d9e00168b342aae95ee1f061ccb280842
-  ref: eba5760
-  specs:
-    active-fedora (6.4.3)
-      activesupport (>= 3.0.0)
-      deprecation
-      mediashelf-loggable
-      nom-xml (>= 0.5.1)
-      om (~> 3.0.0)
-      rdf
-      rdf-rdfxml (= 1.0.1)
-      rsolr
-      rubydora (~> 1.6, >= 1.6.5)
-
-GIT
-  remote: git://github.com/projecthydra/active_fedora_relsint.git
-  revision: f0c6bf091a4007e73b39efa41592df04961854c3
-  ref: f0c6bf091a4007e73b39efa4
-  specs:
-    active_fedora_relsint (0.2.0)
-      active-fedora (>= 6.0)
-      activesupport (>= 3.2.0, < 5.0)
-
-GIT
-  remote: git://github.com/projecthydra/hydra-collections.git
-  revision: f0d36d382b98dc0f3fb92f9cbbbf4675a65f725c
-  ref: f0d36d3
-  specs:
-    hydra-collections (1.0.0)
-      blacklight
-      hydra-head
-
-GIT
-  remote: git://github.com/projecthydra/hydra-derivatives.git
-  revision: 11430ca8ef1b83b35509ccbf0db32f6e3402fe4a
-  ref: 11430ca8ef1b83b35
-  specs:
-    hydra-derivatives (0.0.5)
-      active-fedora
-      activesupport (>= 3.2.13, < 5.0)
-      mini_magick
-
-GIT
-  remote: git://github.com/projecthydra/sufia.git
-  revision: 69ffbd26a51390a7c40553769b74008ca80d0ef9
-  ref: 69ffbd26a51390a7c40553769b74008ca80d0ef9
-  specs:
-    sufia (3.1.1)
-      blacklight (~> 4.0)
-      blacklight_advanced_search (~> 2.1.0)
-      daemons (= 1.1.9)
-      font-awesome-sass-rails (~> 3.0)
-      hydra-batch-edit (~> 1.0)
-      mail_form
-      rails_autolink (~> 1.1.0)
-      rainbow (= 1.1.4)
-      sufia-models (= 3.1.1)
-      yaml_db (= 0.2.3)
-    sufia-models (3.1.1)
-      active-fedora (~> 6.4.0)
-      activeresource
-      acts_as_follower (= 0.1.1)
-      hydra-derivatives (~> 0.0.5)
-      hydra-head (~> 6.3.0)
-      mailboxer (~> 0.11.0)
-      nest (~> 1.1.1)
-      noid (~> 0.6.6)
-      paperclip (~> 3.4.0)
-      rails (>= 3.2.13, < 5.0)
-      resque (~> 1.23.0)
-      resque-pool (= 0.3.0)
-      zipruby (= 0.3.6)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -103,6 +28,19 @@ GEM
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
+    active-fedora (6.6.1)
+      activesupport (>= 3.0.0)
+      deprecation
+      mediashelf-loggable
+      nom-xml (>= 0.5.1)
+      om (~> 3.0.0)
+      rdf
+      rdf-rdfxml (= 1.0.1)
+      rsolr
+      rubydora (~> 1.6, >= 1.6.5)
+    active_fedora_relsint (0.3.0)
+      active-fedora (>= 6.6)
+      activesupport (>= 3.2.0, < 5.0)
     activemodel (4.0.0)
       activesupport (= 4.0.0)
       builder (~> 3.1.0)
@@ -124,17 +62,17 @@ GEM
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
-    acts_as_follower (0.1.1)
+    acts_as_follower (0.2.0)
     addressable (2.3.5)
-    arel (4.0.0)
-    atomic (1.1.10)
-    backports (3.3.4)
+    arel (4.0.1)
+    atomic (1.1.14)
+    backports (3.3.5)
     bcrypt-ruby (3.1.1)
-    blacklight (4.2.2)
+    blacklight (4.4.2)
       bootstrap-sass (>= 2.2.0, < 2.4)
       kaminari (~> 0.13)
       marc (>= 0.4.3, < 1.1)
-      nokogiri (~> 1.5)
+      nokogiri (~> 1.6)
       rails (>= 3.2.6, < 5)
       rsolr (~> 1.0.6)
       sass-rails
@@ -144,7 +82,7 @@ GEM
     blankslate (2.1.2.4)
     block_helpers (0.3.3)
       activesupport (>= 2.0)
-    bootstrap-sass (2.3.2.1)
+    bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.1.4)
     cancan (1.6.10)
@@ -181,7 +119,7 @@ GEM
     clamav (0.4.1)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.1)
+    cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -224,39 +162,49 @@ GEM
     font-awesome-sass-rails (3.0.2.2)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
-    foreigner (1.5.0)
+    foreigner (1.6.0)
       activerecord (>= 3.0.0)
     given_core (3.0.0)
       sorcerer (>= 0.3.7)
     highline (1.6.19)
     hike (1.2.3)
     hooks (0.3.1)
-    hydra-access-controls (6.3.2)
-      active-fedora (~> 6.1)
+    hydra-access-controls (6.4.0)
+      active-fedora (~> 6.6)
       activesupport
       blacklight (~> 4.0)
       cancan
       deprecation
-    hydra-batch-edit (1.0.2)
+    hydra-batch-edit (1.1.1)
       blacklight
       hydra-collections
-    hydra-core (6.3.2)
+    hydra-collections (1.2.0)
+      blacklight
+      hydra-head (~> 6.4.0)
+    hydra-core (6.4.0)
       active-fedora
       blacklight (~> 4.0)
       block_helpers
       deprecation (>= 0.0.5)
-      hydra-access-controls (= 6.3.2)
+      hydra-access-controls (= 6.4.0)
       jettywrapper (>= 1.4.1)
       rails (>= 3.2.3, < 5)
-    hydra-head (6.3.2)
-      hydra-access-controls (= 6.3.2)
-      hydra-core (= 6.3.2)
+    hydra-derivatives (0.0.7)
+      active-fedora
+      activesupport (>= 3.2.13, < 5.0)
+      hydra-file_characterization
+      mini_magick
+    hydra-file_characterization (0.3.0)
+      activesupport (>= 3.0.0)
+    hydra-head (6.4.0)
+      hydra-access-controls (= 6.4.0)
+      hydra-core (= 6.4.0)
       rails (>= 3.2.6)
     hydra-ldap (0.1.0)
       net-ldap
       rails
-    i18n (0.6.4)
-    jettywrapper (1.4.1)
+    i18n (0.6.5)
+    jettywrapper (1.4.2)
       activesupport (>= 3.0.0)
       childprocess
       i18n
@@ -265,7 +213,7 @@ GEM
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.8.0)
+    json (1.8.1)
     launchy (2.3.0)
       addressable (~> 2.3)
     libv8 (3.3.10.4)
@@ -277,14 +225,14 @@ GEM
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
       rails (> 3.0.0)
-    marc (0.5.1)
+    marc (0.7.1)
     mediashelf-loggable (0.4.9)
-    mime-types (1.23)
+    mime-types (1.25)
     mini_magick (3.6.0)
       subexec (~> 0.2.1)
-    mini_portile (0.5.1)
+    mini_portile (0.5.2)
     minitest (4.7.5)
-    multi_json (1.7.7)
+    multi_json (1.8.2)
     mysql2 (0.3.13)
     nest (1.1.2)
       redis
@@ -304,7 +252,7 @@ GEM
       activesupport
       i18n
       nokogiri
-    om (3.0.3)
+    om (3.0.4)
       activemodel
       activesupport
       deprecation
@@ -323,7 +271,7 @@ GEM
     pg (0.16.0)
     polyglot (0.3.3)
     rack (1.5.2)
-    rack-protection (1.5.0)
+    rack-protection (1.5.1)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -337,7 +285,7 @@ GEM
       sprockets-rails (~> 2.0.0)
     rails-observers (0.1.2)
       activemodel (~> 4.0)
-    rails_autolink (1.1.3)
+    rails_autolink (1.1.5)
       rails (> 3.1)
     railties (4.0.0)
       actionpack (= 4.0.0)
@@ -346,15 +294,15 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (1.1.4)
     rake (10.1.0)
-    rdf (1.0.8)
-      addressable (>= 2.2)
+    rdf (1.0.9)
+      addressable (>= 2.3)
     rdf-rdfxml (1.0.1)
       rdf (>= 1.0)
       rdf-xsd (>= 1.0)
     rdf-xsd (1.0.2.1)
       nokogiri (>= 1.5.0)
       rdf (>= 0.3.4)
-    redis (3.0.4)
+    redis (3.0.5)
     redis-namespace (1.3.1)
       redis (~> 3.0.0)
     resque (1.23.1)
@@ -399,9 +347,9 @@ GEM
       nokogiri
       rest-client
     rubyzip (0.9.9)
-    sass (3.2.10)
-    sass-rails (4.0.0)
-      railties (>= 4.0.0.beta, < 5.0)
+    sass (3.2.12)
+    sass-rails (4.0.1)
+      railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
     selenium-webdriver (2.35.0)
@@ -411,7 +359,7 @@ GEM
       websocket (~> 1.0.4)
     shout-bot (0.0.7)
       addressable
-    sinatra (1.4.3)
+    sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
@@ -428,25 +376,49 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.0.0)
+    sprockets-rails (2.0.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     sqlite3 (1.3.7)
       atomic
-    stomp (1.2.16)
+    stomp (1.3.1)
     subexec (0.2.3)
+    sufia (3.4.0.rc3)
+      blacklight_advanced_search (~> 2.1.0)
+      daemons (= 1.1.9)
+      font-awesome-sass-rails (~> 3.0)
+      hydra-batch-edit (>= 1.1.1, < 2.0.0)
+      mail_form
+      rails_autolink (~> 1.1.0)
+      rainbow (= 1.1.4)
+      sufia-models (= 3.4.0.rc3)
+      yaml_db (= 0.2.3)
+    sufia-models (3.4.0.rc3)
+      activerecord-import
+      activeresource
+      acts_as_follower (>= 0.1.1, < 0.3)
+      hydra-derivatives (~> 0.0.5)
+      hydra-head (~> 6.4.0)
+      mailboxer (~> 0.11.0)
+      nest (~> 1.1.1)
+      noid (~> 0.6.6)
+      paperclip (~> 3.4.0)
+      rails (>= 3.2.13, < 5.0)
+      resque (~> 1.23.0)
+      resque-pool (= 0.3.0)
+      zipruby (= 0.3.6)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
     thor (0.18.1)
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
-    treetop (1.4.14)
+    treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
     trollop (1.16.2)
-    tzinfo (0.3.37)
+    tzinfo (0.3.38)
     uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
@@ -469,8 +441,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active-fedora!
-  active_fedora_relsint!
+  active-fedora (= 6.6.1)
+  active_fedora_relsint (= 0.3.0)
   activerecord-import
   blacklight
   bootstrap-sass
@@ -488,9 +460,9 @@ DEPENDENCIES
   execjs (= 1.4.0)
   factory_girl_rails (~> 4.1.0)
   font-awesome-sass-rails
-  hydra-collections!
-  hydra-derivatives!
-  hydra-head
+  hydra-collections (= 1.2.0)
+  hydra-derivatives
+  hydra-head (= 6.4.0)
   hydra-ldap (= 0.1.0)
   jettywrapper
   jquery-rails
@@ -508,7 +480,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   selenium-webdriver (= 2.35)
   sqlite3
-  sufia!
+  sufia (= 3.4.0.rc3)
   therubyracer (= 0.10.2)
   uglifier (>= 1.3.0)
   whenever

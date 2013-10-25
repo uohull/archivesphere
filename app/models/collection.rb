@@ -17,7 +17,7 @@ class Collection < ActiveFedora::Base
   include Hydra::Collection
   include Sufia::ModelMethods
   include Sufia::Noid
-  include Sufia::GenericFile::Permissions
+  include Hydra::AccessControls::Visibility
   include Sufia::GenericFile::WebForm # provides initialize_fields method
 
   before_save :update_permissions
@@ -56,7 +56,7 @@ class Collection < ActiveFedora::Base
   end
 
   def update_permissions
-    self.set_visibility("open")
+    self.visibility = "open"
   end
 
   def virus_check( file)

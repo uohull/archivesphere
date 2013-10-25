@@ -72,9 +72,9 @@ describe AccessionsController do
 
 
   describe '#show' do
-    let(:file1) { FactoryGirl.create(:generic_file, user: user, relative_path: 'fortune/smiles/on/the/bold.mkv') }
-    let(:file2) { FactoryGirl.create(:generic_file, user: user, label: 'foo.txt') }
-    let(:file3) { FactoryGirl.create(:generic_file, user: user, relative_path: 'mouth/tooth.png') }
+    let(:file1) { FactoryGirl.create(:generic_file, user: user, relative_path: 'fortune/smiles/on/the/bold.mkv', title:"bold.mkv") }
+    let(:file2) { FactoryGirl.create(:generic_file, user: user, label: 'foo.txt', title:"foo.txt") }
+    let(:file3) { FactoryGirl.create(:generic_file, user: user, relative_path: 'mouth/tooth.png',title:"tooth.png") }
     subject { FactoryGirl.create(:accession, user: user, members: [file1, file2, file3]) }
 
     it "should show everything" do

@@ -23,10 +23,10 @@ describe CatalogController do
       Rails.env = "test"
     end
     it "should allow you to fake auth using HTTP_REMOTE_USER" do
-      @request.env["HTTP_REMOTE_USER"] = "dmc186"
+      @request.env["HTTP_REMOTE_USER"] = "cam156"
       xhr :get, :index
       controller.current_user.should_not be_nil
-      controller.current_user.user_key.should == "dmc186"
+      controller.current_user.user_key.should == "cam156"
     end
   end
   describe "in non-development environment" do

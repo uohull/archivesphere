@@ -404,5 +404,8 @@ class CatalogController < ApplicationController
     solr_parameters[:fq] << query
   end
 
+  def discovery_permissions
+    ["edit","read"]
+  end
 
 end

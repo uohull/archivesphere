@@ -16,7 +16,7 @@ class Accession < ActiveFedora::Base
   include Hydra::Collections::Collectible
   include Sufia::ModelMethods
   include Sufia::Noid
-  include Sufia::GenericFile::Permissions
+  include Hydra::AccessControls::Visibility
   include Sufia::GenericFile::WebForm # provides initialize_fields method
 
   before_save :update_permissions
@@ -58,7 +58,7 @@ class Accession < ActiveFedora::Base
   end
 
   def update_permissions
-    self.set_visibility("open")
+    self.visibility = "open"
   end
 
   def sort_member_paths(members)    start = Time.now
@@ -140,6 +140,16 @@ class Accession < ActiveFedora::Base
     #  end
     #end
     #@member_ids_at_load_time = current_members
+  end
+
+
+  def remove_all_members
+    self.members.each do |member|
+      member.reify! rescue
+          member.to_solr # not sure why this to_solr is needed but it caused the removal and update to work
+      member.collections.delete(self) if member.respond_to?(:collections)
+      member.update_index
+    end
   end
 
 end
