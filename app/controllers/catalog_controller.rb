@@ -142,14 +142,14 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("desc_metadata__resource_type", :stored_searchable, type: :string), :label => "Resource Type"
     config.add_show_field solr_name("desc_metadata__format", :stored_searchable, type: :string), :label => "File Format"
 
-    config.add_show_field solr_name('fields_relative_path', :stored_searchable, type: :string), :label => "Relative Path"
+    config.add_show_field solr_name('relative_path', :stored_searchable, type: :string), :label => "Relative Path"
     #accession information
-    config.add_show_field solr_name('fields_disk_num', :stored_searchable), :label => "Disk Number"
-    config.add_show_field solr_name('fields_accession_num', :stored_searchable), :label => "Accession Number"
+    config.add_show_field solr_name('disk_num', :stored_searchable), :label => "Disk Number"
+    config.add_show_field solr_name('accession_num', :stored_searchable), :label => "Accession Number"
     config.add_show_field solr_name('accession_type', :stored_searchable), :label => "Ingest Type"
 
     #collection information
-    config.add_show_field solr_name('fields_collection_num', :stored_searchable), :label => "Collection Number"
+    config.add_show_field solr_name('collection_num', :stored_searchable), :label => "Collection Number"
 
 
     # "fielded" search configuration. Used by pulldown among other places.
