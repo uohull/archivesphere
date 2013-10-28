@@ -17,10 +17,12 @@ limitations under the License.
 <% if @generic_file.image? %>
   <a href="<%= sufia.download_path(@generic_file) %>" target="_new" title="Download the full-sized image"><img src="<%= sufia.download_path(@generic_file, {:datastream_id => 'thumbnail'}) %>" width="338" alt="Download the full-sized image of <%= @generic_file.title.first %>"/>Download the full-sized image</a>
 <% elsif @generic_file.video? %>
-  <video controls="controls" class="video-js vjs-default-skin" data-setup="{}" preload="auto">
+   <a href="<%= sufia.download_path(@generic_file) %>" target="_new" title="Download the video"><img src="<%= sufia.download_path(@generic_file, datastream_id: 'thumbnail') %>" width="338" alt="Download the video of <%= @generic_file.title.first %>"/>Download the video</a>
+
+    <!--video controls="controls" class="video-js vjs-default-skin" data-setup="{}" preload="auto">
     <source src="<%= sufia.download_path(@generic_file, datastream_id: 'webm') %>" type="video/webm" />
     <source src="<%= sufia.download_path(@generic_file, datastream_id: 'mp4') %>" type="video/mp4" />
-    Your browser does not support the video tag.
+    Your browser does not support the video tag. -->
   </video>
 <% elsif @generic_file.audio? %>
   <audio controls="controls" class="video-js vjs-default-skin" data-setup="{}" preload="auto">

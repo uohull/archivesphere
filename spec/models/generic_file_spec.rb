@@ -183,6 +183,54 @@ describe GenericFile do
       end
     end
 
+    describe "an avi file", travis_broken: true do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access "countdown.avi", 'video/x-msvideo',  'video/mkv', 'video/mp4'
+      end
+    end
+
+    describe "a flv file", travis_broken: true do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access "barsandtone.flv", 'video/x-flv',  'video/mkv', 'video/mp4'
+      end
+    end
+
+    describe "a mov file", travis_broken: true do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access "sample_iTunes.mov", 'video/quicktime',  'video/mkv', 'video/mp4'
+      end
+    end
+
+    describe "a mpg2 file", travis_broken: true do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access "sample_mpeg2.m2v", 'video/mpeg',  'video/mkv', 'video/mp4'
+      end
+    end
+
+    describe "a mpg file", travis_broken: true do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access "MELT.MPG", 'video/mpeg',  'video/mkv', 'video/mp4'
+      end
+    end
+
+
+    describe "a mpg4 file", travis_broken: true do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access "sample_mpeg4.mp4", 'video/mpeg',  'video/mkv', 'application/mp4'
+      end
+    end
+
+    describe "a swf file", travis_broken: true do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access "Car-speakers-590x90.swf", 'application/x-shockwave-flash',  'video/mkv', 'video/mp4'
+      end
+    end
+
+    describe "a wmv file", travis_broken: true do
+      it "creates derivatives" do
+        file_with_produced_preservation_and_access "ELL_PART_5_768k.wmv", 'video/x-ms-wmv',  'video/mkv', 'video/mp4'
+      end
+    end
   end
 
 end
