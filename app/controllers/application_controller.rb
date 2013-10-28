@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :restrict_user
   before_filter :clear_session_user
+  before_filter :remove_login_error
 
   rescue_from CanCan::AccessDenied, :with => :render_401
 
@@ -48,6 +49,12 @@ class ApplicationController < ActionController::Base
   def remove_select_something
     flash[:notice] = nil if flash[:notice] == "Select something first"
     logger.warn "\n\nflash #{flash[:notice]}\n\n"
+  end
+
+  def remove_login_error
+    if user_logged_in?
+      flash[:alert] = nil if flash[:alert] == "You need to sign in or sign up before continuing."
+    end
   end
 
   protected
