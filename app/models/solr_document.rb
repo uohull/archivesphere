@@ -22,6 +22,14 @@ class SolrDocument
     Array(self[Solrizer.solr_name('accession_type', :stored_searchable)]).first
   end
 
+  def file_size
+    Array(self[Solrizer.solr_name('file_size', :stored_searchable)]).first
+  end
+
+  def file_type
+    Array(self[Solrizer.solr_name('identification_identity_mime_type', :stored_searchable)]).first
+  end
+
   def disk_num
     Array(self[Solrizer.solr_name('disk_num', :stored_searchable)]).first
   end

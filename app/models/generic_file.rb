@@ -38,6 +38,7 @@ class GenericFile < ActiveFedora::Base
     self.reify! if  self.inner_object.is_a? ActiveFedora::SolrDigitalObject
     solr_doc = orig_to_solr(solr_doc, opts)
     solr_doc = index_collection_pids(solr_doc)
+    solr_doc[Solrizer.solr_name('file_size', :stored_searchable)]  = file_size
     return solr_doc
   end
 

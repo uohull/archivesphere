@@ -1,4 +1,13 @@
+<span class="tree file">
+
   <%=link_to File.basename(path),sufia.generic_file_path(id)%>
+  <% file_data =[] %>
+  <% file_data << document.file_type if  document.file_type %>
+  <% file_data << document.file_size if document.file_size %>
+  <% unless file_data.empty? %>
+  <span class=" tree file-data"><%= "(#{file_data.join(", ")})" %></span>
+  <% end %>
   <% if edit? %>
     <%= render partial:'dashboard/action_menu', locals:{noid:id, gf:nil} %>
   <% end %>
+</span>
