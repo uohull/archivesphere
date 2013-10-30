@@ -58,7 +58,7 @@ class Accession < ActiveFedora::Base
   end
 
   def update_permissions
-    self.visibility = "open"
+    self.visibility = "open" unless self.visibility == "open"
   end
 
   def sort_member_paths(members)    start = Time.now
