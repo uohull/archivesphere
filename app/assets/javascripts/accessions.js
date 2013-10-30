@@ -1,4 +1,5 @@
 function toggle_accession_type(select) {
+  if (select) {
     if (select.value == "Virtual Transfer"){
         $(".virtual-transfer").show();
         $(".disk-image").hide();
@@ -6,6 +7,7 @@ function toggle_accession_type(select) {
         $(".virtual-transfer").hide();
         $(".disk-image").show();
     }
+  }
 }
 $( document ).ready(function() {
   $("#accession_table").treetable( { expandable: true });
