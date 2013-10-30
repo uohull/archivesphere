@@ -37,7 +37,7 @@ class IngestLocalJob
     end
 
     # save all the new members to the accession
-    @accession.save
+    #@accession.save
 
     #notify the user
 
@@ -63,8 +63,9 @@ class IngestLocalJob
     basename = File.basename(filename)
     generic_file.label = basename
     generic_file.relative_path = filename if filename != basename
-    Sufia::GenericFile::Actions.create_metadata(generic_file, current_user, accession_id)
-    @accession.members << generic_file
+    Sufia::GenericFile::Actions.create_metadata(generic_file, current_user, nil)
+    generic_file.collections << @accession
+    generic_file.save
     job = IngestLocalFileJob.new(generic_file.id, directory, filename, user_key)
     begin
       job.run

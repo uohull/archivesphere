@@ -55,8 +55,9 @@ class GenericFilesController < ApplicationController
     accession_id = params["accession_id"]
     accession_id ||= params["batch_id"]
     accession = Accession.find(accession_id)
-    file.collections << accession
     Sufia::GenericFile::Actions.create_metadata(file, current_user, nil)
+    file.collections << accession
+    file.save
   end
 
   def self.upload_complete_path(id)
