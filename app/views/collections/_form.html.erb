@@ -37,7 +37,8 @@
   <%= hidden_collection_members %>
   
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class:"btn btn-primary collection-edit" %>
+    <%= link_to 'Cancel', collection_cancel_path(@collection), class:"btn btn-primary collection-cancel" %>
   </div>
 <% end %>
 </div>

@@ -34,4 +34,10 @@ module ApplicationHelper
     user_collections.reject {|a| a.noid == collection.noid}
   end
 
+  def collection_cancel_path(collection=nil)
+    path = sufia.dashboard_index_path unless edit?
+    path = collections.collection_path(collection) if edit?
+    path
+  end
+
 end
