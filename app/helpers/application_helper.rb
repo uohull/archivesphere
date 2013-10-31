@@ -30,4 +30,8 @@ module ApplicationHelper
     params[:action] == "edit"
   end
 
+  def filter_user_collections(user_collections,collection)
+    user_collections.reject {|a| a.noid == collection.noid}
+  end
+
 end

@@ -11,6 +11,7 @@
         <% else %>
             <%= render partial: "form_for_select_collection", locals: {user_collections: @user_collections} %>
         <% end %> <!-- else -->
+        <%= button_for_create_collection %>
       </div><!-- collection-list-box -->
     </div><!-- vertical-offest -->
   </div><!-- collection-list-container -->

@@ -72,7 +72,13 @@ class CollectionsController < ApplicationController
 
   def after_create
     respond_to do |format|
-      format.html { redirect_to "#{new_accession_path}?collection_id=#{@collection.id}", notice: 'Collection was successfully created.' }
+      format.html do
+        if params["batch_document_ids"].blank?
+          redirect_to "#{new_accession_path}?collection_id=#{@collection.id}", notice: 'Collection was successfully created.'
+        else
+          redirect_to  collections.collection_path( @collection), notice: 'Collection was successfully created.'
+        end
+      end
       format.json { render json: @collection, status: :created, location: @collection }
     end
   end
