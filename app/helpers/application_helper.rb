@@ -40,4 +40,15 @@ module ApplicationHelper
     path
   end
 
+  def accession_cancel_path(accession=nil, collection=nil)
+    if (edit?)
+      path = accession_path(accession)
+    elsif !collection.blank?
+      path = collections.collection_path(collection)
+    else
+      path = sufia.dashboard_index_path
+    end
+    path
+  end
+
 end

@@ -65,7 +65,7 @@ class AccessionsController < ApplicationController
   end
 
   def after_create
-    parent_id = params[:collection_id]
+    parent_id = set_parent_id
     unless parent_id.blank?
       parent = Collection.find(parent_id)
       parent.members << @collection
@@ -98,6 +98,7 @@ class AccessionsController < ApplicationController
 
   def set_parent_id
     @parent_id = params[:collection_id]
+    @parent_id = Sufia::Noid.namespaceize(@parent_id) unless @parent_id.blank?
   end
 
   def set_accession
