@@ -13,6 +13,10 @@ class SolrDocument
     Array(self[Solrizer.solr_name('active_fedora_model', Solrizer::Descriptor.new(:string, :stored, :indexed))]).first
   end
 
+  def collection_num
+    Array(self[Solrizer.solr_name('collection_num', :stored_searchable)]).first
+  end
+
   # Method to return the ActiveFedora model
   def accession_num
     Array(self[Solrizer.solr_name('accession_num', :stored_searchable)]).first
