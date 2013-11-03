@@ -17,6 +17,8 @@ class AccessionsController < ApplicationController
   include Hydra::CollectionsControllerBehavior
   include BlacklightAdvancedSearch::ParseBasicQ
   include BlacklightAdvancedSearch::Controller
+  include Hydra::Collections::SelectsCollections
+
   include Sufia::Noid # for normalize_identifier method
   prepend_before_filter :normalize_identifier, :except => [:index, :create, :new]
 
@@ -30,13 +32,17 @@ class AccessionsController < ApplicationController
   before_filter :initialize_fields_for_edit, only:[:edit, :new]
   layout "sufia-one-column"
 
-  before_filter :set_parent_id, :only => [:new]
+  before_filter :set_parent_id, :only => [:new,:edit]
   AccessionsController.solr_search_params_logic += [:exclude_unwanted_models]
 
   before_filter :move_thumb_param, only: [:create,:update]
   after_filter :grab_thumbnail , only:[:create,:update]
 
   before_filter :remove_select_something
+
+  before_filter :find_collections, only: [:edit]
+
+  prepend_before_filter :array_collection_id_param, only:[:create,:update]
 
   #todo where should the delete go?
   def after_destroy (id)
@@ -65,13 +71,8 @@ class AccessionsController < ApplicationController
   end
 
   def after_create
-    parent_id = set_parent_id
-    unless parent_id.blank?
-      parent = Collection.find(parent_id)
-      parent.members << @collection
-      parent.update_index
-      parent.save
-    end
+    set_parent_id
+    change_parent(@parent_id)
     respond_to do |format|
       format.html { redirect_to accession_path(@accession), notice: 'Accession was successfully created.' }
       format.json { render json: @accession, status: :created, location: @accession }
@@ -79,6 +80,8 @@ class AccessionsController < ApplicationController
   end
 
   def after_update
+    parent_id = params[:collection_action][:collection_id] unless params[:collection_action].blank?
+    change_parent(parent_id)
     respond_to do |format|
       format.html { redirect_to accession_path(@accession), notice: 'Accession was successfully updated.' }
       format.json { render json: @accession, status: :updated, location: @accession }
@@ -86,6 +89,20 @@ class AccessionsController < ApplicationController
   end
 
   protected
+
+  def change_parent(parent_id)
+    original_parent = @collection.collection_ids[0]
+    return if parent_id.blank? or parent_id == original_parent
+    parent = Collection.find(parent_id)
+    parent.members << @collection
+    parent.update_index
+    parent.save
+    unless (original_parent.blank?)
+      orig_parent = Collection.find(original_parent)
+      orig_parent.members.delete(@collection)
+      orig_parent.save
+    end
+  end
 
   # include filters into the query to only include the collection memebers
   def include_collection_ids(solr_parameters, user_parameters)
@@ -98,6 +115,8 @@ class AccessionsController < ApplicationController
 
   def set_parent_id
     @parent_id = params[:collection_id]
+    @parent_id ||= @accession.collections.first.pid unless @accession.collections.empty?
+    @parent_id ||= params[:collection_action][:collection_id] unless params[:collection_action].blank?
     @parent_id = Sufia::Noid.namespaceize(@parent_id) unless @parent_id.blank?
   end
 
@@ -134,4 +153,13 @@ class AccessionsController < ApplicationController
     params[:collection].except!(:thumbnail)
   end
 
+  def add_collection_filter(solr_parameters, user_parameters)
+    solr_parameters[:fq] ||= []
+    solr_parameters[:fq] << "#{Solrizer.solr_name("has_model", :symbol)}:\"info:fedora/afmodel:Collection\""
+    solr_parameters[:rows] = 1000
+  end
+
+  def array_collection_id_param
+    params[:collection][:collection_ids] = Array(params[:collection][:collection_ids]) unless params[:collection][:collections].blank?
+  end
 end
