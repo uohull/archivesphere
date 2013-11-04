@@ -18,3 +18,13 @@
 .per_page label, .per_page select{
   width: auto;
 }
+
+/* turn off the user activity on the dashboard */
+#activity {
+  display: none;
+}
+
+.span68 #activity {
+  display: block;
+}
+
