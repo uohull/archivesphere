@@ -74,7 +74,7 @@ class AccessionsController < ApplicationController
     set_parent_id
     change_parent(@parent_id)
     respond_to do |format|
-      format.html { redirect_to accession_path(@accession), notice: 'Accession was successfully created.' }
+      format.html { redirect_to accession_path(@accession.noid), notice: 'Accession was successfully created.' }
       format.json { render json: @accession, status: :created, location: @accession }
     end
   end
@@ -83,7 +83,7 @@ class AccessionsController < ApplicationController
     parent_id = params[:collection_action][:collection_id] unless params[:collection_action].blank?
     change_parent(parent_id)
     respond_to do |format|
-      format.html { redirect_to accession_path(@accession), notice: 'Accession was successfully updated.' }
+      format.html { redirect_to accession_path(@accession.noid), notice: 'Accession was successfully updated.' }
       format.json { render json: @accession, status: :updated, location: @accession }
     end
   end

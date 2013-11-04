@@ -54,6 +54,7 @@ class GenericFilesController < ApplicationController
   def create_metadata(file)
     accession_id = params["accession_id"]
     accession_id ||= params["batch_id"]
+    accession_id = Sufia::Noid.namespaceize(accession_id)
     accession = Accession.find(accession_id)
     Sufia::GenericFile::Actions.create_metadata(file, current_user, nil)
     file.collections << accession
