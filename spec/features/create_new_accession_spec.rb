@@ -22,7 +22,7 @@ describe "Creating a new accession", :js=>true do
       # No rows, because no files have been uploaded
       page.should_not have_selector('tr')
     end
-    click_link "Back to Collection"
+    click_link "A Test Collection"
     within ('.table-striped') do
       # No rows, because no files have been uploaded
       page.should have_selector('tr')
