@@ -1,6 +1,6 @@
 Sufia::Engine.configure do
-  config.contact_email = 'cam156@psu.edu'
-  config.from_email = "ArchiveSphere Form <scholarsphere-service-support@dlt.psu.edu>"
+  config.contact_email = 'archivesphere-support@dlt.psu.edu'
+  config.from_email = "ArchiveSphere Form <archivesphere-support@dlt.psu.edu>"
   config.logout_url = "https://webaccess.psu.edu/cgi-bin/logout?#{Rails.application.get_vhost_by_host[1]}"
   config.login_url = "https://webaccess.psu.edu?cosign-#{Rails.application.get_vhost_by_host[0]}&#{Rails.application.get_vhost_by_host[1]}"
 end
