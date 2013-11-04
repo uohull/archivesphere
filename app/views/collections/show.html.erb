@@ -1,8 +1,8 @@
 
 <div class="collection controls">
-  <%= link_to 'Edit Collection',    collections.edit_collection_path,  {:class => "btn btn-primary"}  %>
+  <%= link_to 'Edit',    collections.edit_collection_path,  {:class => "btn btn-primary"}  %>
  <%= link_to 'Add Ingest',      new_accession_path(collection_id:@collection.noid),  {:class => "btn btn-primary"}  %>
- <%= link_to 'Back To Dashboard',  sufia.dashboard_index_path,  {:class => "btn btn-primary"}  %>
+ <%#= link_to 'Back To Dashboard',  sufia.dashboard_index_path,  {:class => "btn btn-primary"}  %>
 </div>
 <%= render partial:'descriptions', locals:{collection: @collection} %>
 

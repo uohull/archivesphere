@@ -7,7 +7,7 @@
       <%= link_to "Edit", unassigned_collection_path(edit:true), :class=> 'btn btn-primary' %>
   <% end %>
   <%= link_to 'Create Ingest',      new_accession_path,  {:class => "btn btn-primary"}  %>
-  <%= link_to 'Back To Dashboard',  "#{sufia.dashboard_index_path}",  {:class => "btn btn-primary"}  %>
+  <%#= link_to 'Back To Dashboard',  "#{sufia.dashboard_index_path}",  {:class => "btn btn-primary"}  %>
 </div>
 
 <%= render partial:'descriptions', locals:{collection: @collection} %>

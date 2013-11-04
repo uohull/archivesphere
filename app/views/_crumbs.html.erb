@@ -1,0 +1,8 @@
+<%   crumbs.each do |crumb| %>
+    <% if crumb == crumbs.last %>
+        <span class="active"> <%= crumb %>
+    <% else %>
+        <span> <%= crumb %> <span class="divider">/</span>
+    <% end %>
+    </span>
+<% end %>
