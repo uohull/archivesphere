@@ -23,8 +23,14 @@ describe "Creating a new accession", :js=>true do
     click_button "Start upload"
 
     within ('#accession_table') do
-      # No rows, because no files have been uploaded
+      # files should exist
       page.should have_selector('tr',text: "world.png")
+      click_link ("world.png")
     end
+
+    # check to be certain the creator is not set to the user ley
+    row = find('tr', text: 'Creator')
+    row.text.should_not include(approved_user.user_key)
+
   end
 end
