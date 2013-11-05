@@ -25,7 +25,7 @@ class GenericFile < ActiveFedora::Base
   end
 
   def terms_for_display
-    super.map{|v| v.to_sym}
+    super.map{|v| v.to_sym} - [:description]
   end
 
   def office?
