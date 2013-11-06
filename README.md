@@ -11,6 +11,11 @@ Repository for storing digital archived materials originating from media
 rake db:create
 rake db:migrate
 ```
+### (Re-)Generate the app's secret token
+
+```
+rake archivesphere:generate_secret
+```
 
 ### Get a copy of hydra-jetty
 ```
