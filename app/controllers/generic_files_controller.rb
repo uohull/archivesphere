@@ -18,7 +18,7 @@ class GenericFilesController < ApplicationController
   include Sufia::FilesControllerBehavior
 
   after_filter :update_accession, :except => [:show,:destroy]
-
+  prepend_before_filter :namespace_accession
 
   # routed to /files/new
   def new
@@ -54,7 +54,6 @@ class GenericFilesController < ApplicationController
   def create_metadata(file)
     accession_id = params["accession_id"]
     accession_id ||= params["batch_id"]
-    accession_id = Sufia::Noid.namespaceize(accession_id)
     accession = Accession.find(accession_id)
     Sufia::GenericFile::Actions.create_metadata(file, current_user, nil)
     file.collections << accession
@@ -81,6 +80,11 @@ class GenericFilesController < ApplicationController
       flash[:alert] = "Your account is not configured for importing files from a user-directory on the server."
       render :new
     end
+  end
+
+  def namespace_accession
+    params[:accession_id] = Sufia::Noid.namespaceize(params[:accession_id]) unless params[:accession_id].blank?
+    params[:batch_id] = Sufia::Noid.namespaceize(params[:batch_id]) unless params[:batch_id].blank?
   end
 
 
