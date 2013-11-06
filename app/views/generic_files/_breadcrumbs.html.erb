@@ -18,15 +18,15 @@ limitations under the License.
 <%# convert class variable to a local variable if the local hasn't been set %>
 <% generic_file ||= @generic_file %>
 <% accession = @generic_file.accessions.first  %>
-<% collection = accession.collections.first  %>
+<% collection = accession.collections.first unless accession.blank? %>
 
 <div class="breadcrumbs">
   <%
      crumbs = []
      crumbs << link_to('Dashboard', root_path)
 
-     crumbs << (collection.blank? ?  link_to("Unassigned Ingests", unassigned_collection_path) : link_to(collection.title, collections.collection_path(collection)))
-     crumbs << link_to(accession.accession_num,accession_path(accession.noid))
+     crumbs << (collection.blank? ?  link_to("Unassigned Ingests", unassigned_collection_path) : link_to(collection.title, collections.collection_path(collection))) unless collection.blank?
+     crumbs << link_to(accession.accession_num,accession_path(accession.noid)) unless accession.blank?
 
      crumbs << (action == "show" ? generic_file.title.first : link_to(generic_file.title.first, sufia.generic_file_path(generic_file)))
   %>
