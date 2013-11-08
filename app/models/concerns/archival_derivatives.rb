@@ -45,7 +45,8 @@ module ArchivalDerivatives
       when 'application/octet-stream', 'audio/x-aiff', 'audio/x-ms-wma'
         if ([".tga",".pct"].include? File.extname(obj.filename[0]).downcase )
           obj.transform_datastream :content, { :access => {format: 'jpg', datastream: 'access'},
-                                               :preservation => {format: 'tiff', datastream: 'preservation'}}
+                                               :preservation => {format: 'tiff', datastream: 'preservation'},
+                                               :thumbnail => {size: "200x150>", datastream: 'thumbnail'}}
           obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
 
         else
@@ -120,7 +121,7 @@ module ArchivalDerivatives
   module ClassMethods
     # expanding Sufias understanding of what images are
     def image_mime_types
-      super + ['image/x-bmp', 'image/x-pict', 'image/vnd.adobe.photoshop', 'image/tiff', 'image/x-targa']
+      super + ['image/x-bmp', 'image/x-pict', 'application/vnd.adobe.photoshop', 'image/vnd.adobe.photoshop', 'image/tiff', 'image/x-targa']
     end
   end
 

@@ -34,6 +34,10 @@ limitations under the License.
   <a href="<%= sufia.download_path(@generic_file) %>" target="_new" title="Download the full-sized PDF"><img src="<%= sufia.download_path(@generic_file, datastream_id: 'thumbnail') %>" width="338" alt="Download the full-sized PDF of <%= @generic_file.title.first %>"/>Download the full-sized PDF</a>
 <% elsif @generic_file.office?%>
   <a href="<%= sufia.download_path(@generic_file) %>" target="_new" title="Download the document"><img src="<%= sufia.download_path(@generic_file, datastream_id: 'thumbnail') %>" width="338" alt="Download the document of <%= @generic_file.title.first %>"/>Download the document</a>
+<!-- any other document type that has an image thumbnail show it... -->
+<% elsif @generic_file.thumbnail && (['image/jpeg','image/png'].include? @generic_file.thumbnail.mimeType) %>
+    <a href="<%= sufia.download_path(@generic_file) %>" target="_new" title="Download the document"><img src="<%= sufia.download_path(@generic_file, datastream_id: 'thumbnail') %>" width="338" alt="Download the document of <%= @generic_file.title.first %>"/>Download the document</a>
+<!-- otherwise show the evil blue doc -->
 <% else %>
   <a href="<%= sufia.download_path(@generic_file) %>" target="_new"><img src="/assets/default.png" alt="No preview available" width="338" height="493" /></a>
 <% end %>
