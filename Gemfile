@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.1'
 
 group :production, :integration do
   gem 'pg'
@@ -9,25 +9,22 @@ end
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'blacklight'
+gem 'blacklight', '4.5.0'
 gem 'hydra-head', '6.4.0'
-#gem 'sufia', github: 'projecthydra/sufia', ref: '69ffbd26a51390a7c40553769b74008ca80d0ef9' #> 3.0.0
-gem 'sufia', '3.4.0.rc3'
+gem 'sufia', github: 'projecthydra/sufia', ref: 'af9477ee33123b6944ec6f715262413dd61c2c4f' #> 3.4.0
+#gem 'sufia', '3.4.0'
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 
 gem 'activerecord-import'
 gem 'active_fedora_relsint', '0.3.0'
-gem 'active-fedora', '6.6.1'
+gem 'active-fedora', '6.7.0'
 gem 'mail_form', github: 'plataformatec/mail_form', ref:'9eb221a9c5e3'
 
 gem 'hydra-derivatives'
 #gem 'hydra-derivatives', github: 'projecthydra/hydra-derivatives', ref: '11430ca8ef1b83b35'
 
-#gem 'hydra-collections', git:'git://github.com/psu-stewardship/hydra-collections.git', ref:'ee120ae377138cc90fd94747a'
-#gem 'hydra-collections', path:'../hydra-collections'
-#gem 'hydra-collections', git: 'git://github.com/projecthydra/hydra-collections.git', ref:'f0d36d3'
-gem 'hydra-collections', '1.2.0'
+gem 'hydra-collections', git: 'git://github.com/projecthydra/hydra-collections.git', ref:'b46f68282663bf579832b79fbef52be2cbed7120'
 gem 'hydra-ldap', '0.1.0'
 
 gem 'sqlite3'
