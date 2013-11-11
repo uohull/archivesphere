@@ -31,7 +31,7 @@ describe CollectionsController do
       clear_collections
       Given {post :create, collection: {title: "My First Collection ", description: "The Description\r\n\r\nand more"}}
       When (:collection) {Collection.all.last}
-      Then {response.should redirect_to(Rails.application.routes.url_helpers.new_accession_path+"?collection_id=#{collection.id}")}
+      Then {response.should redirect_to(Rails.application.routes.url_helpers.new_accession_path+"?collection_id=#{collection.noid}")}
      end
 
      it "should allow for a thumnail" do

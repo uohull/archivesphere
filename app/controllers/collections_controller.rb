@@ -74,7 +74,7 @@ class CollectionsController < ApplicationController
     respond_to do |format|
       format.html do
         if params["batch_document_ids"].blank?
-          redirect_to "#{new_accession_path}?collection_id=#{@collection.id}", notice: 'Collection was successfully created.'
+          redirect_to "#{new_accession_path}?collection_id=#{@collection.noid}", notice: 'Collection was successfully created.'
         else
           redirect_to  collections.collection_path( @collection), notice: 'Collection was successfully created.'
         end
