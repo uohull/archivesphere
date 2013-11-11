@@ -54,7 +54,7 @@ module ApplicationHelper
   def generate_breadcrumb
     controller = params[:controller]
     action = params[:action]
-    render partial: "breadcrumbs", locals:{controller:controller, action:action} if (["edit","show"].include? action) || (action == "index" && controller == "collections")
+    render partial: "breadcrumbs", locals:{controller:controller, action:action} if ((["edit","show"].include? action) &&  (controller != "users")) || (action == "index" && controller == "collections")
   end
 
 end

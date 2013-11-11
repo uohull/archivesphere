@@ -27,7 +27,7 @@
   <% end %>
 </div>
 <div class="accession deposit">
-  Deposited on <%=@accession.date_uploaded %> by <%= display_user_name(@accession) %>
+  Deposited on <%=@accession.date_uploaded %> by <%= display_user_name(@accession) %>.  Last modified on <%= @accession.date_modified %>.
 </div>
 <div class="accession files">
   <h3> <u>Contained Files </u></h3>
