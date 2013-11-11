@@ -10,8 +10,11 @@
   clear: both;
 }
 
-.tree.file {
+.treetable span.tree.file {
   font-size: .8em;
+  background-image: none;
+  padding-left: 0;
+  margin-left: -1em;
 }
 .tree.file-data {
   font-size: .6em;

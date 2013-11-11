@@ -1,11 +1,9 @@
 <span class="tree file">
 
-  <%=link_to File.basename(path),sufia.generic_file_path(id)%>
-  <% file_data =[] %>
-  <% file_data << document.file_type if  document.file_type %>
-  <% file_data << document.file_size if document.file_size %>
-  <% unless file_data.empty? %>
-  <span class=" tree file-data"><%= "(#{file_data.join(", ")})" %></span>
+  <%=link_to truncate(File.basename(path), length:30),sufia.generic_file_path(id), title: File.basename(path) %>
+  <% file_data_str = display_file_data(document) %>
+  <% unless file_data_str.empty? %>
+  <span class=" tree file-data" title="<%=display_file_title(document)%>">(<%= file_data_str %>)</span>
   <% end %>
   <% if edit? %>
     <%= render partial:'dashboard/action_menu', locals:{noid:id, gf:nil} %>
