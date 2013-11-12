@@ -1,5 +1,7 @@
 class IngestLocalJob
 
+  include ActionView::Helpers::UrlHelper
+
   def queue_name
     :ingest
   end
@@ -43,7 +45,8 @@ class IngestLocalJob
 
     job_user = User.batchuser()
     good_files = files.size-@error_files.size
-    message = '<span class="accessionid ui-helper-hidden">ss-'+accession_id+"</span>#{good_files} #{"file".pluralize(good_files)} were uploaded from location#{file_list.size > 1 ?'s':''}: #{file_list.join(", ")}"
+    message = '<span class="accessionid ui-helper-hidden">ss-'+accession_id+"</span>#{good_files} #{"file".pluralize(good_files)} were uploaded from location #{file_list.size > 1 ?'s':''}: #{file_list.join(", ")}. &nbsp;"
+    message += link_to("Go to Ingest ##{@accession.accession_num}",Rails.application.routes.url_helpers.accession_path(accession_id))
     if @error_files.size > 0
       @error_files.each do |error|
         message+="<div class='row error'>Error for file #{error[:filename]}: #{error[:error]}</div>"

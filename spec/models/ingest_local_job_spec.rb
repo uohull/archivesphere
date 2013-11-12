@@ -29,6 +29,7 @@ describe IngestLocalJob do
       IngestLocalJob.new(fixture_path,["test2.jpg"],user.user_key, accession.id).run
       user.mailbox.inbox[0].messages[0].subject.should == "Local File Ingest Complete"
       user.mailbox.inbox[0].messages[0].body.should_not include("Error")
+      user.mailbox.inbox[0].messages[0].body.should include(Rails.application.routes.url_helpers.accession_path(accession.id))
       user.mailbox.inbox[0].messages[0].move_to_trash user
     end
   end
