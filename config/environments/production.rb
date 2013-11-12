@@ -1,7 +1,10 @@
 Sufia::Engine.configure do
   config.contact_email = 'archivesphere-support@dlt.psu.edu'
   config.from_email = "ArchiveSphere Form <archivesphere-support@dlt.psu.edu>"
-  config.logout_url = "https://webaccess.psu.edu/cgi-bin/logout?#{Rails.application.get_vhost_by_host[1]}"
+  #if we redirect back to the site after logout it does not make much sense since a user must be logged in to access the system
+  #currently just redirecting to the libraries home page.  This may need to change in the future
+  config.logout_url = "https://webaccess.psu.edu/cgi-bin/logout?http://www.libraries.psu.edu"
+#  config.logout_url = "https://webaccess.psu.edu/cgi-bin/logout?#{Rails.application.get_vhost_by_host[1]}"
   config.login_url = "https://webaccess.psu.edu?cosign-#{Rails.application.get_vhost_by_host[0]}&#{Rails.application.get_vhost_by_host[1]}"
 end
 Archivesphere::Application.configure do
