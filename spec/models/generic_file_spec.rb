@@ -104,7 +104,9 @@ describe GenericFile do
       end
     end
 
-    describe "an rtf file" do
+    context "office documents", :office do
+
+      describe "an rtf file" do
       it "should create derivatives" do
         subject.add_file(File.open(fixture_path + '/sample.rtf'), 'content', "sample.rtf")
         subject.mime_type = 'text/rtf'
@@ -115,6 +117,7 @@ describe GenericFile do
         subject.preservation_datastream.mimeType.should == 'application/vnd.oasis.opendocument.text'
       end
     end
+
 
     describe "an doc file" do
       it "should create derivatives" do
@@ -150,6 +153,7 @@ describe GenericFile do
       it "should create derivatives" do
         file_with_produced_access_and_thumbnail  'FlashPix.pptx',  'application/vnd.openxmlformats-officedocument.presentationml.presentation','application/pdf'
       end
+    end
     end
 
     describe "a wav file", travis_broken: true do

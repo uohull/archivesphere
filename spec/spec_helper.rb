@@ -14,10 +14,13 @@
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
+require 'rake'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'database_cleaner'
+
+#include Rake::DSL
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -29,6 +32,8 @@ $in_travis = !ENV['TRAVIS'].nil? && ENV['TRAVIS'] == 'true'
 
 
 RSpec.configure do |config|
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+
 #  config.before(:suite) do
 #    before_files_count = GenericFile.count
 #    before_batches_count = Batch.count
@@ -95,7 +100,11 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-  
+
+  config.before(:each, office:true) do
+    system "which soffice > /dev/null" or pending("Could not find soffice. Configure your environment to include soffice if you would like this test to run")
+  end
+
 end
 
 def define_collection (title = 'title', user = 'jilluser', description ='description', collection_num = '123')
