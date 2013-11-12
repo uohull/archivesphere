@@ -57,4 +57,11 @@ module ApplicationHelper
     render partial: "breadcrumbs", locals:{controller:controller, action:action} if ((["edit","show"].include? action) &&  (controller != "users")) || (action == "index" && controller == "collections")
   end
 
+  def display_access_users(users)
+    nu = users.map do |u|
+      User.find_by_user_key(u).name rescue u
+    end
+    nu.join(', ')
+  end
+
 end

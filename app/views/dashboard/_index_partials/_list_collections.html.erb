@@ -27,7 +27,7 @@ on element ids -->
   <td colspan="6">
     <table class="expanded-details">
       <tr>
-        <td><strong>Depositor: </strong>  </td>
+        <td><strong>Depositor: </strong> <%= display_user_name(document) %> </td>
       </tr>
       <tr>
         <td><strong>Description: </strong><%= document.description %> </td>
@@ -38,7 +38,7 @@ on element ids -->
             Groups: <%= document.edit_groups.join(', ') %>
             <br />
           <% end %>
-          Users: <%= document.edit_people.join(', ') %>
+          Users: <%= display_access_users(document.edit_people) %>
         </td>
       </tr>
     </table>
