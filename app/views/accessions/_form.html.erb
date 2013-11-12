@@ -1,4 +1,4 @@
-<div class="container">
+<div class="well">
 <%= form_for( @accession, as: "collection") do |f| %>
   <% if @accession.errors.any? %>
     <div id="error_explanation">
@@ -20,36 +20,34 @@
   </div>
   <% end %>
   <div class="field">
-    <%= f.label 'Accession #' %><br />
+    <%= f.label 'Accession #' %>
     <%= f.text_field :accession_num %>
   </div>
 
   <div class="field">
-    <%= f.label 'Ingest Type' %><br />
+    <%= f.label 'Ingest Type' %>
     <%= f.select :accession_type, ["Disk Media", "Virtual Transfer"] %>
   </div>
 
       <div class="disk-image">
 
       <div class="field">
-        <%= f.label 'Disk #' %><br />
+        <%= f.label 'Disk #' %>
         <%= f.text_field :disk_num %>
       </div>
 
        <div class="field">
-        <%= f.label 'Disk Label' %><br />
+        <%= f.label 'Disk Label' %>
         <%= f.text_field :disk_label %>
       </div>
 
       <div class="field">
-        <%= f.label 'Forensic Image Created?' %><br />
-        <%= f.radio_button(:disk_image, true) %>
-        <%= f.label("yes") %>
-        <%= f.radio_button(:disk_image, false) %>
-        <%= f.label("no") %>
+        <%= f.label 'Forensic Image Created?' %>
+        yes<%= f.radio_button(:disk_image, true, label:"yes") %>
+        no<%= f.radio_button(:disk_image, false) %>
       </div>
 
-      <div class="field ">
+      <div class="field">
         <%= f.label 'Disk Photograph Upload'%>
         <%= f.file_field 'thumbnail' %></p>
       </div>

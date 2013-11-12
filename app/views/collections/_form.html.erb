@@ -1,4 +1,5 @@
-<div class="container">
+<div class="well">
+
 <%-# This syntax [collections, @collection] tells form_for to use the routes from the engine named collections %>
 <%= form_for([collections, @collection]) do |f| %>
   <% if @collection.errors.any? %>
@@ -14,12 +15,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title, "Name" %><br />
+    <%= f.label :title, "Name" %>
     <%= f.text_field :title %>
   </div>
 
   <div class="field">
-    <%= f.label :collection_num, "Number" %><br />
+    <%= f.label :collection_num, "Number" %>
     <%= f.text_field :collection_num %>
   </div>
 
@@ -30,7 +31,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :description %><br />
+    <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
 

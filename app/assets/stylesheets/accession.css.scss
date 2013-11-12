@@ -30,3 +30,31 @@
 .breadcrumbs {
   background-color: white;
 }
+
+.field {
+  font-size: 1em;
+  color: #000085;
+  padding-bottom: .25em;
+}
+
+.field input {
+  //margin-left: 160px;
+ // float: right
+}
+
+.field label {
+  float: left;
+  padding-right: 1em;
+  height: 100%;
+  text-align: left;
+  width: 13em;
+  clear: both
+}
+
+form .actions {
+  clear: both
+}
+
+input[type="radio"] {
+  height: 2em;
+}
