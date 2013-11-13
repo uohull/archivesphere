@@ -25,48 +25,57 @@ describe AccessionsController do
   end
 
   describe '#create' do
-     context "valid accession post" do
-      clear_accessions
-      #post as a collection since the form thinks of the accession as a collection.  This is how the views are sending information
-      Given {post :create, collection: {accession_num: "123", disk_num: "disk number"}}
-      When (:accession) {Accession.all.last}
-      Then {response.should redirect_to(Rails.application.routes.url_helpers.accession_path(accession))}
-      Then {accession.accession_num.should == "123"}
-      Then {accession.disk_num.should == "disk number"}
+     context "post a valid accession" do
+       it "creates accession" do
+
+        #post as a collection since the form thinks of the accession as a collection.  This is how the views are sending information
+        post :create, collection: {accession_num: "123", disk_num: "disk number"}
+        accession = assigns[:accession]
+        response.should redirect_to(Rails.application.routes.url_helpers.accession_path(accession))
+        accession.accession_num.should == "123"
+        accession.disk_num.should == "disk number"
+       end
+
+       it "allows for a thumbnail" do
+         file = fixture_file_upload('/world.png','image/png')
+         #post as a collection since the form thinks of the accession as a collection.  This is how the views are sending information
+         post :create, collection: {accession_num: "123", disk_num: "disk number", thumbnail:file}
+         accession = assigns[:accession]
+         accession.thumbnail.mimeType.should == 'image/png'
+         accession.thumbnail.label.should == 'world.png'
+       end
      end
 
-     it "should allow for a thumnail" do
-       file = fixture_file_upload('/world.png','image/png')
-       #post as a collection since the form thinks of the accession as a collection.  This is how the views are sending information
-       post :create, collection: {accession_num: "123", disk_num: "disk number", thumbnail:file}
-       accession = assigns[:accession]
-       accession.thumbnail.mimeType.should == 'image/png'
-       accession.thumbnail.label.should == 'world.png'
-     end
   end
 
   describe '#update' do
-    context "update collection/accession metadata" do
-     clear_accessions
-     Given (:accession) {define_accession 'accession num', user.login}
-     When {put :update, id:accession.pid, collection: {accession_num:"456", disk_num:"disk number 456", disk_image:"yes", disk_label:"label 456"}}
-     Then {response.should redirect_to(Rails.application.routes.url_helpers.accession_path(accession))}
-     Then {accession.reload.accession_num.should == "456"}
-     Then {accession.reload.disk_num.should == "disk number 456"}
-     Then {accession.reload.disk_image.should == 'yes'}
-     Then {accession.reload.disk_label.should == 'label 456'}
+    let (:accession) {define_accession 'accession num', user.login}
+
+    context "send update accession metadata" do
+      it "modifies the accession" do
+       put :update, id:accession.pid, collection: {accession_num:"456", disk_num:"disk number 456", disk_image:"yes", disk_label:"label 456"}
+       response.should redirect_to(Rails.application.routes.url_helpers.accession_path(accession))
+       accession.reload
+       accession.accession_num.should == "456"
+       accession.disk_num.should == "disk number 456"
+       accession.disk_image.should == 'yes'
+       accession.disk_label.should == 'label 456'
+      end
      end
   end
 
   describe '#destroy' do
-    context "valid accession destroy" do
-      clear_accessions
-      Given (:collection) {define_collection 'title', user.login}
-      Given (:accession) {define_accession 'accession num', user.login}
-      When { accession.collections = [collection]; accession.save}
-      When {delete :destroy, :id=>accession.pid}
-      Then { expect {Accession.find(accession.id)}.to raise_error ActiveFedora::ObjectNotFoundError}
-      Then {response.should redirect_to(Hydra::Collections::Engine.routes.url_helpers.collection_path(collection))}
+    let (:collection) {define_collection 'title', user.login}
+    let (:accession) {define_accession 'accession num', user.login}
+    context "delete a valid accession" do
+      it "destroys the accession" do
+        accession.collections = [collection]
+        accession.save
+        delete :destroy, :id=>accession.pid
+        expect {Accession.find(accession.id)}.to raise_error ActiveFedora::ObjectNotFoundError
+        response.should redirect_to(Hydra::Collections::Engine.routes.url_helpers.collection_path(collection))
+        flash[:notice].should include("Ingest")
+      end
     end
   end
 

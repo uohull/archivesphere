@@ -49,7 +49,7 @@ class AccessionsController < ApplicationController
     path = sufia.dashboard_index_path
     path = collections.collection_path(@accession.collections[0]) unless @accession.collections.blank?
     respond_to do |format|
-      format.html { redirect_to path, notice: 'Collection was successfully deleted.' }
+      format.html { redirect_to path, notice: 'Ingest was successfully deleted.' }
       format.json { render json: {id:id}, status: :destroyed, location: @accession }
     end
   end
