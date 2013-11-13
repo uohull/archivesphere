@@ -79,6 +79,7 @@ Sufia.config do |config|
     # Specify the path to the file characterization tool:
     config.fits_path = Rails.root.join("fits/fits.sh").to_s
 
+    config.application_name = "ArchiveSphere"
 end
 
 Date::DATE_FORMATS[:standard] = "%m/%d/%Y"

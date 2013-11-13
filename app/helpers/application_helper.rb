@@ -30,6 +30,18 @@ module ApplicationHelper
     params[:action] == "edit"
   end
 
+  def new?
+    params[:action] == "new"
+  end
+
+  def controller_name
+    params[:controller]
+  end
+
+  def action_name
+    params[:action]
+  end
+
   def filter_user_collections(user_collections,collection)
     user_collections.reject {|a| a.noid == collection.noid}
   end
@@ -51,10 +63,23 @@ module ApplicationHelper
     path
   end
 
+  def page_title
+    unless new?
+      case controller_name
+        when "accessions"
+          title = "Ingest #{@accession.accession_num} - #{application_name}"
+        when "collections"
+          title = "#{@collection.title} - #{application_name}"
+        when "generic_files"
+          title = "#{@generic_file.title.join(", ")} - #{application_name}"
+      end
+    end
+    logger.warn "\n\n Title: #{title}"
+    title
+  end
+
   def generate_breadcrumb
-    controller = params[:controller]
-    action = params[:action]
-    render partial: "breadcrumbs", locals:{controller:controller, action:action} if ((["edit","show"].include? action) &&  (controller != "users")) || (action == "index" && controller == "collections")
+    render partial: "breadcrumbs", locals:{controller:controller_name, action:action_name} if ((["edit","show"].include? action_name) &&  (controller_name != "users")) || (action_name == "index" && controller_name == "collections")
   end
 
   def display_access_users(users)

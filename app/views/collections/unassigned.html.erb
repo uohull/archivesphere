@@ -1,3 +1,4 @@
+<% @page_title = page_title %>
 <% editing =  !params[:edit].nil? %>
 
 <div class="collection controls">
@@ -10,10 +11,13 @@
   <%#= link_to 'Back To Dashboard',  "#{sufia.dashboard_index_path}",  {:class => "btn btn-primary"}  %>
 </div>
 
-<%= render partial:'descriptions', locals:{collection: @collection} %>
-&nbsp;
+<h1><%=@collection.title%><h1>
+  <h3> </h3>
+  <div class="collection data">
+    <h3><%=@collection.description%> </h3>
+  </div>
 <div class="collection files">
-<h3> <u>Unassigned Ingests </u></h3>
+<h3> <u>Ingests </u></h3>
 
   <% render_pagination_info @response, :entry_name=>'item' %>
   <%= render 'sort_and_per_page' %>
