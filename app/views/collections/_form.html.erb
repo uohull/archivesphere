@@ -24,11 +24,8 @@
     <%= f.text_field :collection_num %>
   </div>
 
-  <div class="field">
-    <%= f.label 'Upload Photo'%>
-    <%= render partial: 'collections/image_display', locals: {item:@collection, width:60} %>
-    <%= f.file_field 'thumbnail' %></p>
-  </div>
+
+  <%= render partial: 'collections/image_select', locals: {document:@collection, form:f, label:"Upload Photo"} %>
 
   <div class="field">
     <%= f.label :description %>

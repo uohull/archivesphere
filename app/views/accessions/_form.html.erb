@@ -47,10 +47,7 @@
         no<%= f.radio_button(:disk_image, false) %>
       </div>
 
-      <div class="field">
-        <%= f.label 'Disk Photograph Upload'%>
-        <%= f.file_field 'thumbnail' %></p>
-      </div>
+        <%= render partial: 'collections/image_select', locals: {document:@accession, form:f, label:"Disk Photograph Upload"} %>
 
   </div>
 

@@ -1,0 +1,6 @@
+<div class="field">
+  <%= form.label label %>
+  <%= render partial: 'collections/image_display', locals: {item:document, width:60} %>
+  <%= "Replace with: " if document.image_avail? %>
+  <%= form.file_field 'thumbnail' %></p>
+</div>
