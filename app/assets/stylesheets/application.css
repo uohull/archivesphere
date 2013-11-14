@@ -9,7 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require application-bootstrap
+ *= require bootstrap
  *= require trophy
  *= require blacklight_more_facets
  *= require batch_edit
@@ -17,14 +17,15 @@
  *= require _font-awesome
  *= require video-js
  *= require audio-js
- *= require dashboard
  *= require jquery-ui
  *= require accession
  *= require collection
  *= require icons
- *= require blacklight
+ 
  *= require jquery.treetable
  *= require jquery.treetable.theme.default
  *= require dashboard_as
+ *= require dashboard
+ *= require look_and_feel
 
  */

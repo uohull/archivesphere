@@ -1,13 +1,20 @@
 <div id="footer-wrapper" class="row-fluid">
-  <div id="footer">
-    <div class="footer-logo">
-      <p class="fright"><%= Archivesphere::Application::config.archivesphere_version %></p>
-      <p>ArchiveSphere</p>
-    </div>
-    <div class="footer-text">
-      <p><strong>Copyright &copy; 2014 PennState University</strong></p>
-    </div>
-    <div class="clearfix"></div>
-  </div><!-- /footer -->
+  <div class="span12">
+    <footer id="footer" class="row-fluid">
+      <div class="offset1 span5">
+        <p class="logo"><a href="/"><span class="logoScholar">Scholar</span><span class="logoSphere">Sphere</span></a><a href="/versions/"><span class="version"><%= ScholarSphere::Application::config.scholarsphere_version %></span></a></p>
+        <p>A service of the University Libraries and Information Technology Services.</p>
+      </div>
+      <div class="span6 footer-text">
+        <p><strong>Copyright &copy; 2012 The Pennsylvania State University</strong></p>
+        <ul class="inline">
+          <li><a href="http://psu.edu">Penn State</a></li>
+          <li><a href="http://libraries.psu.edu">University Libraries</a></li>
+          <li><a href="http://its.psu.edu">Information Technology Services</a></li>
+          <li><a href="http://accessibility.psu.edu/">Accessibility</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
 </div><!-- /footer-wrapper -->
 

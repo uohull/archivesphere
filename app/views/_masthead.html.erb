@@ -1,5 +1,5 @@
 <%#
-Copyright © 2012 The Pennsylvania State University
+Copyright © 2013 The Pennsylvania State University
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,28 +14,28 @@ See the License for the specific language governing permissions and
 limitations under the License.
 %>
 
-<div id="masthead">
-  <h1 class="fleft white">
-    ArchiveSphere
-  </h1>
-  <div class="navbar">
-    <div class="nav-inner">
-      <div class="container1">
-        <ul class="nav pull-right ">
-          <li <%= 'class=active1' if params[:controller] == "catalog" and action_name == "index" %>><a href="/" class="top_nav">Home</a></li>
-          <li <%= 'class=active' if action_name == "about" %>><a href="/about/" class="top_nav">About</a></li>
-          <li <%= 'class=active' if action_name == "help" %>><a href="/help/" class="top_nav">Help</a></li>
-          <li <%= 'class=active' if params[:controller] == "contact_form" %>><a href="<%= sufia.contact_form_index_path %>" class="top_nav">Contact</a></li>
-          <li>
-            <div class="btn-group">
-              <%= render partial: '/user_util_links' %>
-            </div><!-- /.btn-group -->
-          </li>
-        </ul><!-- /.nav /.pull-right -->
-      </div><!-- /.container -->
-    </div><!-- /.nav-inner -->
-  </div><!-- /.navbar -->
-  <%= render :partial => 'catalog/search_form' %>
+<div id="masthead" class="row-fluid">
+  <div class="span12">
+    <section class="row-fluid">
+      <div class="span5">
+        <%= render partial: '/logo' %>
+      </div><!-- Penn State Mark -->
+      <nav class="span7">
+        <ul class="nav inline pull-right">
+          <li class="top_nav" <%= 'class="active"' if params[:controller] == "catalog" and action_name == "index" %>><a href="/">Home</a></li>
+            <li class="top_nav" <%= 'class="active"' if action_name == "about" %>><a href="/about/">About</a></li>
+              <li class="top_nav" <%= 'class="active"' if action_name == "help" %>><a href="/help/">Help</a></li>
+            <li class="top_nav" <%= 'class="active"' if params[:controller] == "contact_form" %>><a href="<%= sufia.contact_form_index_path %>">Contact</a></li>
+          <li><div class="btn-group"><%= render partial: '/user_util_links' %></div></li>
+        </ul>
+      </nav><!-- Navigation for Static Links and User Action Bar -->
+    </section><!-- top row for the penn state mark and user action bar -->
+    <section class="row-fluid">
+      <div class="offset8 span4">
+        <%= render :partial => 'catalog/search_form' %>
+      </div><!-- ScholarSphere search -->
+    </section><!-- bottom row for the ScholarSphere search -->
+  </div><!-- sets the full number of columns -->
 </div> <!-- /masthead -->
-<%= generate_breadcrumb%>
+<%= generate_breadcrumb %>
 
