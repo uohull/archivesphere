@@ -1,9 +1,11 @@
+
 .dashboard.controls {
   float: left;
+  width: 100%;
 }
 
-.dashboard.controls a{
-  float: right;
+.dashboard.controls a, .dashboard.controls form {
+  float: left;
   margin-left: 6px;
 }
 
