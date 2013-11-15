@@ -79,7 +79,12 @@ module ApplicationHelper
   end
 
   def generate_breadcrumb
-    render partial: "breadcrumbs", locals:{controller:controller_name, action:action_name} if ((["edit","show"].include? action_name) &&  (controller_name != "users")) || (action_name == "index" && controller_name == "collections")
+    render partial: "breadcrumbs", locals:{controller:controller_name, action:action_name} if ((["edit","show","new"].include? action_name) &&  (controller_name != "users")) || (action_name == "index" && controller_name == "collections")
+
+  # if the view was not implemented just do not show them
+  rescue ActionView::MissingTemplate
+    logger.warn "A breadcrumb view has not yet been implemented for Controller: #{controller} Action: #{action}"
+    nil
   end
 
   def display_access_users(users)

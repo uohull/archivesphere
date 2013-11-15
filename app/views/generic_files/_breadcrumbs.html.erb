@@ -24,11 +24,15 @@ limitations under the License.
   <%
      crumbs = []
      crumbs << link_to('Dashboard', root_path)
-
      crumbs << (collection.blank? ?  link_to("Unassigned Ingests", unassigned_collection_path) : link_to(collection.title, collections.collection_path(collection))) unless collection.blank?
+     accession ||= Accession.find( Sufia::Noid.namespaceize(params[:accession]))
      crumbs << link_to(accession.accession_num,accession_path(accession.noid)) unless accession.blank?
 
-     crumbs << (action == "show" ? generic_file.title.first : link_to(generic_file.title.first, sufia.generic_file_path(generic_file)))
+     if action == "show"
+       generic_file.title.first
+     elsif action == "edit"
+       link_to(generic_file.title.first, sufia.generic_file_path(generic_file))
+     end
   %>
   <%= render partial:"/crumbs", locals:{crumbs:crumbs} %>
 </div><!-- /breadcrumbs -->

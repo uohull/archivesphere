@@ -28,7 +28,7 @@ limitations under the License.
         crumbs << link_to("show #{collection.title}", collections.collection_path(collection.noid))
      elsif action == "index" && params[:edit]
        crumbs << link_to("Unassigned", unassigned_collection_path)
-     else
+     elseif action != "action"
        crumbs << "Unassigned"
      end
   %>

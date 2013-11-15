@@ -24,7 +24,7 @@ limitations under the License.
 
      crumbs << (accession.collections[0].blank? ?  link_to("Unassigned Ingests", unassigned_collection_path) : link_to(accession.collections[0].title, collections.collection_path(accession.collections[0])))
 
-     crumbs << (action == "show" ? accession.accession_num : link_to("show #{accession.accession_num}",accession_path(accession.noid)))
+     crumbs << (action == "show" ? accession.accession_num : link_to("show #{accession.accession_num}",accession_path(accession.noid))) unless accession.noid.blank?
   %>
   <%= render partial:"/crumbs", locals:{crumbs:crumbs} %>
 </div><!-- /breadcrumbs -->
