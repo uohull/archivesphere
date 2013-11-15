@@ -33,37 +33,28 @@ on element ids -->
     </td>
   <% end %>
 </tr>
-<tr class="hide" id="detail_<%= noid.gsub(":", "_") %>"> <!--  document detail"> -->
-  <td colspan="6">
-    <table class="expanded-details">
+<tr class="hide detail-row" id="detail_<%= noid.gsub(":", "_") %>"> <!--  document detail"> -->
+  <td class="detail-data" colspan="6">
+    <dl class="details expanded-details">
       <% if document.accession_type == "Virtual Transfer" %>
-          <tr>
-            <td><strong>Description:</strong>  </td>
-            <td><%=document.description %></td>
-          </tr>
+        <dt>Description  </dt>
+        <dd><%=document.description %></dd>
 
       <% else %>
-          <tr>
-            <td><strong>Disk #:</strong>  </td>
-            <td><%=document.disk_num %></td>
-          </tr>
-          <tr>
-            <td><strong>Disk Label: </strong></td>
-            <td><%= document.disk_label %> </td>
-          </tr>
-          <tr>
-            <td ><strong>Edit Access: </strong>
-              <td>
+        <dt>Disk #</dt>
+        <dd><%=document.disk_num %></dd>
+        <dt>Disk Label</dt>
+        <dd><%= document.disk_label %> </dd>
+        <dt >Edit Access: </dt>
+      <dd>
 
-                <% if document.edit_groups.present? %>
-                    Groups: <%= document.edit_groups.join(', ') %>
-                    <br />
-                <% end %>
-                Users: <%= document.edit_people.join(', ') %>
-              </td>
-            </td>
-          </tr>
+        <% if document.edit_groups.present? %>
+            Groups: <%= document.edit_groups.join(', ') %>
+            <br />
+        <% end %>
+        Users: <%= document.edit_people.join(', ') %>
+      </dd>
        <%end %>
-    </table>
+    </dl>
   </td>
 </tr>
