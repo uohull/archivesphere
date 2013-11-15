@@ -1,4 +1,6 @@
-
+a.btn.btn-primary:first-child {
+	margin-left: 25px;
+}
 .dashboard.controls {
   float: left;
   width: 100%;
@@ -7,6 +9,18 @@
 .dashboard.controls a, .dashboard.controls form {
   float: left;
   margin-left: 6px;
+}
+
+dl.expanded-details dt {
+	float: left;
+	width: 8em;
+	text-align: right;
+	padding-right: 1em;
+}
+
+.table-striped tbody > tr.zebra:nth-child(odd) > td,
+.table-striped tbody > tr.zebra:nth-child(odd) > th {
+  background-color: #f9f9f9;
 }
 
 .span110 {
