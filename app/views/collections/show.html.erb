@@ -1,14 +1,20 @@
 <% @page_title = page_title %>
 
-<div class="collection controls">
+<div class="collection controls row-fluid">
   <%= link_to 'Edit',    collections.edit_collection_path,  {:class => "btn btn-primary"}  %>
  <%= link_to 'Add Ingest',      new_accession_path(collection_id:@collection.noid),  {:class => "btn btn-primary"}  %>
  <%#= link_to 'Back To Dashboard',  sufia.dashboard_index_path,  {:class => "btn btn-primary"}  %>
 </div>
-<%= render partial:'descriptions', locals:{collection: @collection} %>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="row-fluid">
+		<%= render partial:'descriptions', locals:{collection: @collection} %>
+	</div>
+  </div>
+</div>
 
-<div class="collection files">
-  <h3> <u>Ingests </u></h3>
+<div class="collection files row-fluid">
+  <div class="span4 accession-ingest"><h3> <u>Ingests </u></h3></div>
 <%#= render partial: 'search_form'%>
-<%= render partial:'document_list', locals:{documents: @member_docs} %>
+	<section class="row-fluid"><%= render partial:'document_list', locals:{documents: @member_docs} %></section>
 </div>

@@ -1,6 +1,12 @@
+/*
 a.btn.btn-primary:first-child {
 	margin-left: 25px;
+} */
+
+h1.dashboard-header {
+  margin-left: -.8em;
 }
+
 .dashboard.controls {
   float: left;
   width: 100%;
@@ -21,10 +27,6 @@ dl.expanded-details dt {
 .table-striped tbody > tr.zebra:nth-child(odd) > td,
 .table-striped tbody > tr.zebra:nth-child(odd) > th {
   background-color: #f9f9f9;
-}
-
-.span110 {
-  width: 95%;
 }
 
 .per_page label, .per_page select{

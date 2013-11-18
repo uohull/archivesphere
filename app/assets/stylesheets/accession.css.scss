@@ -1,34 +1,15 @@
-.image.accession {
-  float: left;
-  padding-right: 20px;
+/*
+.accession-title-image {
+  padding-left: 1.75em;
+} */
+.accession.controls {
+  margin-bottom: 2em;
 }
-
-.controls.accession {
-  clear:both;
-}
-.accession.files {
-  clear: both;
-}
-
-.treetable span.tree.file {
-  font-size: .8em;
-  background-image: none;
-  padding-left: 0;
-  margin-left: -1em;
-}
-.tree.file-data {
-  font-size: .6em;
-
-}
-
-.accession.deposit {
-  font-size: .5em;
-  font-weight: normal;
-}
-
 
 .breadcrumbs {
   background-color: white;
+  font-size: 1.15em;
+  padding: 1em;
 }
 
 .field {
@@ -57,4 +38,8 @@ form .actions {
 
 input[type="radio"] {
   height: 2em;
+}
+
+table.treetable {
+  font-size: 1em;
 }

@@ -1,10 +1,13 @@
-<h1>Collection: <%=collection.title%><h1>
+<div class="span3 accession-title-image">
   <div class="collection image">
     <%= render partial: 'collections/image_display', locals: {item:@collection} %>
   </div>
-  <h3> <%=collection.collection_num%> </h3>
-
-  <div class="collection data">
-    <h3/>
-    <h3><%=collection.description%> </h3>
-  </div>
+</div>
+<div class="span9">
+	<h1>Collection: <%=collection.title%><h1>
+		<h2> <%=collection.collection_num%> </h2>
+		  <div class="collection data">
+		    <h2><%=collection.description%> </h2>
+		  </div>
+</div>
+  
