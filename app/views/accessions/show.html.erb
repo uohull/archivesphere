@@ -8,7 +8,7 @@
 
   <%# end %>
   <%= link_to 'Edit',    edit_accession_path(@accession),  {:class => "btn btn-primary"}  %>
-  <%= link_to 'Delete',  accession_path(@accession), {:class => "btn btn-primary", method:'delete', :confirm => "Deleting an accession from #{t('sufia.product_name')} is permanent. Click OK to delete this accession from #{t('sufia.product_name')}, or Cancel to cancel this operation"}  %>
+  <%= link_to 'Delete',  accession_path(@accession), {:class => "btn btn-primary", method:'delete', data: {confirm: "Deleting an accession from #{t('sufia.product_name')} is permanent. Click OK to delete this accession from #{t('sufia.product_name')}, or Cancel to cancel this operation"}}  %>
   <%= link_to '<i class="icon-upload-alt"></i> Add File(s)'.html_safe, sufia.new_generic_file_path(accession:@accession.noid), {:class => "btn btn-primary"}  %><br />
 </div>
 

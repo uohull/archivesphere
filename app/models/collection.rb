@@ -25,7 +25,7 @@ class Collection < ActiveFedora::Base
   has_metadata :name => "properties", :type => CollectionPropertiesDatastream
   has_file_datastream :name => "thumbnail", :type => FileContentDatastream
 
-  delegate_to :properties, [:collection_num], :unique => true
+  has_attributes :collection_num, datastream: :properties , multiple: false
 
 
   def terms_for_display

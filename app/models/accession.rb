@@ -27,7 +27,7 @@ class Accession < ActiveFedora::Base
   has_metadata :name => "properties", :type => AccessionPropertiesDatastream
   has_file_datastream :name => "thumbnail", :type => FileContentDatastream
 
-  delegate_to :properties, [:accession_num, :disk_num, :disk_image, :disk_label, :accession_type], :unique => true
+  has_attributes :accession_num, :disk_num, :disk_image, :disk_label, :accession_type, datastream: :properties, multiple: false
 
   def terms_for_display
     [:accession_num, :disk_num, :disk_label, :disk_image, :date_modified, :date_uploaded, :accession_type]
