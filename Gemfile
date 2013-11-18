@@ -24,7 +24,8 @@ gem 'mail_form', github: 'plataformatec/mail_form', ref:'9eb221a9c5e3'
 gem 'hydra-derivatives'
 #gem 'hydra-derivatives', github: 'projecthydra/hydra-derivatives', ref: '11430ca8ef1b83b35'
 
-gem 'hydra-collections', git: 'git://github.com/projecthydra/hydra-collections.git', ref:'b46f68282663bf579832b79fbef52be2cbed7120'
+gem 'hydra-collections', git: 'git://github.com/psu-stewardship/hydra-collections.git', ref:'849bb77c2c4d'
+#gem 'hydra-collections', git: 'git://github.com/projecthydra/hydra-collections.git', ref:'b46f68282663bf579832b79fbef52be2cbed7120'
 gem 'hydra-ldap', '0.1.0'
 
 gem 'sqlite3'

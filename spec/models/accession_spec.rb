@@ -15,6 +15,8 @@
 require 'rspec/given'
 require 'spec_helper'
 
+require 'spec_support/collection_shared_spec'
+
 describe Accession do
   let(:user) { FactoryGirl.create :user }
 
@@ -66,6 +68,14 @@ describe Accession do
       file1.collections == [accession]
       file2.collections == [accession]
     end
+    it_should_behave_like  Hydra::Collection do
+      let(:user) { FactoryGirl.create :user }
+      subject {define_accession 'abc', user}
+
+      let (:member1) {file1}
+      let (:member2) {file2}
+    end
+
   end
 
  
