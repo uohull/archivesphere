@@ -44,6 +44,8 @@ class AccessionsController < ApplicationController
 
   prepend_before_filter :array_collection_id_param, only:[:create,:update]
 
+  around_filter  :set_presenter, except:[:index]
+
   #todo where should the delete go?
   def after_destroy (id)
     path = sufia.dashboard_index_path
@@ -59,15 +61,11 @@ class AccessionsController < ApplicationController
   end
 
   def show
-    (_, member_docs) = get_search_results({:q => params[:cq]}, :rows=>1004)
-    @tree = @accession.sort_member_paths(member_docs)
-    @html = ''
+    get_tree
   end
 
   def edit
-    (_, member_docs) = get_search_results({:q => params[:cq]}, :rows=>1004)
-    @tree = @accession.sort_member_paths(member_docs)
-    @html = ''
+    get_tree
   end
 
   def after_create
@@ -139,11 +137,7 @@ class AccessionsController < ApplicationController
 
   #get the thumbnail and stuff it into the accession
   def grab_thumbnail()
-    thumbnail = params[:thumbnail]
-    return unless thumbnail
-    if (@accession.virus_check (thumbnail)) == 0
-      Sufia::GenericFile::Actions.create_content(@accession, thumbnail, thumbnail.original_filename, "thumbnail", current_user)
-    end
+    super(@accession)
   end
 
   # move the thumbnail out of the collection params so that the collection does not get it when it runs update_parameters
@@ -161,5 +155,15 @@ class AccessionsController < ApplicationController
 
   def array_collection_id_param
     params[:collection][:collection_ids] = Array(params[:collection][:collection_ids]) unless params[:collection][:collections].blank?
+  end
+
+  def set_presenter
+    @accession_presenter = AccessionPresenter.new(@accession, params)
+    yield if block_given?
+  end
+
+  def get_tree
+    (_, member_docs) = get_search_results({:q => params[:cq]}, :rows=>9999)
+    @accession_presenter.tree = @accession.sort_member_paths(member_docs)
   end
 end

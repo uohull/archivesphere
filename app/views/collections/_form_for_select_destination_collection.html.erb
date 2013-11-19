@@ -11,11 +11,6 @@
     <%= hash_as_hidden_fields({:collection =>{members:"move"}}) %>
     <div class="collection-list">
       <%= collection_select('', :destination_collection_id,  filter_user_collections(user_collections,@collection), :id, :title, {prompt:true}, {class:"collection-selector"} ) %>
-      <!--<ul>-->
-      <!--<%# user_collections.each do |collection| %>-->
-        <!--<li> <%#= radio_button_tag(:destination_collection_id, collection.id, false, :class => "collection-selector") %><%#= label_tag(:collection, collection.title) %> </li>-->
-      <!--<%# end %>-->
-      <!--</ul>-->
     </div>
     <%= button_to "Move to Selected Collection", collections.collections_path, :method=>:put, :class=>"btn btn-primary collection-update submits-batches", 'data-behavior'=>'hydra-collections', :id=>'hydra-collection-move' %>
   <% end %>

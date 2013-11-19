@@ -11,7 +11,8 @@ end
 
 gem 'blacklight', '4.5.0'
 gem 'hydra-head', '6.4.0'
-gem 'sufia', github: 'projecthydra/sufia', ref: 'ee2d8f47d83a30f792ee2394194805ba25849b02' #> 3.4.0
+gem 'sufia', github: 'psu-stewardship/sufia', ref: 'ccfe5cfb2e7291' #> 3.4.0
+#gem 'sufia', github: 'projecthydra/sufia', ref: 'ee2d8f47d83a30f792ee2394194805ba25849b02' #> 3.4.0
 #gem 'sufia', '3.4.0'
 gem 'jettywrapper'
 gem 'font-awesome-sass-rails'

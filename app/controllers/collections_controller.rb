@@ -33,6 +33,7 @@ class CollectionsController < ApplicationController
   after_filter :grab_thumbnail , only:[:create,:update]
 
   before_filter :find_collections, only: [:edit]
+  around_filter  :set_presenter, except:[:index]
 
   # this is really unassigned just tyring to get around loading a specific object w/ load and authorize
   def index
@@ -46,6 +47,7 @@ class CollectionsController < ApplicationController
     (@response, @member_docs) = get_search_results(solr_params)
     find_collections
 
+    set_presenter
     render :unassigned
   end
 
@@ -89,15 +91,13 @@ class CollectionsController < ApplicationController
 
   #get the thumbnail and stuff it into the collection
   def grab_thumbnail()
-    thumbnail = params[:thumbnail]
-    return unless thumbnail
+    # save off the title since the create content does bad things with it
     title = @collection.title
-    @collection = @collection.reload
-    if (@collection.virus_check (thumbnail)) == 0
-      Sufia::GenericFile::Actions.create_content(@collection, thumbnail, thumbnail.original_filename, "thumbnail", current_user)
-      @collection.title = title
-      @collection.save
-    end
+    super(@collection)
+
+    #restore the original title
+    @collection.title = title
+    @collection.save
   end
 
   # move the thumbnail out of the collection params so that the collection does not get it when it runs update_parameters
@@ -130,4 +130,9 @@ class CollectionsController < ApplicationController
     end
   end
 
+
+  def set_presenter
+    @collection_presenter = CollectionPresenter.new(@collection, params)
+    yield if block_given?
+  end
 end

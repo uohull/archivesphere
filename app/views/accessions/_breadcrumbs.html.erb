@@ -18,13 +18,5 @@ limitations under the License.
 <% accession = @accession unless accession  %>
 
 <div class="breadcrumbs">
-  <%
-     crumbs = []
-     crumbs << link_to('Dashboard', root_path)
-
-     crumbs << (accession.collections[0].blank? ?  link_to("Unassigned Ingests", unassigned_collection_path) : link_to(accession.collections[0].title, collections.collection_path(accession.collections[0])))
-
-     crumbs << (action == "show" ? accession.accession_num : link_to("show #{accession.accession_num}",accession_path(accession.noid))) unless accession.noid.blank?
-  %>
-  <%= render partial:"/crumbs", locals:{crumbs:crumbs} %>
+  <%= render partial:"/crumbs", locals:{crumbs:@accession_presenter.crumbs(action)} %>
 </div><!-- /breadcrumbs -->
