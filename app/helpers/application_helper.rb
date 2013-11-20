@@ -83,7 +83,7 @@ module ApplicationHelper
 
   # if the view was not implemented just do not show them
   rescue ActionView::MissingTemplate
-    logger.warn "A breadcrumb view has not yet been implemented for Controller: #{controller} Action: #{action}"
+    logger.warn "A breadcrumb view has not yet been implemented for Controller: #{controller_name} Action: #{action_name}"
     nil
   end
 
