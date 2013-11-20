@@ -121,3 +121,7 @@ th.sm .dropdown-toggle {
     margin-top: 2px;
     padding: 4px 8px;
 }*/
+
+.container {
+    width: auto;
+}
