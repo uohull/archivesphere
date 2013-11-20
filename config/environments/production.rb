@@ -69,4 +69,15 @@ Archivesphere::Application.configure do
 
   config.eager_load = false
   config.assets.js_compressor = :uglifier
+
+  config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  config.cache_store = :mem_cache_store
+  config.action_dispatch.default_headers = {
+    'X-Frame-Options' => 'SAMEORIGIN',
+       'X-XSS-Protection' => '1; mode=block',
+       'X-Content-Type-Options' => 'nosniff'
+    }
+
+  config.force_ssl = true
+
 end
