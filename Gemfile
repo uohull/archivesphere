@@ -9,6 +9,7 @@ end
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'dalli', '2.6.4'
 gem 'blacklight', '4.5.0'
 gem 'hydra-head', '6.4.0'
 gem 'sufia', github: 'projecthydra/sufia', ref: 'ee2d8f47d83a30f792ee2394194805ba25849b02' #> 3.4.0
