@@ -15,12 +15,10 @@ limitations under the License.
 %>
 <% if user_signed_in? %>
    <%= render :partial => 'users/notify_link' %>
-  <a href="<%= sufia.profile_path(current_user) %>" class="btn btn-small " title="Click for User Profile"><i class="icon-user">&nbsp;</i><%= current_user.name %></a>
+  <span  class="btn btn-small disabled" ><i class="icon-user">&nbsp;</i><%= current_user.name %></span>
   <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="icon-caret-down" title="Click for additional menu options"></span></a>
   <ul class="dropdown-menu pull-right">
       <li><%= link_to raw('<i class="icon-dashboard"></i> my dashboard'), sufia.dashboard_index_path, :id => 'dashboard_nav_link'  %></li>
-      <li><%= link_to raw('<i class="icon-upload-alt"></i> upload'), sufia.new_generic_file_path, :id => 'upload_nav_link'  %></li>
-      <li><%= link_to raw('<i class="icon-cog"></i> edit profile'), sufia.edit_profile_path(current_user), :id => 'upload_nav_link'  %></li>
       <li class="divider"></li>
       <li><%= link_to raw('<i class="icon-signout"></i> log out'), destroy_user_session_path, :id => 'logout_nav_link' %></li>
   </ul>
