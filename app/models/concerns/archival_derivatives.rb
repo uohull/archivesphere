@@ -54,7 +54,7 @@ module ArchivalDerivatives
                                                :access => {format: 'mp3', datastream: 'access'} },processor: :audio
           obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
         end
-      when 'video/x-msvideo', 'video/x-flv', 'video/quicktime', 'video/mpeg', 'application/x-shockwave-flash', 'video/x-ms-wmv'
+      when 'video/x-msvideo', 'video/x-flv', 'video/quicktime', 'video/mpeg', 'application/x-shockwave-flash', 'video/x-ms-wmv', 'video/x-ms-asf'
         obj.transform_datastream :content, { :access => { :format=>'mp4' , datastream: 'access'},
                                              :preservation=> {:format => 'mkv' , datastream: 'preservation'} ,
                                              :thumbnail=> {:format => 'jpg' , datastream: 'thumbnail'}  }, processor: 'video'
