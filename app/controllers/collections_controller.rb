@@ -32,7 +32,7 @@ class CollectionsController < ApplicationController
   prepend_before_filter :move_thumb_param, only: [:create,:update]
   after_filter :grab_thumbnail , only:[:create,:update]
 
-  before_filter :find_collections, only: [:edit]
+  before_filter :find_collections_with_edit_access, only: [:edit]
 
   # this is really unassigned just tyring to get around loading a specific object w/ load and authorize
   def index
@@ -44,7 +44,7 @@ class CollectionsController < ApplicationController
 
     # run the solr query to find the collections
     (@response, @member_docs) = get_search_results(solr_params)
-    find_collections
+    find_collections_with_edit_access
 
     render :unassigned
   end

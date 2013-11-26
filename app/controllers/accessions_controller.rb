@@ -40,7 +40,7 @@ class AccessionsController < ApplicationController
 
   before_filter :remove_select_something
 
-  before_filter :find_collections, only: [:edit]
+  before_filter :find_collections_with_edit_access, only: [:edit]
 
   prepend_before_filter :array_collection_id_param, only:[:create,:update]
 

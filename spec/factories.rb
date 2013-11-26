@@ -17,7 +17,7 @@ FactoryGirl.define do
     sequence(:login) {|n| "user#{n}" }
 
     factory :approved_user do
-      after(:build) { |u, evaluator| u.stub(:groups).and_return(['umg/up.dlt.archivesphere-admin-viewers']) }
+      after(:build) { |u, evaluator| u.email = "#{u.login}@psu.edu"; u.stub(:groups).and_return(['umg/up.dlt.archivesphere-admin-viewers']) }
     end
   end
 
@@ -32,7 +32,15 @@ FactoryGirl.define do
     ignore do
       user nil
     end
-    after(:build) { |gf, evaluator| gf.apply_depositor_metadata(evaluator.user) }
+    after(:build) { |a, evaluator| a.apply_depositor_metadata(evaluator.user) }
+  end
+
+
+  factory :collection do
+    ignore do
+      user nil
+    end
+    after(:build) { |c, evaluator| c.apply_depositor_metadata(evaluator.user) }
   end
 end
 

@@ -24,6 +24,14 @@ describe AccessionsController do
     sign_in user
   end
 
+  after (:all) do
+    User.all.each(&:destroy)
+    GenericFile.all.each(&:destroy)
+    Collection.all.each(&:destroy)
+    Accession.all.each(&:destroy)
+  end
+
+
   describe '#create' do
      context "post a valid accession" do
        it "creates accession" do
@@ -109,5 +117,43 @@ describe AccessionsController do
       member = assigns(:tree)["/foo.txt"]
       member.should be_nil
     end
+  end
+
+  describe '#edit' do
+    after do
+      Collection.all.each(&:destroy)
+    end
+    let(:col1) { FactoryGirl.create(:collection, user: user, members: []) }
+    let(:col2) { FactoryGirl.create(:collection, user: "jilluser", members: []) }
+    let(:file1) { FactoryGirl.create(:generic_file, user: user, relative_path: 'fortune/smiles/on/the/bold.mkv', title:"bold.mkv") }
+    let(:file2) { FactoryGirl.create(:generic_file, user: user, label: 'foo.txt', title:"foo.txt") }
+    let(:file3) { FactoryGirl.create(:generic_file, user: user, relative_path: 'mouth/tooth.png',title:"tooth.png") }
+    subject { FactoryGirl.create(:accession, user: user, members: [file1, file2, file3]) }
+
+    it "edits all members" do
+      # Below is needed to make the collections show up in the solr query
+      col1.update_index
+      col2.update_index
+      # Above is needed to make the collections show up in the solr query
+
+      get :edit, id: subject.pid
+      member = assigns(:tree)["/fortune"]["/fortune/smiles"]["/fortune/smiles/on"]["/fortune/smiles/on/the"]["/fortune/smiles/on/the/bold.mkv"][:member]
+      member.should_not be_nil
+      member["id"].should == file1.id
+      member = assigns(:tree)["/mouth"]["/mouth/tooth.png"][:member]
+      member.should_not be_nil
+      member["id"].should == file3.id
+      member = assigns(:tree)["/foo.txt"][:member]
+      member.should_not be_nil
+      member["id"].should == file2.id
+
+      assigns(:user_collections).should_not be_nil
+      collections = assigns(:user_collections)
+      collections.count.should == 1
+      collections = collections.map{|doc| doc[:id]}
+      collections.should include(col1.id)
+      collections.should_not include(col2.id)
+    end
+
   end
 end
