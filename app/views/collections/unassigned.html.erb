@@ -1,14 +1,12 @@
 <% @page_title = page_title %>
-<% editing =  !params[:edit].nil? %>
 
 <div class="collection controls">
-  <% if editing %>
+  <% if @collection_presenter.editing? %>
       <%= link_to "Cancel", unassigned_collection_path, :class=> 'btn btn-primary' %>
   <% else %>
       <%= link_to "Edit", unassigned_collection_path(edit:true), :class=> 'btn btn-primary' %>
   <% end %>
   <%= link_to 'Create Ingest',      new_accession_path,  {:class => "btn btn-primary"}  %>
-  <%#= link_to 'Back To Dashboard',  "#{sufia.dashboard_index_path}",  {:class => "btn btn-primary"}  %>
 </div>
 
 <h1><%=@collection.title%><h1>

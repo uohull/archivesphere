@@ -6,6 +6,5 @@
 
 <% page_info = paginate_params(@response) %>
 <div id="search-results">
-  <% editing = ((["edit"].include? params[:action]) || ((["index"].include? params[:action]) && !params[:edit].nil?)) %>
-  <%= render partial:'default_group', locals:{documents: documents, docs:documents, editing:editing} %>
+  <%= render partial:'default_group', locals:{documents: documents, docs:documents, editing:@collection_presenter.editing?} %>
 </div>

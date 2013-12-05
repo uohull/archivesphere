@@ -60,9 +60,7 @@ class Collection < ActiveFedora::Base
   end
 
   def virus_check( file)
-    stat = Sufia::GenericFile::Actions.virus_check(file)
-    flash[:error] = "Virus checking did not pass for #{File.basename(file.path)} status = #{stat}" unless stat == 0
-    stat
+    Sufia::GenericFile::Actions.virus_check(file)
   end
 
 

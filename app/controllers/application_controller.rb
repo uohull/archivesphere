@@ -72,4 +72,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  #get the thumbnail and stuff it into the accession
+  def grab_thumbnail(model)
+    thumbnail = params[:thumbnail]
+    return unless thumbnail
+    model.virus_check (thumbnail)
+    Sufia::GenericFile::Actions.create_content(model, thumbnail, thumbnail.original_filename, "thumbnail", current_user)
+  rescue Sufia::VirusFoundError => e
+    flash[:error] = "Virus checking did not pass for #{File.basename(thumbnail.path)} error = #{e.message}"
+  end
+
 end

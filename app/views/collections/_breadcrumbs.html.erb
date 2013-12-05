@@ -18,19 +18,5 @@ limitations under the License.
 <% collection = @collection unless collection  %>
 
 <div class="breadcrumbs">
-  <%
-     crumbs = []
-     crumbs << link_to('Dashboard', root_path)
-
-     if action == "show"
-        crumbs << collection.title
-     elsif action == "edit"
-        crumbs << link_to("show #{collection.title}", collections.collection_path(collection.noid))
-     elsif action == "index" && params[:edit]
-       crumbs << link_to("Unassigned", unassigned_collection_path)
-     elseif action != "action"
-       crumbs << "Unassigned"
-     end
-  %>
-  <%= render partial:"/crumbs", locals:{crumbs:crumbs} %>
+  <%= render partial:"/crumbs", locals:{crumbs:@collection_presenter.crumbs(action)} %>
 </div><!-- /breadcrumbs -->
