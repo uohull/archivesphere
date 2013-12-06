@@ -41,7 +41,7 @@ namespace :passenger do
 
         put passenger_config, "/opt/heracles/deploy/passenger/.passenger.tmp"
         run <<-CMD.compact
-        mkdir #{shared_path}/passenger &&
+        mkdir -p #{shared_path}/passenger &&
         sudo /bin/mv /opt/heracles/deploy/passenger/.passenger.tmp /etc/httpd/conf.d/passenger.conf &&
         sudo /bin/systemctl restart httpd
         CMD
