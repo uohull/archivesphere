@@ -6,6 +6,7 @@ class GenericFile < ActiveFedora::Base
   include ActiveFedora::RelsInt
   include Hydra::Derivatives
 
+  after_validation :save_infected_files_without_content
 
   # alias the collection in the generic File to accession since that is what it really is
   alias  :accessions :collections
@@ -43,4 +44,10 @@ class GenericFile < ActiveFedora::Base
   end
 
 
+  def save_infected_files_without_content
+    if Array(errors.get(:content)).any? { |msg| msg =~ /A virus was found/ }
+      content.content = errors.get(:content)
+      save!
+    end
+  end
 end

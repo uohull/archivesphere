@@ -237,6 +237,23 @@ describe GenericFile do
     end
   end
 
+  describe "an infected file" do
+    let(:f) { File.new(fixture_path + '/small_file.txt') }
+    after(:each) do
+      subject.destroy if subject.persisted?
+    end
+
+    it "allows adopters to use after_validation to correct virus-infected files" do
+      #return 0 the second time since the content has been removed and the virus should be gone...
+      ClamAV.instance.stub(:scanfile).and_return("EL CRAPO VIRUS",0)
+      subject.add_file(f, 'content', 'small_file.txt')
+      subject.apply_depositor_metadata(user)
+      subject.save
+      subject.should be_persisted
+      subject.reload.content.content.should =~ /A%20virus%20was%20found%20in.*small_file\.txt%3A%20EL%20CRAPO%20VIRUS=/
+    end
+
+  end
 end
 
 def file_with_produced_access_and_thumbnail (file_name, input_mime_type, access_mime_type, image_mime_type = 'image/jpeg')

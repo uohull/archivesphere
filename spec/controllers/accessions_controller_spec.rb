@@ -137,13 +137,14 @@ describe AccessionsController do
       # Above is needed to make the collections show up in the solr query
 
       get :edit, id: subject.pid
-      member = assigns(:tree)["/fortune"]["/fortune/smiles"]["/fortune/smiles/on"]["/fortune/smiles/on/the"]["/fortune/smiles/on/the/bold.mkv"][:member]
+      get :show, id: subject.pid
+      member = assigns(:accession_presenter).tree["/fortune"]["/fortune/smiles"]["/fortune/smiles/on"]["/fortune/smiles/on/the"]["/fortune/smiles/on/the/bold.mkv"][:member]
       member.should_not be_nil
       member["id"].should == file1.id
-      member = assigns(:tree)["/mouth"]["/mouth/tooth.png"][:member]
+      member = assigns(:accession_presenter).tree["/mouth"]["/mouth/tooth.png"][:member]
       member.should_not be_nil
       member["id"].should == file3.id
-      member = assigns(:tree)["/foo.txt"][:member]
+      member = assigns(:accession_presenter).tree["/foo.txt"][:member]
       member.should_not be_nil
       member["id"].should == file2.id
 
