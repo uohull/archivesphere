@@ -74,6 +74,8 @@ module Archivesphere
 
     config.hosts_vhosts_map = {
         'as1qa' => 'https://archivesphere-qa.dlt.psu.edu',
+        'as1stage' => 'https://archivesphere-staging.dlt.psu.edu',
+        'as1prod' => 'https://archivesphere.dlt.psu.edu',
     }
 
   end
