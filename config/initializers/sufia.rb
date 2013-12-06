@@ -22,8 +22,9 @@ Sufia.config do |config|
       'CC0 1.0 Universal' => 'http://creativecommons.org/publicdomain/zero/1.0/',
       'All rights reserved' => 'All rights reserved'
     }
-    
-    config.dropbox_api_key = 'lud63vmoih6ub49'
+
+    # we are no configuring this in sufia_dropbox_key.rb
+    #config.dropbox_api_key = 'change me'
     config.enable_local_ingest = true
     
     config.cc_licenses_reverse = Hash[*config.cc_licenses.to_a.flatten.reverse]

@@ -59,6 +59,7 @@ namespace :deploy do
     ln -sf /dlt/#{application}/config_#{stage}/#{application}/solr.yml #{release_path}/config/ &&
     ln -sf /dlt/#{application}/config_#{stage}/#{application}/redis.yml #{release_path}/config/ &&
     ln -sf /dlt/#{application}/config_#{stage}/#{application}/secret_token.rb #{release_path}/config/initializers/ &&
+    ln -sf /dlt/#{application}/config_#{stage}/#{application}/sufia_dropbox_key.rb #{release_path}/config/initializers/ &&
     rm -rf  #{release_path}/fits && ln -sf /opt/heracles/fits/fits-current #{release_path}/fits
     CMD
     # the rm above is to get around using the git submodule on production instead of the system installed component

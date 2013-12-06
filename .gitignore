@@ -32,6 +32,7 @@ config/fedora.yml
 config/solr.yml
 config/hydra-ldap.yml
 config/redis.yml
+config/initializers/sufia_dropbox_key.rb
 
 # This file is generated automatically by: rake archivesphere:generate_secret
 config/initializers/secret_token.rb
