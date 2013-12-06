@@ -46,7 +46,7 @@ class AccessionPresenter < Presenter
         tag_content = content_tag(:tr, content_tag(:td, content), {"data-tt-id" => id} )
       end
       @html += tag_content
-      print_tree_internal(subtree, id, id_list) unless subtree.empty?  || subtree[:member]
+      print_tree_internal(view, subtree, id, id_list) unless subtree.empty?  || subtree[:member]
     end
 
     @html
