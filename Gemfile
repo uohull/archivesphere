@@ -80,8 +80,9 @@ group :development, :test do
   gem 'rspec-given'
   gem 'factory_girl_rails', '~> 4.1.0'
   gem 'minitest'
-  gem 'capistrano'
-  gem 'capistrano-ext'
-  gem 'capistrano-rbenv'
-  gem 'capistrano-notification'
+  # capistrano deployments
+  gem 'capistrano', '2.15.5'
+  gem 'capistrano-rbenv', '1.0.5'
+  gem 'capistrano-ext', '1.2.1'
+  gem 'capistrano-notification', '0.1.1'
 end
