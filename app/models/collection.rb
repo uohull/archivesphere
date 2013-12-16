@@ -14,13 +14,8 @@
 require 'datastreams/collection_properties_datastream'
 
 class Collection < ActiveFedora::Base
-  include Hydra::Collection
-  include Sufia::ModelMethods
-  include Sufia::Noid
-  include Hydra::AccessControls::Visibility
-  include Sufia::GenericFile::WebForm # provides initialize_fields method
 
-  before_save :update_permissions
+  include CollectionBehavior
 
   has_metadata :name => "properties", :type => CollectionPropertiesDatastream
   has_file_datastream :name => "thumbnail", :type => FileContentDatastream
@@ -53,43 +48,6 @@ class Collection < ActiveFedora::Base
     solr_doc[Solrizer.solr_name("image_avail", Sufia::GenericFile.noid_indexer)] = image_avail?
     index_collection_pids(solr_doc)
     return solr_doc
-  end
-
-  def update_permissions
-    self.visibility = "open"
-  end
-
-  def virus_check( file)
-    Sufia::GenericFile::Actions.virus_check(file)
-  end
-
-
-  def record_version_committer(user)
-    version = thumbnail.latest_version
-    # thumbnail datastream not (yet?) present
-    return if version.nil?
-    VersionCommitter.create(:obj_id => version.pid,
-                            :datastream_id => version.dsid,
-                            :version_id => version.versionID,
-                            :committer_login => user.user_key)
-  end
-
-  def content
-    thumbnail
-  end
-
-  def image_avail?
-    !thumbnail.content.blank?
-  end
-
-
-  def remove_all_members
-    self.members.each do |member|
-      member.reify! rescue
-      member.to_solr # not sure why this to_solr is needed but it caused the removal and update to work
-      member.collections.delete(self) if member.respond_to?(:collections)
-      member.update_index
-    end
   end
 
 end

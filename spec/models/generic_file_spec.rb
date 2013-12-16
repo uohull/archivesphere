@@ -254,6 +254,14 @@ describe GenericFile do
     end
 
   end
+
+  describe "permissions" do
+    it "sets edit groups" do
+      subject.apply_depositor_metadata(user)
+      subject.save!
+      subject.edit_groups.should include(Archivesphere::Application.config.admin_access_group)
+    end
+  end
 end
 
 def file_with_produced_access_and_thumbnail (file_name, input_mime_type, access_mime_type, image_mime_type = 'image/jpeg')

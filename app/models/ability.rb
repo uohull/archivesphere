@@ -1,7 +1,7 @@
 class Ability
   include Hydra::Ability
   def custom_permissions
-    if current_user && (current_user.groups.include? 'umg/up.dlt.archivesphere-admin-viewers')
+    if current_user && (current_user.groups.include? Archivesphere::Application.config.access_group)
       can :access, :site
     end
   end

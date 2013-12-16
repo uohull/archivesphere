@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'features/common'
 
 describe "Creating a new accession", :js=>true do
   let(:approved_user) { FactoryGirl.create(:approved_user) }

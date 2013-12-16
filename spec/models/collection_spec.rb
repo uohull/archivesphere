@@ -51,6 +51,7 @@ describe Accession do
       collection.members.should == [accession1, accession2]
       accession1.collections.should == [collection]
       accession2.collections.should == [collection]
+      collection.destroy
     end
   end
 end

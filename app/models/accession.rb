@@ -12,14 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 class Accession < ActiveFedora::Base
-  include Hydra::Collection
   include Hydra::Collections::Collectible
-  include Sufia::ModelMethods
-  include Sufia::Noid
-  include Hydra::AccessControls::Visibility
-  include Sufia::GenericFile::WebForm # provides initialize_fields method
+  include CollectionBehavior
 
-  before_save :update_permissions
 
   #after_find :set_loaded_members
   #after_initialize :set_loaded_members
@@ -57,9 +52,6 @@ class Accession < ActiveFedora::Base
     return solr_doc
   end
 
-  def update_permissions
-    self.visibility = "open" unless self.visibility == "open"
-  end
 
   def sort_member_paths(members)    start = Time.now
     tree = {}
@@ -81,45 +73,6 @@ class Accession < ActiveFedora::Base
     tree
   end
 
-  def virus_check( file)
-    Sufia::GenericFile::Actions.virus_check(file)
-  end
-
-
-  def record_version_committer(user)
-    version = thumbnail.latest_version
-    # thumbnail datastream not (yet?) present
-    return if version.nil?
-    VersionCommitter.create(:obj_id => version.pid,
-                            :datastream_id => version.dsid,
-                            :version_id => version.versionID,
-                            :committer_login => user.user_key)
-  end
-
-  def content
-    thumbnail
-  end
-
-  def image_avail?
-    !thumbnail.content.blank?
-  end
-
-  #def current_members
-  #  ids_for_outbound(:has_collection_member)
-  #end
-  #
-  #def set_loaded_members
-  #  @member_ids_at_load_time = current_members
-  #end
-  #
-  #def members_added
-  #  (current_members - @member_ids_at_load_time)
-  #end
-  #
-  #def members_removed
-  #  (@member_ids_at_load_time - current_members)
-  #end
-
   # cause the members to index the relationship
   def local_update_members
     ## this is not updating the index correctly since the member does not yet know it is a part of the
@@ -138,16 +91,6 @@ class Accession < ActiveFedora::Base
     #  end
     #end
     #@member_ids_at_load_time = current_members
-  end
-
-
-  def remove_all_members
-    self.members.each do |member|
-      member.reify! rescue
-          member.to_solr # not sure why this to_solr is needed but it caused the removal and update to work
-      member.collections.delete(self) if member.respond_to?(:collections)
-      member.update_index
-    end
   end
 
 end

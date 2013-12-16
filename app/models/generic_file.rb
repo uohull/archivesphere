@@ -7,6 +7,7 @@ class GenericFile < ActiveFedora::Base
   include Hydra::Derivatives
 
   after_validation :save_infected_files_without_content
+  before_save :update_permissions
 
   # alias the collection in the generic File to accession since that is what it really is
   alias  :accessions :collections
@@ -49,5 +50,9 @@ class GenericFile < ActiveFedora::Base
       content.content = errors.get(:content)
       save!
     end
+  end
+
+  def update_permissions
+    self.edit_groups = self.edit_groups << Archivesphere::Application.config.admin_access_group unless self.edit_groups.include? Archivesphere::Application.config.admin_access_group
   end
 end
