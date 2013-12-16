@@ -13,6 +13,8 @@ describe "Deleting a file from an accession", :js=>true do
   end
 
   it "should be successful" do
+    clear_accessions
+    clear_collections
     create_base_collection_accession
     click_on "Add File(s)"
     test_file_path = Rails.root.join('spec/fixtures/world.png').to_s

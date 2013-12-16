@@ -13,6 +13,7 @@ describe "Creating a new unassigned accession", :js=>true do
 
   it "should be successful" do
     clear_accessions
+    clear_collections
     visit '/'
     click_on "Unassigned Ingests"
     click_on "Create Ingest"

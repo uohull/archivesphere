@@ -12,6 +12,8 @@ describe "Creating a new accession", :js=>true do
   end
 
   it "should be successful" do
+    clear_accessions
+    clear_collections
     visit '/'
     click_on "Create Collection"
     fill_in "Name", with: "A Test Collection"
