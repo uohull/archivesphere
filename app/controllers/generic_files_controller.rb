@@ -17,7 +17,7 @@ class GenericFilesController < ApplicationController
   include Sufia::Controller
   include Sufia::FilesControllerBehavior
 
-  after_filter :update_accession, :except => [:show,:destroy]
+ before_filter :update_accession, :except => [:show,:destroy]
   prepend_before_filter :namespace_accession
 
   # routed to /files/new
