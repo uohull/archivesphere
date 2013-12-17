@@ -80,6 +80,6 @@ module Archivesphere
 
     config.access_group = 'umg/up.dlt.archivesphere-admin-viewers'
     config.admin_access_group = 'umg/up.dlt.archivesphere-admin-viewers'
-
+    config.accession_statefile ='/tmp/accession-state'
   end
 end

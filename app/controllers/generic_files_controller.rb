@@ -37,27 +37,14 @@ class GenericFilesController < ApplicationController
   def update_accession
     @accession_id = params["accession_id"]
     @accession_id ||= params["batch_id"]
-    #unless @accession_id.blank?
-    #  logger.warn "Generic file #{@generic_file.inspect} #{@generic_files}"
-    #  accession = Accession.find(@accession_id)
-    #  @generic_files ||= [@generic_file] unless @generic_file.inner_object.class == ActiveFedora::UnsavedDigitalObject
-    #  if (@generic_files)
-    #    @generic_files.each {|gf|  accession.members << gf}
-    #    accession.save
-    #    @generic_files.each {|gf| gf.collections << accession; gf.update_index}
-    #  end
-    #
-    #end
   end
 
   # override metadata creation to include accession into the metadata
   def create_metadata(file)
     accession_id = params["accession_id"]
     accession_id ||= params["batch_id"]
-    accession = Accession.find(accession_id)
     Sufia::GenericFile::Actions.create_metadata(file, current_user, nil)
-    file.collections << accession
-    file.save
+    set_accession(file,accession_id)
   end
 
   def self.upload_complete_path(id)
@@ -87,5 +74,20 @@ class GenericFilesController < ApplicationController
     params[:batch_id] = Sufia::Noid.namespaceize(params[:batch_id]) unless params[:batch_id].blank?
   end
 
+  protected
+
+  def set_accession(file,accession_id)
+    #no need to set the accession if it is already set
+    return if file.collections.index{|c|c.pid == accession_id}
+
+    # grab a file lock so we will not cause overlap issues on accession and only get some of our files
+    File.open("#{Archivesphere::Application.config.accession_statefile}_#{accession_id}", File::RDWR|File::CREAT, 0644) do |f|
+      f.flock(File::LOCK_EX)
+      accession = Accession.find(accession_id)
+      file.collections << accession
+      file.save
+    end
+
+  end
 
 end
