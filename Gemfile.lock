@@ -138,16 +138,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
-    columnize (0.3.6)
     daemons (1.1.9)
     dalli (2.6.4)
     database_cleaner (1.0.1)
-    debugger (1.6.1)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.3)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.3)
     deprecation (0.0.5)
       activesupport
     devise (3.0.0)
@@ -467,7 +460,6 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   dalli (= 2.6.4)
   database_cleaner
-  debugger
   devise
   devise-guests (~> 0.3)
   execjs (= 1.4.0)

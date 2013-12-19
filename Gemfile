@@ -46,7 +46,7 @@ group :assets do
   gem 'selenium-webdriver', '2.35'
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'debugger'
+  #gem 'debugger'
   gem 'rubyzip', '0.9.9', :require => 'zip/zip'
 end
 
