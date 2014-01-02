@@ -14,10 +14,11 @@
   <%= hidden_field_tag(:collection_id, @parent_id) %>
 
   <% unless @user_collections.blank? %>
-  <div class="field">
-    <%= f.label "Collection" %>
-    <%= collection_select(:collection_action, :collection_id,  @user_collections, :id, :title, {selected:@parent_id, value:@parent_id}, {class:"accession collection-edit-selector"} ) %>
-  </div>
+     <% @user_collections.unshift(Collection.new(title:"")) unless @parent_id %>
+      <div class="field">
+        <%= f.label "Collection" %>
+        <%= collection_select(:collection_action, :collection_id,  @user_collections, :id, :title, {selected:@parent_id, value:@parent_id}, {class:"accession collection-edit-selector"} ) %>
+      </div>
   <% end %>
   <div class="field">
     <%= f.label 'Accession #' %>
