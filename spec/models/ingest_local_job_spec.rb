@@ -31,6 +31,9 @@ describe IngestLocalJob do
       user.mailbox.inbox[0].messages[0].body.should_not include("Error")
       user.mailbox.inbox[0].messages[0].body.should include(Rails.application.routes.url_helpers.accession_path(accession.id))
       user.mailbox.inbox[0].messages[0].move_to_trash user
+      a = Accession.find(accession.id)
+      a.members.count.should == 1
+      a.members[0].collections[0].id.should == accession.id
     end
   end
   describe "invalid ingest" do
