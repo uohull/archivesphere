@@ -15,6 +15,8 @@ class Accession < ActiveFedora::Base
   include Hydra::Collections::Collectible
   include CollectionBehavior
 
+  has_and_belongs_to_many :members, :property => :has_collection_member, :class_name => "ActiveFedora::Base" , :after_remove => :remove_member, solr_page_size:90
+
 
   #after_find :set_loaded_members
   #after_initialize :set_loaded_members
