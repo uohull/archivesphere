@@ -1,4 +1,4 @@
-characterize: 1
+characterize: 2
 batch_update: 3
 resolrize: 1
 audit: 5
@@ -6,4 +6,5 @@ unzip: 3
 event: 10
 proxy_deposit: 3
 import_url: 5
+ingest: 1
 "*": 1
