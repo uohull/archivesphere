@@ -49,6 +49,11 @@ module ArchivalDerivatives
                                                :thumbnail => {size: "200x150>", datastream: 'thumbnail'}}
           obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
 
+        elsif ([".doc",".docx",".xsl","xslx"].include? File.extname(obj.filename[0]).downcase )
+          obj.transform_datastream :content, { :access => { :format=>'pdf' , datastream: 'web'} }, processor: 'document'
+          obj.transform_datastream :web, { :access => {format: 'jpg', datastream: 'thumbnail'}}
+          obj.rels_int.add_relationship(obj.content, :is_preservation_copy_of, obj.datastreams['content'])
+          obj.rels_int.add_relationship(obj.content, :is_access_copy_of, obj.datastreams['content'])
         else
           obj.transform_datastream :content, { :preservation => {format: 'wav', datastream: 'preservation', input_format:"ac3"},
                                                :access => {format: 'mp3', datastream: 'access'} },processor: :audio
