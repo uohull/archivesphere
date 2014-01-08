@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied, :with => :render_401
 
+  rescue_from ActiveFedora::ObjectNotFoundError, with: :render_missing_object
+
   protected
 
   def clear_session_user
@@ -34,6 +36,10 @@ class ApplicationController < ActionController::Base
 
   def render_401
     render :template => '/error/401', :layout => "error", :formats => [:html], :status => 401
+  end
+
+  def render_missing_object
+    redirect_to :back, alert:"Object no longer exists."
   end
 
   # Raises CanCan::AccessDenied if the user does not have access to the site.
