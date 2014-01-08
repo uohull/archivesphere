@@ -63,7 +63,7 @@ module Archivesphere
     # Default SASS Configuration, check out https://github.com/rails/sass-rails for details
     config.assets.compress = !Rails.env.development?
 
-    config.archivesphere_version = "v0.1"
+    config.archivesphere_version = "v1.0"
     config.id_namespace = "archivesphere"
 
     # Version of your assets, change this if you want to expire all your assets
