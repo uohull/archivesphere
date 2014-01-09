@@ -18,6 +18,7 @@ class IngestLocalJob
   def run
     @accession = Accession.find( accession_id)
     @error_files = []
+    @jobs = []
 
     has_directories = false
     files = []
@@ -40,6 +41,9 @@ class IngestLocalJob
 
     # save all the new members to the accession
     @accession.save
+
+    #run all characterization jobs after the ingest is complete so that the ingest does not get slowed down by the characterize
+    @jobs.each {|job| Sufia.queue.push(job)}
 
     #notify the user
     job_user = User.batchuser()
@@ -71,7 +75,7 @@ class IngestLocalJob
     generic_file.collections << @accession
     Sufia::GenericFile::Actions.create_metadata(generic_file, current_user, nil)
     generic_file.record_version_committer(current_user)
-    Sufia.queue.push(ContentDepositEventJob.new(generic_file.pid, user_key))
+    @jobs << ContentDepositEventJob.new(generic_file.pid, user_key)
 
     # need to add to the accession and save the accession later since the addition of the accession is happening before the first save of the file
     # when the gf does not have a pid as the association is created the reciprocal relation is not created
