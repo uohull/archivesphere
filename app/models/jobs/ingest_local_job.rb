@@ -42,8 +42,10 @@ class IngestLocalJob
     # save all the new members to the accession
     @accession.save
 
-    #run all characterization jobs after the ingest is complete so that the ingest does not get slowed down by the characterize
-    @jobs.each {|job| Sufia.queue.push(job)}
+    # re-update solr index
+    queue_size = Resque.size("characterize") -  Resque.workers.reject {|w|!w.queues.include?("characterize")}.count
+    sleep 30  #this is necessary to allow the characterization jobs that were running when the accession was saved to finish before re-indexing
+    @accession.members.each{|gf| gf.update_index}
 
     #notify the user
     job_user = User.batchuser()
@@ -57,6 +59,13 @@ class IngestLocalJob
     end
     job_user.send_message(current_user, message, 'Local File Ingest Complete')
 
+    #run all event jobs after the ingest is complete so that the ingest does not get slowed down by the characterize
+    @jobs.each {|job| Sufia.queue.push(job)}
+
+    # re-index already characterized files so the solr index has all the information
+    already_saved=  files.count - queue_size
+    already_saved=1 if already_saved <=0
+    @accession.members.each_with_index{|gf,i|gf.reload; gf.update_index; break if (i >already_saved)}
   end
 
   def current_user
@@ -73,6 +82,7 @@ class IngestLocalJob
     generic_file.add_file(File.open(path), 'content', generic_file.label)
 
     generic_file.collections << @accession
+    generic_file.collection_ids << @accession.id
     Sufia::GenericFile::Actions.create_metadata(generic_file, current_user, nil)
     generic_file.record_version_committer(current_user)
     @jobs << ContentDepositEventJob.new(generic_file.pid, user_key)
