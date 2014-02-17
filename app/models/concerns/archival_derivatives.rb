@@ -42,8 +42,13 @@ module ArchivalDerivatives
         obj.transform_datastream :content, { :preservation => {format: 'wav', datastream: 'preservation'} },processor: :audio
         obj.rels_int.add_relationship(obj.content, :is_web_copy_of, obj.datastreams['content'])
         obj.rels_int.add_relationship(obj.content, :is_access_copy_of, obj.datastreams['content'])
-      when 'application/octet-stream', 'audio/x-aiff', 'audio/x-ms-wma'
-        if ([".tga",".pct"].include? File.extname(obj.filename[0]).downcase )
+      when 'application/octet-stream'
+        if (obj.format_label.any? {|label| label.include?("Corel")})
+          obj.transform_datastream :content, { :access => { :format=>'pdf' , datastream: 'access'},
+              :preservation=> {:format => 'odf' , datastream: 'preservation'}  }, processor: 'document'
+          obj.transform_datastream :access, { :access => {format: 'jpg', datastream: 'thumbnail'}}
+          obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
+        elsif ((obj.format_label.any? {|label| label.include?("Targa")}) || ([".tga",".pct"].include? File.extname(obj.filename[0]).downcase ))
           obj.transform_datastream :content, { :access => {format: 'jpg', datastream: 'access'},
                                                :preservation => {format: 'tiff', datastream: 'preservation'},
                                                :thumbnail => {size: "200x150>", datastream: 'thumbnail'}}
@@ -54,11 +59,15 @@ module ArchivalDerivatives
           obj.transform_datastream :web, { :access => {format: 'jpg', datastream: 'thumbnail'}}
           obj.rels_int.add_relationship(obj.content, :is_preservation_copy_of, obj.datastreams['content'])
           obj.rels_int.add_relationship(obj.content, :is_access_copy_of, obj.datastreams['content'])
-        else
+        elsif (obj.format_label.any? {|label| label.include?("ATSC")})
           obj.transform_datastream :content, { :preservation => {format: 'wav', datastream: 'preservation', input_format:"ac3"},
                                                :access => {format: 'mp3', datastream: 'access'} },processor: :audio
           obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
         end
+      when 'audio/x-aiff', 'audio/x-ms-wma'
+        obj.transform_datastream :content, { :preservation => {format: 'wav', datastream: 'preservation', input_format:"ac3"},
+            :access => {format: 'mp3', datastream: 'access'} },processor: :audio
+        obj.rels_int.add_relationship(obj.access, :is_web_copy_of, obj.datastreams['access'])
       when 'video/x-msvideo', 'video/x-flv', 'video/quicktime', 'video/mpeg', 'application/x-shockwave-flash', 'video/x-ms-wmv', 'video/x-ms-asf'
         obj.transform_datastream :content, { :access => { :format=>'mp4' , datastream: 'access'},
                                              :preservation=> {:format => 'mkv' , datastream: 'preservation'} ,

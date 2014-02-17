@@ -114,12 +114,27 @@ describe GenericFile do
         subject.reload
 
         subject.access_datastream.mimeType.should == 'application/pdf'
+        subject.web_datastream.mimeType.should == 'application/pdf'
         subject.preservation_datastream.mimeType.should == 'application/vnd.oasis.opendocument.text'
       end
     end
 
+      describe "an wpd file" do
+        it "should create derivatives" do
+          subject.add_file(File.open(fixture_path + '/sample.wpd'), 'content', "sample.wpd")
+          #subject.mime_type = 'application/octet-stream'
+          #subject.format_label = 'octet-stream ((Corel/WP))'
+          subject.save!
+          subject.reload
 
-    describe "an doc file" do
+          subject.access_datastream.mimeType.should == 'application/pdf'
+          subject.preservation_datastream.mimeType.should == 'application/vnd.oasis.opendocument.text'
+          subject.web_datastream.mimeType.should == 'application/pdf'
+        end
+      end
+
+
+      describe "an doc file" do
       it "should create derivatives" do
         file_with_produced_web_and_thumbnail('test.doc', 'application/msword')
       end
@@ -154,6 +169,7 @@ describe GenericFile do
         file_with_produced_access_and_thumbnail  'FlashPix.pptx',  'application/vnd.openxmlformats-officedocument.presentationml.presentation','application/pdf'
       end
     end
+
     end
 
     describe "a wav file", travis_broken: true do
