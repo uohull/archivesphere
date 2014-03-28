@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :restrict_user
-  before_filter :clear_session_user
+  # before_filter :clear_session_user
   before_filter :remove_login_error
 
   rescue_from CanCan::AccessDenied, :with => :render_401
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
 
   # Raises CanCan::AccessDenied if the user does not have access to the site.
   def restrict_user
-    return if controller_name == 'sessions'
+    return if controller_name == 'sessions' || controller_name == 'registrations'
     authorize! :access, :site
   end
 

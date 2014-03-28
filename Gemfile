@@ -13,7 +13,6 @@ gem 'dalli', '2.6.4'
 gem 'blacklight', '4.5.0'
 gem 'hydra-head', '6.4.0'
 gem 'sufia', '3.5.0'
-gem 'jettywrapper'
 gem 'font-awesome-sass-rails'
 
 gem 'activerecord-import'
@@ -86,4 +85,7 @@ group :development, :test do
   gem 'capistrano-rbenv', '1.0.5'
   gem 'capistrano-ext', '1.2.1'
   gem 'capistrano-notification', '0.1.1'
+
+  # Debugging capability - SWL
+  gem "debugger", "~> 1.6.5"
 end

@@ -1,8 +1,10 @@
 Sufia::Engine.configure do
   config.contact_email = 'archivesphere-support@dlt.psu.edu'
   config.from_email = "ArchiveSphere Form <archivesphere-support@dlt.psu.edu>"
-  config.logout_url = 'https://webaccess.psu.edu/cgi-bin/logout?http://localhost/'
-  config.login_url = 'https://webaccess.psu.edu?cosign-localhost&https://localhost/'
+  # config.logout_url = 'https://webaccess.psu.edu/cgi-bin/logout?http://localhost/'
+  # config.login_url = 'https://webaccess.psu.edu?cosign-localhost&https://localhost/'
+  config.logout_url = 'http://localhost:3000'
+  config.login_url = 'http://localhost:3000'
 end
 
 Archivesphere::Application.configure do

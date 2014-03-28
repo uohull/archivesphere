@@ -78,8 +78,8 @@ module Archivesphere
         'as1prod' => 'https://archivesphere.dlt.psu.edu',
     }
 
-    config.access_group = 'umg/up.dlt.archivesphere-admin-viewers'
-    config.admin_access_group = 'umg/up.dlt.archivesphere-admin-viewers'
+    config.access_group = 'archivesphere-admin-viewers'
+    config.admin_access_group = 'archivesphere-admin-viewers'
     config.accession_statefile ='/tmp/accession-state'
   end
 end
